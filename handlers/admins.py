@@ -3,6 +3,7 @@ from cache.admins import set
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from callsmusic import callsmusic
+from helpers.channelmusic import get_chat_id
 from helpers.filters import command, other_filters
 from helpers.decorators import errors, authorized_users_only
 from config import BOT_USERNAME, que, admins as a
@@ -11,6 +12,7 @@ from config import BOT_USERNAME, que, admins as a
 @errors
 @authorized_users_only
 async def update_admin(client, message):
+    chat_id = get_chat_id(message.chat)
     global a
     admins = await client.get_chat_members(message.chat.id, filter="administrators")
     new_ads = []
@@ -24,6 +26,7 @@ async def update_admin(client, message):
 @errors
 @authorized_users_only
 async def pause(_, message: Message):
+    chat_id = get_chat_id(message.chat)
     if (
             message.chat.id not in callsmusic.pytgcalls.active_calls
     ) or (
@@ -39,6 +42,7 @@ async def pause(_, message: Message):
 @errors
 @authorized_users_only
 async def resume(_, message: Message):
+    chat_id = get_chat_id(message.chat)
     if (
             message.chat.id not in callsmusic.pytgcalls.active_calls
     ) or (
@@ -54,6 +58,7 @@ async def resume(_, message: Message):
 @errors
 @authorized_users_only
 async def stop(_, message: Message):
+    chat_id = get_chat_id(message.chat)
     if message.chat.id not in callsmusic.pytgcalls.active_calls:
         await message.reply_text("❗ **nothing is playing!**")
     else:
@@ -71,6 +76,7 @@ async def stop(_, message: Message):
 @authorized_users_only
 async def skip(_, message: Message):
     global que
+    chat_id = get_chat_id(message.chat)
     if message.chat.id not in callsmusic.pytgcalls.active_calls:
         await message.reply_text("❗ **nothing is playing!!**")
     else:
