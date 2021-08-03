@@ -16,7 +16,6 @@ from callsmusic.callsmusic import client as USER
 from pyrogram.errors import UserAlreadyParticipant
 from downloaders import youtube
 
-from converter.converter import convert
 from config import que, DURATION_LIMIT, BOT_USERNAME, UPDATES_CHANNEL, GROUP_SUPPORT, ASSISTANT_NAME
 from helpers.filters import command, other_filters
 from helpers.decorators import authorized_users_only
@@ -529,7 +528,7 @@ async def play(_, message: Message):
         views = "Locally added"
         requested_by = message.from_user.first_name
         await generate_cover(requested_by, title, views, duration, thumbnail)
-        file_path = await convert(
+        file_path = await converter.convert(
             (await message.reply_to_message.download(file_name))
             if not path.isfile(path.join("downloads", file_name))
             else file_name
@@ -569,7 +568,7 @@ async def play(_, message: Message):
         )
         requested_by = message.from_user.first_name
         await generate_cover(requested_by, title, views, duration, thumbnail)
-        file_path = await convert(youtube.download(url))        
+        file_path = await converter.convert(youtube.download(url))        
     else:
         query = ""
         for i in message.command[1:]:
@@ -646,7 +645,7 @@ async def play(_, message: Message):
             )
             requested_by = message.from_user.first_name
             await generate_cover(requested_by, title, views, duration, thumbnail)
-            file_path = await convert(youtube.download(url))   
+            file_path = await converter.convert(youtube.download(url))   
     chat_id = get_chat_id(message.chat)
     if chat_id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(chat_id, file=file_path)
@@ -695,12 +694,9 @@ async def play(_, message: Message):
 @Client.on_callback_query(filters.regex(pattern=r"plll"))
 async def lol_cb(b, cb):
     global que
-    qeue = que.get(cb.message.chat.id)
     cbd = cb.data.strip()
     chat_id = cb.message.chat.id
     typed_=cbd.split(None, 1)[1]
-    m_chat = cb.message.chat
-    #useer_id = cb.message.reply_to_message.from_user.id
     try:
         x,query,useer_id = typed_.split("|")      
     except:
@@ -716,20 +712,21 @@ async def lol_cb(b, cb):
         useer_name = cb.message.reply_to_message.from_user.first_name
     except:
         useer_name = cb.message.from_user.first_name
-    
     results = YoutubeSearch(query, max_results=5).to_dict()
     resultss=results[x]["url_suffix"]
     title=results[x]["title"][:25]
     thumbnail=results[x]["thumbnails"][0]
     duration=results[x]["duration"]
     views=results[x]["views"]
-    url = f"https://youtube.com{resultss}"
-    
+    url = f"https://www.youtube.com{resultss}"
     try:    
-        duuration= round(duration / 60)
-        if duuration > DURATION_LIMIT:
-            await message.edit(f"❗ lagu dengan durasi lebih dari {DURATION_LIMIT} menit tidak dapat diputar.")
-            return
+        secmul, dur, dur_arr = 1, 0, duration.split(":")
+        for i in range(len(dur_arr)-1, -1, -1):
+            dur += (int(dur_arr[i]) * secmul)
+            secmul *= 60
+        if (dur / 60) > DURATION_LIMIT:
+             await cb.message.edit(f"❌ Lagu dengan durasi lebih dari `{DURATION_LIMIT}` menit tidak dapat diputar.")
+             return
     except:
         pass
     try:
@@ -740,7 +737,7 @@ async def lol_cb(b, cb):
         print(e)
         return
     dlurl=url
-    dlurl=dlurl.replace("youtube","youtubepp")
+    dlurl=dlurl.replace("youtube", "youtubepp")
     keyboard = InlineKeyboardMarkup(
             [
                 [
@@ -751,41 +748,43 @@ async def lol_cb(b, cb):
     )
     requested_by = useer_name
     await generate_cover(requested_by, title, views, duration, thumbnail)
-    file_path = await convert(youtube.download(url))  
+    file_path = await converter.convert(youtube.download(url))  
     if chat_id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(chat_id, file=file_path)
         qeue = que.get(chat_id)
         s_name = title
-        r_by = cb.message.reply_to_message.from_user
-        r_by = cb.message.from_user
+        try:
+            r_by = cb.message.reply_to_message.from_user
+        except:
+            r_by = cb.message.from_user
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         await cb.message.delete()
         await b.send_photo(chat_id,
-            photo="final.png",
-            caption = f"🏷 **Judul:** [{title[:60]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Antrian Ke `{position}`\n" \
-                    + f"🔮 **Permintaan:** {r_by.mention}",
-                   reply_markup=keyboard,
+        photo="final.png",
+        caption=f"🏷 **Judul:** [{title[:60]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Antrian Ke `{position}`\n" \
+               +f"🔮 **Permintaan:** {r_by.mention}",
+        reply_markup=keyboard,
         )
         os.remove("final.png")
-        
     else:
         que[chat_id] = []
         qeue = que.get(chat_id)
         s_name = title
-        r_by = cb.message.reply_to_message.from_user
-        r_by = cb.message.from_user
+        try:
+            r_by = cb.message.reply_to_message.from_user
+        except:
+            r_by = cb.message.from_user
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
-
         callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         await cb.message.delete()
         await b.send_photo(chat_id,
-            photo="final.png",
-            caption = f"🏷 **Judul:** [{title[:60]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Sedang Memutar\n" \
-                    + f"🔮 **Permintaan:** {r_by.mention}",
-                    reply_markup=keyboard,
+        photo="final.png",
+        caption=f"🏷 **Judul:** [{title[:60]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Sedang Memutar\n" \
+               +f"🔮 **Permintaan:** {r_by.mention}",
+        reply_markup=keyboard,
         )
         os.remove("final.png")
