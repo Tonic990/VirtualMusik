@@ -16,12 +16,12 @@ from io import StringIO
 
 import aiofiles
 from pyrogram import filters
-from pyrogram.types import Message
+from pyrogram.types import Message, Audio
 
 from handlers.play import arq
 from helpers.decorators import sudo_users_only
 from helpers.misc import exec_time
-from callsmusic.callsmusic import client as tede
+from callsmusic.callsmusic import client as veez
 # Eval and Sh module from nana-remix
 
 m = None
@@ -45,7 +45,7 @@ async def edit_or_reply(msg: Message, **kwargs):
     await func(**{k: v for k, v in kwargs.items() if k in spec})
 
 
-@tede.on_message(
+@veez.on_message(
     filters.command("py", prefixes=".")
     & ~filters.forwarded
     & ~filters.via_bot
@@ -100,7 +100,7 @@ async def executor(client, message: Message):
         await edit_or_reply(message, text=final_output)
 
 
-@tede.on_message(
+@veez.on_message(
     filters.command("sh", prefixes=".")
     & ~filters.forwarded
     & ~filters.via_bot
@@ -164,7 +164,7 @@ async def shellrunner(client, message: Message):
         if len(output) > 4096:
             with open("output.txt", "w+") as file:
                 file.write(output)
-            await tede.send_document(
+            await veez.send_document(
                 message.chat.id,
                 "output.txt",
                 reply_to_message_id=message.message_id,
@@ -193,7 +193,7 @@ async def sendFile(message: Message, text: str):
     os.remove(file)
 
 
-@tede.on_message(
+@veez.on_message(
     filters.command(["c", "cpp"], prefixes=".")
     & ~filters.edited
     & ~filters.via_bot
