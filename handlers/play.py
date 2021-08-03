@@ -21,7 +21,7 @@ from downloaders import youtube
 from config import que, DURATION_LIMIT, BOT_USERNAME, UPDATES_CHANNEL, GROUP_SUPPORT, ASSISTANT_NAME
 from helpers.filters import command, other_filters
 from helpers.decorators import authorized_users_only
-from helpers.gets import get_file_name
+from helpers.gets import get_file_name, get_url
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, Voice
 from cache.admins import admins as a
 from PIL import Image, ImageFont, ImageDraw
@@ -130,7 +130,16 @@ async def playlist(client, message):
             usr = song[1].mention(style="md")
             msg += f"\n• {name}"
             msg += f"\n• Atas permintaan {usr}\n"
-    await message.reply_text(msg)       
+    await message.reply_text(msg)
+    reply_markup=InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "💖 channel", url=f"https://t.me/{UPDATES_CHANNEL}"
+                )
+            ]
+        ]
+    )
     
 # ============================= Settings =========================================
 def updated_stats(chat, queue, vol=100):
@@ -408,7 +417,7 @@ async def m_cb(b, cb):
                     callsmusic.queues.get(chet_id)["file"]
                 )
                 await cb.answer("skipped")
-                await cb.message.edit(f"• Skipped **{skip[0]}**\n• Now Playing **{qeue[0][0]}**")
+                await cb.message.edit(f"⫸ skipped **{skip[0]}**\n⫸ now playing **{qeue[0][0]}**")
 
     elif type_ == "leave":
         if chat_id in callsmusic.pytgcalls.active_calls:
@@ -507,6 +516,7 @@ async def play(_, message: Message):
         (message.reply_to_message.audio or message.reply_to_message.voice)
         if message.reply_to_message
         else None
+    url = get_url(message)
     )
     if audio:
         if round(audio.duration / 60) > DURATION_LIMIT:
@@ -516,8 +526,10 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("🎛 menu", callback_data="menu"),
-                    InlineKeyboardButton(text="❌ urungkan", callback_data="cls")
+                    InlineKeyboardButton(text="🎛 menu", callback_data="menu"),
+                    InlineKeyboardButton(text="❌ urungkan", callback_data="cls"),
+                ],[
+                    InlineKeyboardButton("📣 channel", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
             ]
         )
@@ -641,8 +653,10 @@ async def play(_, message: Message):
             keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("🎛 menu", callback_data="menu"),
-                    InlineKeyboardButton(text="🗑 Close", callback_data="cls")
+                    InlineKeyboardButton(text="🎛 menu", callback_data="menu"),
+                    InlineKeyboardButton(text="🗑 Close", callback_data="cls"),
+                ],[
+                    InlineKeyboardButton("📣 channel", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
             ]
             )
