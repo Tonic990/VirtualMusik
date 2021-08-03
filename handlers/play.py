@@ -5,6 +5,7 @@ import aiohttp
 import aiofiles
 import requests
 import converter
+from os import path
 from Python_ARQ import ARQ
 from asyncio.queues import QueueEmpty
 from pyrogram import Client, filters
