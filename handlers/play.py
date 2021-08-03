@@ -560,8 +560,10 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("🎛 menu", callback_data="menu"),
-                    InlineKeyboardButton(text="❌ urungkan", callback_data="cls")
+                    InlineKeyboardButton(text="🎛 menu", callback_data="menu"),
+                    InlineKeyboardButton(text="❌ urungkan", callback_data="cls"),
+                ],[
+                    InlineKeyboardButton("📣 channel", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
             ]
         )
@@ -740,8 +742,10 @@ async def lol_cb(b, cb):
     keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("🎛 menu", callback_data="menu"),
-                    InlineKeyboardButton(text="❌ urungkan", callback_data="cls")
+                    InlineKeyboardButton(text="🎛 menu", callback_data="menu"),
+                    InlineKeyboardButton(text="❌ urungkan", callback_data="cls"),
+                ],[
+                    InlineKeyboardButton("📣 channel", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
             ]
     )
