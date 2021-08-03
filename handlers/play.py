@@ -36,7 +36,6 @@ def cb_admin_check(func: Callable) -> Callable:
         admemes = a.get(cb.message.chat.id)
         if cb.from_user.id in admemes:
             return await func(client, cb)
-        else:
             await cb.answer("you not allowed to do this!", show_alert=True)
             return
         
