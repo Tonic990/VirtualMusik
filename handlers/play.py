@@ -9,6 +9,7 @@ from Python_ARQ import ARQ
 from asyncio.queues import QueueEmpty
 from pyrogram import Client, filters
 from typing import Callable
+from helpers.channelmusic import get_chat_id
 from callsmusic import callsmusic, queues
 from helpers.admins import get_administrators
 from youtube_search import YoutubeSearch
