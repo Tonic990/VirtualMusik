@@ -613,7 +613,7 @@ async def play(_, message: Message):
                     [InlineKeyboardButton(text="🗑 Close", callback_data="cls")],
                 ]
             )
-            await lel.edit(toxxt,reply_markup=koyboard,disable_web_page_preview=True))
+            await lel.edit(toxxt,reply_markup=koyboard,disable_web_page_preview=True)
             # veez project
             return
             # veez project
