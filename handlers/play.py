@@ -588,6 +588,9 @@ async def play(_, message: Message):
           await lel.edit("**anda tidak memberikan judul lagu apapun !**")
         # veez project
         try:
+            await message.reply_photo(
+                photo = "https://telegra.ph/file/6697ab610f7510142e22f.png",
+                caption =
             toxxt = "⚡ __choose the song you want to play:__\n\n"
             j = 0
             useer=user_name
@@ -613,9 +616,7 @@ async def play(_, message: Message):
                     [InlineKeyboardButton(text="🗑 Close", callback_data="cls")],
                 ]
             )
-            await lel.edit(toxxt,reply_markup=koyboard,disable_web_page_preview=True)
-            await message.reply_photo(
-                photo="https://telegra.ph/file/6697ab610f7510142e22f.png")
+            await lel.edit(toxxt,reply_markup=koyboard,disable_web_page_preview=True))
             # veez project
             return
             # veez project
