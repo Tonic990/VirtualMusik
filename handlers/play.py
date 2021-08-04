@@ -131,16 +131,7 @@ async def playlist(client, message):
             msg += f"\n• {name}"
             msg += f"\n• Atas permintaan {usr}\n"
     await message.reply_text(msg)
-    reply_markup=InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton(
-                    "💖 channel", url=f"https://t.me/{UPDATES_CHANNEL}"
-                )
-            ]
-        ]
-    )
-    
+
 # ============================= Settings =========================================
 def updated_stats(chat, queue, vol=100):
     if chat.id in callsmusic.pytgcalls.active_calls:
@@ -621,8 +612,10 @@ async def play(_, message: Message):
                     ],
                     [InlineKeyboardButton(text="🗑 Close", callback_data="cls")],
                 ]
-            )       
+            )
             await lel.edit(toxxt,reply_markup=koyboard,disable_web_page_preview=True)
+            await message.reply_photo(
+                photo="https://telegra.ph/file/6697ab610f7510142e22f.png")
             # veez project
             return
             # veez project
