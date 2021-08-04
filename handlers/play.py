@@ -588,7 +588,7 @@ async def play(_, message: Message):
           await lel.edit("**anda tidak memberikan judul lagu apapun !**")
         # veez project
         try:
-            toxxt = "⚡ __choose the song you want to play:__\n\n"
+            toxxt = "⚡ __choose a song to play:__\n\n"
             j = 0
             useer=user_name
             emojilist = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣"]
@@ -649,7 +649,7 @@ async def play(_, message: Message):
             [
                 [
                     InlineKeyboardButton(text="🎛 menu", callback_data="menu"),
-                    InlineKeyboardButton(text="🗑 Close", callback_data="cls"),
+                    InlineKeyboardButton(text="❌ urungkan", callback_data="cls"),
                 ],[
                     InlineKeyboardButton("📣 channel", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
