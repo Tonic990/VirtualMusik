@@ -92,7 +92,7 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     Image.alpha_composite(image5, image6).save("temp.png")
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("etc/font.otf", 32)
+    font = ImageFont.truetype("etc/font.otf", 33)
     draw.text((205, 550), f"Judul: {title}", (255, 91, 51), font=font)
     draw.text(
         (205, 590), f"Durasi: {duration}", (0, 59, 78), font=font
@@ -412,7 +412,7 @@ async def m_cb(b, cb):
                 await cb.message.edit(f"⫸ skipped **{skip[0]}**\n⫸ now playing **{qeue[0][0]}**")
 
     elif type_ == "leave":
-        if chat_id in callsmusic.pytgcalls.active_calls:
+        if chet_id in callsmusic.pytgcalls.active_calls:
             try:
                 callsmusic.queues.clear(chet_id)
             except QueueEmpty:
