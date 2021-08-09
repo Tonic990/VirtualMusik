@@ -517,8 +517,8 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text="🎛 menu", callback_data="menu"),
-                    InlineKeyboardButton(text="❌ urungkan", callback_data="cls"),
+                    InlineKeyboardButton("🎛 menu", callback_data="menu"),
+                    InlineKeyboardButton("❌ urungkan", callback_data="cls"),
                 ],[
                     InlineKeyboardButton("📣 CHANNEL", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
@@ -565,8 +565,8 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text="🎛 menu", callback_data="menu"),
-                    InlineKeyboardButton(text="❌ urungkan", callback_data="cls"),
+                    InlineKeyboardButton("🎛 menu", callback_data="menu"),
+                    InlineKeyboardButton("❌ urungkan", callback_data="cls"),
                 ],[
                     InlineKeyboardButton("📣 CHANNEL", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
@@ -617,7 +617,7 @@ async def play(_, message: Message):
             await message.reply_photo(
                 photo="https://telegra.ph/file/3252a626920cb787295a4.png",
                 caption=toxxt,
-                reply_markup=koyboard,
+                reply_markup=koyboard
             )
             await lel.delete()
             # veez project
@@ -649,8 +649,8 @@ async def play(_, message: Message):
             keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text="🎛 menu", callback_data="menu"),
-                    InlineKeyboardButton(text="❌ urungkan", callback_data="cls"),
+                    InlineKeyboardButton("🎛 menu", callback_data="menu"),
+                    InlineKeyboardButton("❌ urungkan", callback_data="cls"),
                 ],[
                     InlineKeyboardButton("📣 CHANNEL", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
@@ -670,9 +670,10 @@ async def play(_, message: Message):
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption = f"🏷 **Judul:** [{title[:30]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Antrian Ke `{position}`\n" \
-                    + f"🔮 **Permintaan:** {message.from_user.mention}",
-                   reply_markup=keyboard)
+            caption=f"🏷 **Judul:** [{title[:30]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Antrian Ke `{position}`\n" \
+                   +f"🔮 **Permintaan:** {message.from_user.mention}",
+            reply_markup=keyboard
+        )
        
     else:
         chat_id = get_chat_id(message.chat)
@@ -690,16 +691,9 @@ async def play(_, message: Message):
             return
         await message.reply_photo(
             photo="final.png",
-            caption = f"🏷 **Judul:** [{title[:30]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Sedang Memutar\n" \
-                    + f"🔮 **Permintaan:** {message.from_user.mention}",
-                   reply_markup=keyboard)
-        
-        m = await client.send_photo(
-            chat_id=message_.chat.id,
-            reply_markup=keyboard,
-            photo="final.png",
-            caption = f"🏷 **Judul:** [{title[:30]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Sedang Memutar\n" \
-                    + f"🔮 **Permintaan:** {message.from_user.mention}",
+            caption=f"🏷 **Judul:** [{title[:30]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Sedang Memutar\n" \
+                   +f"🔮 **Permintaan:** {message.from_user.mention}",
+            reply_markup=keyboard
         )
         os.remove("final.png")
         return await lel.delete()
@@ -754,8 +748,8 @@ async def lol_cb(b, cb):
     keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text="🎛 menu", callback_data="menu"),
-                    InlineKeyboardButton(text="❌ urungkan", callback_data="cls"),
+                    InlineKeyboardButton("🎛 menu", callback_data="menu"),
+                    InlineKeyboardButton("❌ urungkan", callback_data="cls"),
                 ],[
                     InlineKeyboardButton("📣 CHANNEL", url=f"https://t.me/{UPDATES_CHANNEL}")
                 ],
