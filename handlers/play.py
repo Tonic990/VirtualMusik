@@ -773,3 +773,23 @@ async def lol_cb(b, cb):
         reply_markup=keyboard,
         )
         os.remove("final.png")
+        else:
+        que[chat_id] = []
+        qeue = que.get(chat_id)
+        s_name = title
+        try:
+            r_by = cb.message.reply_to_message.from_user
+        except:
+            r_by = cb.message.from_user
+        loc = file_path
+        appendable = [s_name, r_by, loc]
+        qeue.append(appendable)
+        callsmusic.pytgcalls.join_group_call(chat_id, file_path)
+        await cb.message.delete()
+        await b.send_photo(chat_id,
+        photo="final.png",
+        caption=f"🏷 **Judul:** [{title[:30]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Sedang Memutar\n" \
+               +f"🔮 **Permintaan:** {r_by.mention}",
+        reply_markup=keyboard,
+        )
+        os.remove("final.png")
