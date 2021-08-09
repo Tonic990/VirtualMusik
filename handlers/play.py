@@ -424,7 +424,7 @@ async def m_cb(b, cb):
             await cb.answer("assistant is not connected to voice chat!", show_alert=True)
 
 
-@Client.on_message(command("stream") & other_filters)
+@Client.on_message(command(["play", "stream"]) & other_filters)
 async def play(_, message: Message):
     global que
     global useer
@@ -614,10 +614,10 @@ async def play(_, message: Message):
                     [InlineKeyboardButton(text="🗑 Close", callback_data="cls")],
                 ]
             )
-            await lel.edit(toxxt,reply_markup=koyboard,disable_web_page_preview=True)
             await message.reply_photo(
                 photo="https://telegra.ph/file/3252a626920cb787295a4.png",
-                caption=toxxt, reply_markup=koyboard,
+                caption=toxxt,
+                reply_markup=koyboard,
             )
             await lel.delete()
             # veez project
@@ -719,7 +719,7 @@ async def lol_cb(b, cb):
     if cb.from_user.id != useer_id:
         await cb.answer("anda bukan orang yang meminta untuk memutar lagu ini!", show_alert=True)
         return
-    await cb.message.edit("🔁 **processing...**")
+    #await cb.message.edit("🔁 **processing...**")
     x=int(x)
     try:
         useer_name = cb.message.reply_to_message.from_user.first_name
