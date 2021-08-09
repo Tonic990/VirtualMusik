@@ -21,18 +21,15 @@ async def broadcast(_, message: Message):
     else:
         wtf = await message.reply("`starting broadcast...`")
         if not message.reply_to_message:
-            await wtf.edit("please reply to a message to do broadcast!")
+            await wtf.edit("please reply to a message to start broadcast!")
             return
         lmao = message.reply_to_message.text
         async for dialog in veez.iter_dialogs():
             try:
                 await veez.send_message(dialog.chat.id, lmao)
                 sent = sent+1
-                await wtf.edit(f"`global cast...` \n\n**sent to:** `{sent}` chats \n**failed in:** {failed} chats")
+                await wtf.edit(f"`broadcasting...` \n\n**sent to:** `{sent}` chats \n**failed in:** {failed} chats")
                 await asyncio.sleep(3)
             except:
                 failed=failed+1
-                #await wtf.edit(f"`broadcasting...` \n\n**sent to:** `{sent}` chats \n**failed in:** {failed} chats")
-                
-            
         await message.reply_text(f"`gcast succesfully` \n\n**sent to:** `{sent}` chats \n**failed in:** {failed} chats")
