@@ -109,17 +109,17 @@ async def help(client: Client, message: Message):
 /resume - Resume the music was paused
 /skip - For skip to the next song
 /end - For stop music streaming
-/userbotjoin - To invite the assistant for join to your group
+/veezjoin - To invite the assistant for join to your group
 /reload - For refresh the admin list
 </b>""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "✨ Group", url=f"https://t.me/{GROUP_SUPPORT}"
+                        "✨ GROUP", url=f"https://t.me/{GROUP_SUPPORT}"
                     ),
                     InlineKeyboardButton(
-                        "📣 Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
+                        "📣 CHANNEL", url=f"https://t.me/{UPDATES_CHANNEL}"
                     )
                 ]
             ]
