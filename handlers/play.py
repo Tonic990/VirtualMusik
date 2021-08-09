@@ -424,7 +424,7 @@ async def m_cb(b, cb):
             await cb.answer("assistant is not connected to voice chat!", show_alert=True)
 
 
-@Client.on_message(command("play") & other_filters)
+@Client.on_message(command("stream") & other_filters)
 async def play(_, message: Message):
     global que
     global useer
@@ -487,12 +487,12 @@ async def play(_, message: Message):
     text_links=None
     await lel.edit("🔎 **finding song...**")
     if message.reply_to_message:
-        entities = []
+        entities()
         toxt = message.reply_to_message.text or message.reply_to_message.caption
         if message.reply_to_message.entities:
-            entities = message.reply_to_message.entities + entities
+            entities = ({message.reply_to_message.entities + entities})
         elif message.reply_to_message.caption_entities:
-            entities = message.reply_to_message.entities + entities
+            entities = ({message.reply_to_message.entities + entities})
         urls = [entity for entity in entities if entity.type == 'url']
         text_links = [
             entity for entity in entities if entity.type == 'text_link'
