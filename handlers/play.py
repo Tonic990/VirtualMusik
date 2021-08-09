@@ -773,7 +773,7 @@ async def lol_cb(b, cb):
         reply_markup=keyboard,
         )
         os.remove("final.png")
-        else:
+    else:
         que[chat_id] = []
         qeue = que.get(chat_id)
         s_name = title
