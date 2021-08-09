@@ -47,7 +47,11 @@ def cb_admin_check(func: Callable) -> Callable:
                                                                                     
 def transcode(filename):
     ffmpeg.input(filename).output(
-        "input.raw", format="s16le", acodec="pcm_s16le", ac=2, ar="48k"
+        "input.raw",
+        format="s16le",
+        acodec="pcm_s16le",
+        ac=2,
+        ar="48k"
     ).overwrite_output().run() 
     os.remove(filename)
 
@@ -397,16 +401,16 @@ async def m_cb(b, cb):
         if chat_id not in callsmusic.pytgcalls.active_calls:
             await cb.answer("assistant is not connected to voice chat!", show_alert=True)
         else:
-            callsmusic.queues.task_done(chet_id)
+            queues.task_done(chet_id)
 
-            if callsmusic.queues.is_empty(chet_id):
+            if queues.is_empty(chet_id):
                 callsmusic.pytgcalls.leave_group_call(chet_id)
                 
                 await cb.message.edit("• no more playlist.\n• leaving voice chat!")
             else:
                 callsmusic.pytgcalls.change_stream(
                     chat_id,
-                    callsmusic.queues.get(chet_id)["file"]
+                    queues.get(chet_id)["file"]
                 )
                 await cb.answer("skipped")
                 await cb.message.edit(f"⫸ skipped **{skip[0]}**\n⫸ now playing **{qeue[0][0]}**")
@@ -414,7 +418,7 @@ async def m_cb(b, cb):
     elif type_ == "leave":
         if chet_id in callsmusic.pytgcalls.active_calls:
             try:
-                callsmusic.queues.clear(chet_id)
+                queues.clear(chet_id)
             except QueueEmpty:
                 pass
 
@@ -537,7 +541,7 @@ async def play(_, message: Message):
     elif urls:
         query = toxt
         await lel.edit("🎵 **processing song...**")
-        ydl_opts = {"format": "bestaudio[ext=m4a]"}
+        ydl_opts = {"format": "bestaudio/best"}
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
             url = f"https://youtube.com{results[0]['url_suffix']}"
@@ -577,7 +581,7 @@ async def play(_, message: Message):
             query += " " + str(i)
         print(query)
         await lel.edit("🎵 **processing song...**")
-        ydl_opts = {"format": "bestaudio[ext=m4a]"}
+        ydl_opts = {"format": "bestaudio/best"}
         
         try:
           results = YoutubeSearch(query, max_results=5).to_dict()
