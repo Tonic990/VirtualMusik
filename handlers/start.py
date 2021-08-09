@@ -92,7 +92,7 @@ async def start(client: Client, message: Message):
     )
 
 
-@Client.on_message(command(["help", f"help@{BOT_USERNAME}"]) & filters.private & filters.group & ~filters.edited)
+@Client.on_message(command("help") & filters.private & ~filters.edited)
 async def help(client: Client, message: Message):
     await message.reply_text(
         f"""<b>Hello {message.from_user.first_name}✨
@@ -116,12 +116,16 @@ async def help(client: Client, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        "✨ GROUP", url=f"https://t.me/{GROUP_SUPPORT}"),
+                        "✨ GROUP", url=f"https://t.me/{GROUP_SUPPORT}"
+                    ),
                     InlineKeyboardButton(
-                        "📣 CHANNEL", url=f"https://t.me/{UPDATES_CHANNEL}")
-                ],[
+                        "📣 CHANNEL", url=f"https://t.me/{UPDATES_CHANNEL}"
+                    )
+                ],
+                [
                     InlineKeyboardButton(
-                        text="🗑 CLOSE", callback_data="cls")
+                        "🗑 CLOSE", callback_data="cls"
+                    )
                 ]
             ]
         )
