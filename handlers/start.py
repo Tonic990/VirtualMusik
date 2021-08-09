@@ -92,7 +92,7 @@ async def start(client: Client, message: Message):
     )
 
 
-@Client.on_message(command("help") & filters.private & ~filters.edited)
+@Client.on_message(command("help") & filters.private & filters.group & ~filters.edited)
 async def help(client: Client, message: Message):
     await message.reply_text(
         f"""<b>Hello {message.from_user.first_name}✨
@@ -120,14 +120,18 @@ async def help(client: Client, message: Message):
                     ),
                     InlineKeyboardButton(
                         "📣 CHANNEL", url=f"https://t.me/{UPDATES_CHANNEL}"
+                    ),
+                ],[
+                    InlineKeyboardButton(
+                        text="🗑 CLOSE", callback_data="cls"
                     )
-                ]
+                ],
             ]
         )
     )
 
 
-@Client.on_message(command(["ping", f"ping@{BOT_USERNAME}"]) & ~filters.edited)
+@Client.on_message(command(["ping", f"ping@{BOT_USERNAME}"]) & filters.private & ~filters.edited)
 async def ping_pong(client: Client, m: Message):
     start = time()
     m_reply = await m.reply_text("pinging...")
