@@ -433,7 +433,6 @@ async def play(_, message: Message):
     lel = await message.reply("🔄 **processing...**")
     administrators = await get_administrators(message.chat)
     chid = message.chat.id
-
     try:
         user = await USER.get_me()
     except:
@@ -458,7 +457,6 @@ async def play(_, message: Message):
                         "<b>make me as admin first.</b>",
                     )
                     return
-
                 try:
                     await USER.join_chat(invitelink)
                     await USER.send_message(
@@ -467,7 +465,6 @@ async def play(_, message: Message):
                     await lel.edit(
                         "<b>helper userbot joined your chat</b>",
                     )
-
                 except UserAlreadyParticipant:
                     pass
                 except Exception:
@@ -484,6 +481,26 @@ async def play(_, message: Message):
             f"<i>{user.first_name} was banned in this group, ask admin to unban @{ASSISTANT_NAME} manually.</i>"
         )
         return
+    text_links=None
+    await lel.edit("🔎 **finding song...**")
+    if message.reply_to_message:
+        entities = []
+        toxt = message.reply_to_message.text or message.reply_to_message.caption
+        if message.reply_to_message.entities:
+            entities = message.reply_to_message.entities + entities
+        elif message.reply_to_message.caption_entities:
+            entities = message.reply_to_message.entities + entities
+        urls = [entity for entity in entities if entity.type == 'url']
+        text_links = [
+            entity for entity in entities if entity.type == 'text_link'
+        ]
+    else:
+        urls=None
+    if text_links:
+        urls = True
+    user_id = message.from_user.id
+    user_name = message.from_user.first_name
+    rpk = "[" + user_name + "](tg://user?id=" + str(user_id) + ")"
     audio = (
         (message.reply_to_message.audio or message.reply_to_message.voice)
         if message.reply_to_message
@@ -517,26 +534,6 @@ async def play(_, message: Message):
             if not path.isfile(path.join("downloads", file_name))
             else file_name
         )
-        text_links=None
-    await lel.edit("🔎 **finding song...**")
-    if message.reply_to_message:
-        entities = []
-        toxt = message.reply_to_message.text or message.reply_to_message.caption
-        if message.reply_to_message.entities:
-            entities = message.reply_to_message.entities + entities
-        elif message.reply_to_message.caption_entities:
-            entities = message.reply_to_message.entities + entities
-        urls = [entity for entity in entities if entity.type == 'url']
-        text_links = [
-            entity for entity in entities if entity.type == 'text_link'
-        ]
-    else:
-        urls=None
-    if text_links:
-        urls = True
-    user_id = message.from_user.id
-    user_name = message.from_user.first_name
-    rpk = "[" + user_name + "](tg://user?id=" + str(user_id) + ")"
     elif urls:
         query = toxt
         await lel.edit("🎵 **processing song...**")
@@ -553,7 +550,6 @@ async def play(_, message: Message):
             duration = results[0]["duration"]
             results[0]["url_suffix"]
             views = results[0]["views"]
-
         except Exception as e:
             await lel.edit(
                 "**❌ song not found.** please give a valid song name."
@@ -593,12 +589,10 @@ async def play(_, message: Message):
             j = 0
             useer=user_name
             emojilist = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣"]
-
             while j < 5:
                 toxxt += f"{emojilist[j]} [{results[j]['title'][:25]}](https://youtube.com{results[j]['url_suffix']})\n"
                 toxxt += f" ├ 💡 **Duration** - {results[j]['duration']}\n"
                 toxxt += f" └ ⚡ __Powered by Veez Music AI__\n\n"
-
                 j += 1            
             koyboard = InlineKeyboardMarkup(
                 [
@@ -637,7 +631,6 @@ async def play(_, message: Message):
                 duration = results[0]["duration"]
                 results[0]["url_suffix"]
                 views = results[0]["views"]
-
             except Exception as e:
                 await lel.edit(
                 "**❌ song not found.** please give a valid song name."
@@ -697,7 +690,6 @@ async def play(_, message: Message):
         )
         os.remove("final.png")
         return await lel.delete()
-
 @Client.on_callback_query(filters.regex(pattern=r"plll"))
 async def lol_cb(b, cb):
     global que
