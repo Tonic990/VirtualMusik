@@ -7,7 +7,7 @@ from callsmusic.queues import queues
 from helpers.channelmusic import get_chat_id
 from helpers.filters import command, other_filters
 from helpers.decorators import errors, authorized_users_only
-from config import BOT_USERNAME, que, admins as a
+from config import BOT_USERNAME, que, admins
 
 @Client.on_message(command(["reload", f"reload@{BOT_USERNAME}"]) & other_filters)
 @errors
