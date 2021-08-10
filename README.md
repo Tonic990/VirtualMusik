@@ -10,7 +10,7 @@
 
 - FFmpeg
 - NodeJS [nodesource.com](https://nodesource.com/)
-- Python 3.8+ or 3.7 (without python-arq)
+- Python 3.8+ or 3.7
 - [PyTgCalls](https://github.com/pytgcalls/pytgcalls)
 
 🧪 Get STRING_SESSION from here:
@@ -27,17 +27,29 @@
 - `/search <query>` - search videos on youtube with details
 - `/vsong <song name>` - download videos you want quickly
 
-#### Admins only.
+#### Admins Only 👷‍♂️
 - `/player` - open music player settings panel
 - `/pause` - pause song play
 - `/resume` - resume song play
 - `/skip` - play next song
 - `/end` - stop music play
+- `/musicplayer on` - to disable music player in your group
+- `/musicplayer off` - to enable music player in your group
 - `/userbotjoin` - invite assistant to your chat
 - `/userbotleave` - remove assistant from your chat
 - `/reload` - Refresh admin list
+- `/uptime` - check the bot uptime status
+- `/ping` - check the bot ping status
 
-# for now we not using python arq, but in next update i wil add it again and released new feature.
+### Sudo User 🧙‍♂️
+- `/userbotleaveall` - order the assistant to leave all groups
+- `/gcast` - send a broadcast message
+
+### pm-permit 💬
+- `.yes` - approve user for sending message to assistant
+- `.no` - disapprove user for sending message to assistant
+
+## 🔎 Support Inline Search
 
 ## Deployment 💜
 the easy way to host this bot, deploy to heroku
