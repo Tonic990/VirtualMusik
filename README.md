@@ -10,7 +10,7 @@
 
 - FFmpeg
 - NodeJS [nodesource.com](https://nodesource.com/)
-- Python 3.7+
+- Python 3.8+ or 3.7 (without python-arq)
 - [PyTgCalls](https://github.com/pytgcalls/pytgcalls)
 
 🧪 Get STRING_SESSION from here:
@@ -36,6 +36,8 @@
 - `/userbotjoin` - invite assistant to your chat
 - `/userbotleave` - remove assistant from your chat
 - `/reload` - Refresh admin list
+
+# for now we not using python arq, but in next update i wil add it again and released new feature.
 
 ## Deployment 💜
 the easy way to host this bot, deploy to heroku
