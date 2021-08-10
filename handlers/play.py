@@ -11,7 +11,8 @@ from asyncio.queues import QueueEmpty
 from pyrogram import Client, filters
 from typing import Callable
 from helpers.channelmusic import get_chat_id
-from callsmusic import callsmusic, queues
+from callsmusic import callsmusic
+from callsmusic.queues import queues
 from helpers.admins import get_administrators
 from youtube_search import YoutubeSearch
 from callsmusic.callsmusic import client as USER
@@ -25,12 +26,11 @@ from helpers.gets import get_file_name, get_url
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, Voice
 from cache.admins import admins as a
 from PIL import Image, ImageFont, ImageDraw
-chat_id = None
 
 aiohttpsession = aiohttp.ClientSession()
+chat_id = None
 DISABLED_GROUPS = []
 useer ="NaN"
-
 def cb_admin_check(func: Callable) -> Callable:
     async def decorator(client, cb):
         admemes = a.get(cb.message.chat.id)
@@ -113,6 +113,8 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
 @Client.on_message(command(["playlist", f"playlist@{BOT_USERNAME}"]) & filters.group & ~filters.edited)
 async def playlist(client, message):
     global que
+    if message.chat.id in DISABLED_GROUPS:
+        return
     queue = que.get(message.chat.id)
     if not queue:
         await message.reply_text("**nothing in streaming!**")
@@ -247,32 +249,32 @@ async def hfmm(_, message):
 @Client.on_callback_query(filters.regex(pattern=r"^(playlist)$"))
 async def p_cb(b, cb):
     global que    
-    qeue = que.get(cb.message.chat.id)
+    que.get(cb.message.chat.id)
     type_ = cb.matches[0].group(1)
-    chat_id = cb.message.chat.id
-    m_chat = cb.message.chat
-    the_data = cb.message.reply_markup.inline_keyboard[1][0].callback_data
-    if type_ == "playlist":           
+    cb.message.chat.id
+    cb.message.chat
+    cb.message.reply_markup.inline_keyboard[1][0].callback_data
+    if type_ == "playlist":
         queue = que.get(cb.message.chat.id)
-        if not queue:   
-            await cb.message.edit("**nothing in streaming!**")
+        if not queue:
+            await cb.message.edit("**nothing is playing ❗**")
         temp = []
         for t in queue:
             temp.append(t)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style="md")
-        msg = "**Lagu Yang Sedang dimainkan** di {}".format(cb.message.chat.title)
-        msg += "\n• "+ now_playing
-        msg += "\n• Atas permintaan "+by
+        msg = "**Now playing** in {}".format(cb.message.chat.title)
+        msg += "\n• " + now_playing
+        msg += "\n• Req by " + by
         temp.pop(0)
         if temp:
-             msg += "\n\n"
-             msg += "**Antrian Lagu**"
-             for song in temp:
-                 name = song[0]
-                 usr = song[1].mention(style="md")
-                 msg += f"\n• {name}"
-                 msg += f"\n• Atas permintaan {usr}\n"
+            msg += "\n\n"
+            msg += "**Antrian Lagu**"
+            for song in temp:
+                name = song[0]
+                usr = song[1].mention(style="md")
+                msg += f"\n• {name}"
+                msg += f"\n• Req by {usr}\n"
         await cb.message.edit(msg)      
 
 
@@ -395,23 +397,25 @@ async def m_cb(b, cb):
 
     elif type_ == "skip":        
         if qeue:
-            skip = qeue.pop(0)
-        if chat_id not in callsmusic.pytgcalls.active_calls:
+            qeue.pop(0)
+        if chet_id not in callsmusic.pytgcalls.active_calls:
             await cb.answer("assistant is not connected to voice chat!", show_alert=True)
         else:
             callsmusic.queues.task_done(chet_id)
 
             if callsmusic.queues.is_empty(chet_id):
                 callsmusic.pytgcalls.leave_group_call(chet_id)
-                
-                await cb.message.edit("• no more playlist.\n• leaving voice chat!")
+
+                await cb.message.edit("• no more playlist\n• leaving voice chat")
             else:
                 callsmusic.pytgcalls.change_stream(
-                    chat_id,
-                    callsmusic.queues.get(chet_id)["file"]
+                    chet_id, callsmusic.queues.get(chet_id)["file"]
                 )
                 await cb.answer("skipped")
-                await cb.message.edit(f"⫸ skipped **{skip[0]}**\n⫸ now playing **{qeue[0][0]}**")
+                await cb.message.edit((m_chat, qeue), reply_markup=r_ply(the_data))
+                await cb.message.reply_text(
+                    f"⫸ skipped track\n⫸ now playing : **{qeue[0][0]}**"
+                )
 
     elif type_ == "leave":
         if chet_id in callsmusic.pytgcalls.active_calls:
@@ -684,7 +688,7 @@ async def play(_, message: Message):
         await message.reply_photo(
             photo="final.png",
             caption=f"🏷 **Judul:** [{title[:30]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Antrian Ke `{position}`\n" \
-                   +f"🔮 **Permintaan:** {message.from_user.mention}",
+                   +f"🎧 **Permintaan:** {message.from_user.mention}",
             reply_markup=keyboard
         )
        
@@ -704,8 +708,8 @@ async def play(_, message: Message):
             return
         await message.reply_photo(
             photo="final.png",
-            caption=f"🏷 **Judul:** [{title[:30]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Sedang Memutar\n" \
-                   +f"🔮 **Permintaan:** {message.from_user.mention}",
+            caption=f"🏷 **Judul:** [{title[:30]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** `Sedang Memutar`\n" \
+                   +f"🎧 **Permintaan:** {message.from_user.mention}",
             reply_markup=keyboard
         )
         os.remove("final.png")
@@ -785,7 +789,7 @@ async def lol_cb(b, cb):
         await b.send_photo(chat_id,
         photo="final.png",
         caption=f"🏷 **Judul:** [{title[:30]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Antrian Ke `{position}`\n" \
-               +f"🔮 **Permintaan:** {r_by.mention}",
+               +f"🎧 **Permintaan:** {r_by.mention}",
         reply_markup=keyboard,
         )
         os.remove("final.png")
@@ -805,7 +809,7 @@ async def lol_cb(b, cb):
         await b.send_photo(chat_id,
         photo="final.png",
         caption=f"🏷 **Judul:** [{title[:30]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Sedang Memutar\n" \
-               +f"🔮 **Permintaan:** {r_by.mention}",
+               +f"🎧 **Permintaan:** {r_by.mention}",
         reply_markup=keyboard,
         )
         os.remove("final.png")
