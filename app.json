@@ -1,31 +1,31 @@
 {
     "name": "Veez Music Bot",
-    "logo": "https://telegra.ph/file/7ffa8d18b9b7f1b51a81e.jpg",
-    "description": "bot untuk memutar musik di obrolan suara telegram.",
+    "logo": "https://ibb.co/pjGzwvJ",
+    "description": "veez music bot project allow you to stream music trought the telegram voice chat feature.",
     "keywords": ["music", "voice chat", "telegram"],
     "repository": "https://github.com/levina-lab/veezmusic",
     "stack": "container",
     "env": {
         "SESSION_NAME": {
-            "description": "isi dengan string session pyrogram",
+            "description": "fill with the pyrogram session string",
             "required": true
         },
         "BOT_TOKEN": {
-            "description": "token bot anda dari @BotFather",
+            "description": "your bot token from @BotFather",
             "required": true
         },
         "BOT_NAME": {
-            "description": "nama bot musik anda.",
+            "description": "your music bot name.",
             "required": false,
             "value": ""
         },
         "BOT_USERNAME": {
-            "description": "isi dengan username bot musik kamu tanpa @",
+            "description": "fill with your bot username without @",
             "required": true,
             "value": "veezmusicbot"
         },
         "ASSISTANT_NAME": {
-            "description": "isi dengan username assistant bot musik kamu tanpa @",
+            "description": "fill with the assistant username without @",
             "required": true,
             "value": "veezasisstant"
         },
@@ -35,16 +35,16 @@
             "value": "https://telegra.ph/file/d91623e9cefcef8fb3aa8.png"
         },
         "OWNER_NAME": {
-            "description": "isi dengan username kamu tanpa simbol @",
+            "description": "fill with your username without @",
             "required": false,
             "value": "dlwrml"
         },
         "API_ID": {
-            "description": "isi dengan App ID dari my.telegram.org/apps",
+            "description": "your App ID from my.telegram.org/apps",
             "required": true
         },
         "API_HASH": {
-            "description": "isi dengan Api hash dari my.telegram.org/apps",
+            "description": "your Api hash from my.telegram.org/apps",
             "required": true
         },
         "SUDO_USERS": {
