@@ -63,7 +63,7 @@ async def stop(_, message: Message):
         await message.reply_text("❗ **nothing is playing!**")
     else:
         try:
-            queues.clear(message.chat.id)
+            callsmusic.queues.clear(message.chat.id)
         except QueueEmpty:
             pass
 
@@ -80,13 +80,14 @@ async def skip(_, message: Message):
     if message.chat.id not in callsmusic.pytgcalls.active_calls:
         await message.reply_text("❗ **nothing is playing!!**")
     else:
-        queues.task_done(message.chat.id)
+        callsmusic.queues.task_done(message.chat.id)
 
-        if queues.is_empty(message.chat.id):
+        if callsmusic.queues.is_empty(message.chat.id):
             callsmusic.pytgcalls.leave_group_call(message.chat.id)
         else:
             callsmusic.pytgcalls.change_stream(
-                chat.id, queues.get(chat_id)["file"]
+                message.chat.id,
+                callsmusic.queues.get(message.chat.id)["file"]
             )
             
     qeue = que.get(message.chat.id)
