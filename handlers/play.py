@@ -596,7 +596,7 @@ async def play(_, message: Message):
                 toxxt += f" ├ 💡 **Duration** - {results[j]['duration']}\n"
                 toxxt += f" └ ⚡ __Powered by Veez Music AI__\n\n"
                 j += 1            
-            koyboard = InlineKeyboardMarkup(
+            keyboard = InlineKeyboardMarkup(
                 [
                     [
                         InlineKeyboardButton("1️⃣", callback_data=f'plll 0|{query}|{user_id}'),
@@ -613,7 +613,7 @@ async def play(_, message: Message):
             await message.reply_photo(
                 photo="https://telegra.ph/file/3252a626920cb787295a4.png",
                 caption=toxxt,
-                reply_markup=koyboard
+                reply_markup=keyboard
             )
             await lel.delete()
             # veez project
