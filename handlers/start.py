@@ -61,7 +61,7 @@ async def start_(client: Client, message: Message):
                         "🌐 Wiki's Page", url="https://github.com/levina-lab/veezmusic/wiki/Veez-Music-Wiki's")
                 ],[
                     InlineKeyboardButton(
-                        "💬 Ask For Help", url="https://t.me/veezcenterbot"
+                        "🧪 Source Code 🧪", url="https://github.com/levina-lab/VeezMusic"
                     )
                 ]
             ]
@@ -92,7 +92,7 @@ async def start(client: Client, message: Message):
     )
 
 
-@Client.on_message(command("help") & filters.private & ~filters.edited)
+@Client.on_message(command("help") & ~filters.edited)
 async def help(client: Client, message: Message):
     await message.reply_text(
         f"""<b>Hello {message.from_user.mention()}✨
@@ -124,7 +124,7 @@ async def help(client: Client, message: Message):
                 ],
                 [
                     InlineKeyboardButton(
-                        "🗑 CLOSE", callback_data="cls"
+                        "👩🏻‍💻 DEVELOPER", url=f"https://t.me/{OWNER_NAME}"
                     )
                 ]
             ]
