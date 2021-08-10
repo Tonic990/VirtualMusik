@@ -3,10 +3,10 @@ import json
 import ffmpeg
 import aiohttp
 import aiofiles
+import asyncio
 import requests
 import converter
 from os import path
-from Python_ARQ import ARQ
 from asyncio.queues import QueueEmpty
 from pyrogram import Client, filters
 from typing import Callable
@@ -27,9 +27,7 @@ from cache.admins import admins as a
 from PIL import Image, ImageFont, ImageDraw
 chat_id = None
 
-ARQ_API_KEY = "YPHODY-ZLSHSE-UBBIQA-YFLDKM-ARQ"
 aiohttpsession = aiohttp.ClientSession()
-arq = ARQ("https://thearq.tech", ARQ_API_KEY, aiohttpsession)
 DISABLED_GROUPS = []
 useer ="NaN"
 
