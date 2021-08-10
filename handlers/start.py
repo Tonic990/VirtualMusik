@@ -92,7 +92,7 @@ async def start(client: Client, message: Message):
     )
 
 
-@Client.on_message(command("help") & ~filters.edited)
+@Client.on_message(command("help") & filters.private & ~filters.edited)
 async def help(client: Client, message: Message):
     await message.reply_text(
         f"""<b>Hello {message.from_user.mention()}✨
@@ -109,7 +109,7 @@ async def help(client: Client, message: Message):
 /resume - Resume the music was paused
 /skip - For skip to the next song
 /end - For stop music streaming
-/veezjoin - To invite the assistant for join to your group
+/userbotjoin - invite the assistant for join to your group
 /reload - For refresh the admin list
 </b>""",
         reply_markup=InlineKeyboardMarkup(
