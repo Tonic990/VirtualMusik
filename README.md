@@ -52,9 +52,10 @@
 ## 🔎 Support Inline Search
 
 ## Deployment 💜
-the easy way to host this bot, deploy to heroku
+the easy way to host this bot, deploy to Heroku or Railway
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/levina-lab/veezmusic)
+[![Deploy+on+Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/levina-lab/VeezMusic&envs=SESSION_NAME,BOT_TOKEN,BOT_USERNAME,BOT_NAME,GROUP_SUPPORT,ASSISTANT_NAME,BG_IMAGE,UPDATES_CHANNEL,API_ID,PMPERMIT,API_HASH,SUDO_USERS,DURATION_LIMIT)
 
 ### Credits 💖
 - [Levina](https://github.com/levina-lab): Dev
