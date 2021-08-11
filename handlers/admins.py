@@ -11,7 +11,7 @@ from callsmusic import callsmusic
 from callsmusic.queues import queues
 
 
-@Client.on_message(filters.command("reset"))
+@Client.on_message(filters.command("reload"))
 async def update_admin(client, message: Message):
     chat_id = get_chat_id(message.chat)
     set(
@@ -21,7 +21,7 @@ async def update_admin(client, message: Message):
             for member in await message.chat.get_members(filter="administrators")
         ],
     )
-    await message.reply_text("❇️ admin cache refreshed!")
+    await message.reply_text("✅ Bot **reloaded correctly !**\n✅ **Admin list** has been **updated !**")
 
 
 @Client.on_message(command("pause") & other_filters)
