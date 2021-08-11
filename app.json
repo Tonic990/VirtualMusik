@@ -1,7 +1,7 @@
 {
     "name": "Veez Music Bot",
-    "logo": "https://ibb.co/pjGzwvJ",
-    "description": "veez music bot project allow you to stream music trought the telegram voice chat feature.",
+    "logo": "https://i.postimg.cc/SQBqsJjN/logo8-11-232731.png",
+    "description": "Veez Music project allow you to stream music trought the telegram voice chat feature.",
     "keywords": ["music", "voice chat", "telegram"],
     "repository": "https://github.com/levina-lab/veezmusic",
     "stack": "container",
@@ -30,7 +30,7 @@
             "value": "veezasisstant"
         },
         "BG_IMAGE": {
-            "description": "isi dengan link background image kalian",
+            "description": "fill with your link costum background image",
             "required": false,
             "value": "https://telegra.ph/file/d91623e9cefcef8fb3aa8.png"
         },
@@ -57,7 +57,7 @@
             "value": "15"
         },
         "PMPERMIT": {
-            "description": "pm-permit untuk assistant.",
+            "description": "pm-permit for assistant.",
             "required": false,
             "value": "ENABLE"
         },
