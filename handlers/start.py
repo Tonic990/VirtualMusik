@@ -91,6 +91,21 @@ async def start(client: Client, message: Message):
         )
     )
 
+@Client.on_message(command("help") & filters.group & ~filters.edited)
+async def help(client: Client, message: Message):
+    await message.reply_text(
+        f"""<b>👋🏻 Hello {message.from_user.first_name}, please tap the button below
+        to see the help message you can read for using this bot</b>""",
+        reply_markup=InlineKeyboarMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "❔ HOW TO USE ME", url=f"https://t.me/{BOT_USERNAME}?start=help"
+                    )
+                ]
+            ]
+        )
+    )
 
 @Client.on_message(command("help") & filters.private & ~filters.edited)
 async def help(client: Client, message: Message):
