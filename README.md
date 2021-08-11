@@ -57,8 +57,10 @@ the easy way to host this bot, deploy to Heroku or Railway
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/levina-lab/veezmusic)
 [![Deploy+on+Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/levina-lab/VeezMusic&envs=SESSION_NAME,BOT_TOKEN,BOT_USERNAME,BOT_NAME,GROUP_SUPPORT,ASSISTANT_NAME,BG_IMAGE,UPDATES_CHANNEL,API_ID,PMPERMIT,API_HASH,SUDO_USERS,DURATION_LIMIT)
 
-### Credits 💖
+### Special Credits 💖
 - [Levina](https://github.com/levina-lab): Dev
+- [Tofik](https://github.com/tofikdn): Dev
+- [Mr.Zxce3](https://github.com/Zxce3): Dev
 - [Laky](https://github.com/Laky-64) & [Andrew](https://github.com/AndrewLaneX): PyTgCalls
 - [Original Repo](https://github.com/suprojects/CallsMusic)
 - [Veez Music Bot](https://t.me/veezmusicbot) Our Music Bot
