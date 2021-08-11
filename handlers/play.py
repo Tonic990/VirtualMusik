@@ -31,6 +31,8 @@ aiohttpsession = aiohttp.ClientSession()
 chat_id = None
 DISABLED_GROUPS = []
 useer ="NaN"
+
+
 def cb_admin_check(func: Callable) -> Callable:
     async def decorator(client, cb):
         admemes = a.get(cb.message.chat.id)
@@ -39,7 +41,6 @@ def cb_admin_check(func: Callable) -> Callable:
         else:
             await cb.answer("you not allowed to do this!", show_alert=True)
             return
-        
     return decorator                                                                       
                                           
                                                                                     
