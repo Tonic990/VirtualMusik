@@ -108,7 +108,7 @@ async def help(client: Client, message: Message):
     )
 
 @Client.on_message(command("help") & filters.private & ~filters.edited)
-async def help(client: Client, message: Message):
+async def help_(client: Client, message: Message):
     await message.reply_text(
         f"""<b>Hello {message.from_user.mention()}✨
 \n👥 **command for all users:**
