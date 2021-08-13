@@ -33,9 +33,9 @@ async def _human_time_duration(seconds):
 async def start_(client: Client, message: Message):
     await message.reply_text(
         f"""<b>✨ **Welcome {message.from_user.first_name}** \n
-💭 **[{BOT_NAME}](https://t.me/{BOT_USERNAME}) 𝗮𝗹𝗹𝗼𝘄 𝘆𝗼𝘂 𝘁𝗼 𝗽𝗹𝗮𝘆 𝗺𝘂𝘀𝗶𝗰 𝗼𝗻 𝗴𝗿𝗼𝘂𝗽𝘀 𝘁𝗵𝗿𝗼𝘂𝗴𝗵 𝘁𝗵𝗲 𝗻𝗲𝘄 𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺'𝘀 𝘃𝗼𝗶𝗰𝗲 𝗰𝗵𝗮𝘁𝘀!**
+💭 **[{BOT_NAME}](https://t.me/{BOT_USERNAME}) 𝗮𝗹𝗹𝗼𝘄 𝘆𝗼𝘂 𝘁𝗼 𝗽𝗹𝗮𝘆 𝗺𝘂𝘀𝗶𝗰 𝗼𝗻 𝗴𝗿𝗼𝘂𝗽𝘀 𝘁𝗵𝗿𝗼𝘂𝗴𝗵 𝘁𝗵𝗲 𝗻𝗲𝘄 𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺'𝘀 𝘃𝗼𝗶𝗰𝗲 𝗰𝗵𝗮𝘁𝘀 !**
 
-💡 **𝗙𝗶𝗻𝗱 𝗼𝘂𝘁 𝗮𝗹𝗹 𝘁𝗵𝗲 𝗕𝗼𝘁'𝘀 𝗰𝗼𝗺𝗺𝗮𝗻𝗱𝘀 𝗮𝗻𝗱 𝗵𝗼𝘄 𝘁𝗵𝗲𝘆 𝘄𝗼𝗿𝗸 𝗯𝘆 𝗰𝗹𝗶𝗰𝗸𝗶𝗻𝗴 𝗼𝗻 𝘁𝗵𝗲 » 📚 𝗖𝗼𝗺𝗺𝗮𝗻𝗱𝘀 𝗯𝘂𝘁𝘁𝗼𝗻!**
+💡 **𝗙𝗶𝗻𝗱 𝗼𝘂𝘁 𝗮𝗹𝗹 𝘁𝗵𝗲 𝗕𝗼𝘁'𝘀 𝗰𝗼𝗺𝗺𝗮𝗻𝗱𝘀 𝗮𝗻𝗱 𝗵𝗼𝘄 𝘁𝗵𝗲𝘆 𝘄𝗼𝗿𝗸 𝗯𝘆 𝗰𝗹𝗶𝗰𝗸𝗶𝗻𝗴 𝗼𝗻 𝘁𝗵𝗲 » 📚 𝗖𝗼𝗺𝗺𝗮𝗻𝗱𝘀 𝗯𝘂𝘁𝘁𝗼𝗻 !**
 
 ❓ **𝗙𝗼𝗿 𝗶𝗻𝗳𝗼𝗿𝗺𝗮𝘁𝗶𝗼𝗻 𝗮𝗯𝗼𝘂𝘁 𝗮𝗹𝗹 𝗳𝗲𝗮𝘁𝘂𝗿𝗲 𝗼𝗳 𝘁𝗵𝗶𝘀 𝗯𝗼𝘁, 𝗷𝘂𝘀𝘁 𝘁𝘆𝗽𝗲 /help**
 </b>""",
@@ -43,7 +43,7 @@ async def start_(client: Client, message: Message):
             [ 
                 [
                     InlineKeyboardButton(
-                        "➕ Add me to Group ➕", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")
+                        "➕ Add me to your Group ➕", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")
                 ],[
                     InlineKeyboardButton(
                          "📚 Commands", url="https://telegra.ph/VEEZ-MUSIC-GUIDE-07-27"
@@ -110,21 +110,36 @@ async def help(client: Client, message: Message):
 async def help_(client: Client, message: Message):
     await message.reply_text(
         f"""<b>Hello {message.from_user.mention()}✨
-\n👥 **command for all users:**
-\n/play (song name) - To play the song you requested from youtube
-/playlist - To show the list of all music for streaming
-/current - To show the song in streaming
-/song (song name) - To download song from youtube
-/search (video name) - To search video from youtube detailed
-/vsong (video name) - To download video from youtube detailed
+\n📙 How To Use Me ?
+1. first add me to your group.
+2. promote me as admin and give all permission.
+3. then, add @{ASSISTANT_NAME} to your group or type /userbotjoin.
+3. make sure you turn on the voice chat first before start playing music.
+\n💁🏻‍♀️ **command for all user:**
+\n/play (song name) - play song from youtube
+/playlist - show the list song in queue
+/current - show the song in streaming
+/song (song name) - download song from youtube
+/search (video name) - search video from youtube detailed
+/vsong (video name) - download video from youtube detailed
+/vk (song name) - download song from inline mode
 \n👷🏻‍♂️ **command for admins:**
-\n/player - Open music player settings panel
-/pause - Pause the music streaming
-/resume - Resume the music was paused
-/skip - For skip to the next song
-/end - For stop music streaming
-/userbotjoin - invite the assistant for join to your group
-/reload - For refresh the admin list
+\n/player - open music player settings panel
+/pause - pause the music streaming
+/resume - resume the music was paused
+/skip - skip to the next song
+/end - stop music streaming
+/userbotjoin - invite assistant join to your group
+/reload - for refresh the admin list
+/cache - for cleared admin cache
+/musicplayer (on / off) - disable / enable music player in your group
+\n🧙‍♂️ command for sudo users:
+\n/userbotleaveall - order the assistant to leave from all group
+/gcast - send a broadcast message trought the assistant
+\n🎊 **commands for fun:**
+\n/chika - check it by yourself
+/wibu - check it by yourself
+/asupan - check it by yourself
 </b>""",
         reply_markup=InlineKeyboardMarkup(
             [
