@@ -111,7 +111,7 @@ async def help_(client: Client, message: Message):
     await message.reply_text(
         f"""<b>Hello {message.from_user.mention()}✨
 \n📙 How To Use Me ?
-1. first add me to your group.
+\n1. first add me to your group.
 2. promote me as admin and give all permission.
 3. then, add @{ASSISTANT_NAME} to your group or type /userbotjoin.
 3. make sure you turn on the voice chat first before start playing music.
@@ -134,6 +134,14 @@ async def help_(client: Client, message: Message):
 /reload - for refresh the admin list
 /cache - for cleared admin cache
 /musicplayer (on / off) - disable / enable music player in your group
+\n🎧 channel streaming commands:
+\n/cplay - stream music on channel voice chat
+/cplayer - show the song in streaming
+/cpause - pause the streaming music
+/cresume - resume the streaming was paused
+/cskip - skip streaming to the next song
+/cend - end the streaming music
+/admincache - refresh the admin cache
 \n🧙‍♂️ command for sudo users:
 \n/userbotleaveall - order the assistant to leave from all group
 /gcast - send a broadcast message trought the assistant
