@@ -50,6 +50,7 @@
 - `/ping` - check the bot ping status
 
 ### Sudo User 🧙‍♂️
+- `/pmpermit on | off` turn on/off the assistant pmpermit
 - `/userbotleaveall` - order the assistant to leave all groups
 - `/gcast` - send a broadcast message
 
