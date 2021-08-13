@@ -117,6 +117,7 @@ async def help_(client: Client, message: Message):
 3. make sure you turn on the voice chat first before start playing music.
 \n💁🏻‍♀️ **command for all user:**
 \n/play (song name) - play song from youtube
+/stream (reply to audio) - play song using audio file
 /playlist - show the list song in queue
 /current - show the song in streaming
 /song (song name) - download song from youtube
