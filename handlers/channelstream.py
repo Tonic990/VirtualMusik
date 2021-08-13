@@ -493,10 +493,10 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
           [
               [
-                  InlineKeyboardButton("📖 Playlist", callback_data="cplaylist"),
-                  InlineKeyboardButton("Menu ⏯ ", callback_data="cmenu")
+                  InlineKeyboardButton("⏺ Menu", callback_data="cmenu"),
+                  InlineKeyboardButton("🗑 Close", callback_data="ccls")
               ],[
-                  InlineKeyboardButton(text="❌ Close", callback_data="ccls")
+                  InlineKeyboardButton("🎧 CHANNEL", url=f"https://t.me/{UPDATES_CHANNEL}")
               ]
           ]
         )
@@ -508,7 +508,7 @@ async def play(_, message: Message):
         for i in message.command[1:]:
             query += " " + str(i)
         print(query)
-        await lel.edit("🎵 **Processing**")
+        await lel.edit("🎵 **processing...**")
         ydl_opts = {"format": "bestaudio/best"}
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
@@ -525,7 +525,7 @@ async def play(_, message: Message):
 
         except Exception as e:
             await lel.edit(
-                "Song not found.Try another song or maybe spell it properly."
+                "❗ song not found, please give a valid song name"
             )
             print(str(e))
             return
@@ -535,14 +535,11 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("📖 Playlist", callback_data="cplaylist"),
-                    InlineKeyboardButton("Menu ⏯ ", callback_data="cmenu"),
-                ],
-                [
-                    InlineKeyboardButton(text="🎬 YouTube", url=f"{url}"),
-                    InlineKeyboardButton(text="Download 📥", url=f"{dlurl}"),
-                ],
-                [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
+                    InlineKeyboardButton("⏺ Menu", callback_data="cmenu"),
+                    InlineKeyboardButton("🗑 Close", callback_data="ccls")
+                ],[
+                    InlineKeyboardButton("🎧 CHANNEL", url=f"https://t.me/{UPDATES_CHANNEL}")
+                ]
             ]
         )
         requested_by = message.from_user.first_name
@@ -559,7 +556,7 @@ async def play(_, message: Message):
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption=f"#⃣ Your requested song **queued** at position {position}!",
+            caption=f"#⃣  your requested song **queued** at position {position}!",
             reply_markup=keyboard,
         )
         os.remove("final.png")
@@ -577,7 +574,7 @@ async def play(_, message: Message):
         await message.reply_photo(
             photo="final.png",
             reply_markup=keyboard,
-            caption="▶️ **Playing** the song requested by {} via Youtube Music 😜 in Linked Channel".format(
+            caption="🎧 **playing** the song requested by {} via youtube music, in linked channel".format(
                 message.from_user.mention()
             ),
         )
