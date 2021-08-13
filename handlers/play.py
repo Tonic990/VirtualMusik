@@ -19,7 +19,7 @@ from callsmusic.callsmusic import client as USER
 from pyrogram.errors import UserAlreadyParticipant
 from downloaders import youtube
 
-from config import que, DURATION_LIMIT, BOT_USERNAME, UPDATES_CHANNEL, GROUP_SUPPORT, ASSISTANT_NAME
+from config import que, THUMB_IMG, DURATION_LIMIT, BOT_USERNAME, UPDATES_CHANNEL, GROUP_SUPPORT, ASSISTANT_NAME
 from helpers.filters import command, other_filters
 from helpers.decorators import authorized_users_only
 from helpers.gets import get_file_name, get_url
@@ -600,7 +600,7 @@ async def play(_, message: Message):
             while j < 10:
                 toxxt += f"{emojilist[j]} [{results[j]['title'][:25]}](https://youtube.com{results[j]['url_suffix']})\n"
                 toxxt += f" ├ 💡 **Duration** - {results[j]['duration']}\n"
-                toxxt += f" └ ⚡ __Powered by Veez Music AI__\n\n"
+                toxxt += f" └ ⚡ __Powered by {BOT_NAME} AI__\n\n"
                 j += 1            
             keyboard = InlineKeyboardMarkup(
                 [
@@ -633,7 +633,7 @@ async def play(_, message: Message):
 
 
             await message.reply_photo(
-                photo="https://telegra.ph/file/3252a626920cb787295a4.png",
+                photo=f"{THUMB_IMG}",
                 caption=toxxt,
                 reply_markup=keyboard
             )
