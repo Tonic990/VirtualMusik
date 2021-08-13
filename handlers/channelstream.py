@@ -17,7 +17,6 @@ from pyrogram.types import Voice
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtube_search import YoutubeSearch
 from handlers.play import generate_cover
-from handlers.play import arq
 from handlers.play import cb_admin_check
 from handlers.play import transcode
 from handlers.play import convert_seconds
