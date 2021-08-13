@@ -11,7 +11,7 @@ from callsmusic import callsmusic, queues
 import converter
 from downloaders import youtube
 
-from config import BOT_NAME as bn, DURATION_LIMIT, UPDATES_CHANNEL
+from config import BOT_NAME as bn, DURATION_LIMIT, UPDATES_CHANNEL, THUMB_IMG
 from helpers.filters import command, other_filters
 from helpers.decorators import errors
 from helpers.errors import DurationLimitError
@@ -62,9 +62,9 @@ async def stream(_, message: Message):
     else:
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
         await message.reply_photo(
-        photo="https://telegra.ph/file/a4fa687ed647cfef52402.jpg",
+        photo=f"{THUMB_IMG}",
         reply_markup=keyboard,
-        caption="🎧 **Playing** a song by {}!".format(
+        caption="🎧 **playing** a song by {}!".format(
         message.from_user.mention()
         ),
     )
