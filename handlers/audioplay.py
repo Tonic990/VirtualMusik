@@ -11,7 +11,7 @@ from callsmusic import callsmusic, queues
 import converter
 from downloaders import youtube
 
-from config import BOT_NAME as bn, DURATION_LIMIT, UPDATES_CHANNEL, THUMB_IMG
+from config import BOT_NAME as bn, DURATION_LIMIT, UPDATES_CHANNEL, THUMB_IMG, OWNER_NAME
 from helpers.filters import command, other_filters
 from helpers.decorators import errors
 from helpers.errors import DurationLimitError
@@ -31,8 +31,10 @@ async def stream(_, message: Message):
                 [
                     InlineKeyboardButton(
                         text="📣 CHANNEL",
-                        url=f"https://t.me/{UPDATES_CHANNEL}")
-                   
+                        url=f"https://t.me/{UPDATES_CHANNEL}"),
+                    InlineKeyboardButton(
+                        text="👩🏻‍💻 DEV'S",
+                        url=f"https://t.me/{OWNER_NAME}")
                 ]
             ]
         )
@@ -54,17 +56,21 @@ async def stream(_, message: Message):
     elif url:
         file_path = await converter.convert(youtube.download(url))
     else:
-        return await lel.edit_text("❗ you did not give me anything to play!")
+        return await lel.edit_text("❗ you did not give me audio file or yt link to stream!")
 
     if message.chat.id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(message.chat.id, file=file_path)
-        await lel.edit(f"#⃣ **Queued** at position {position}!")
+        await message.reply_photo(
+        photo=f"{THUMB_IMG}",
+        reply_markup=keyboard,
+        caption=f"#⃣  your requested song **queued** at position {position}!")
+        return await lel.delete()
     else:
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
         await message.reply_photo(
         photo=f"{THUMB_IMG}",
         reply_markup=keyboard,
-        caption="🎧 **playing** a song by {}!".format(
+        caption="🎧 **now playing** a song request by {}!".format(
         message.from_user.mention()
         ),
     )
