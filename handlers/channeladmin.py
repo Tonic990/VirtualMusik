@@ -1,5 +1,5 @@
 from asyncio.queues import QueueEmpty
-from config import que, UPDATES_CHANNEL
+from config import que
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
