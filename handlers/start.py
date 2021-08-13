@@ -109,13 +109,13 @@ async def help(client: Client, message: Message):
 @Client.on_message(command("help") & filters.private & ~filters.edited)
 async def help_(client: Client, message: Message):
     await message.reply_text(
-        f"""<b>Hello {message.from_user.mention()}✨
-\n📙 How To Use Me ?
+        f"""<b>Hello {message.from_user.mention()}, welcome to help menu ✨
+\n📙 HOW TO USE ME ?
 \n1. first add me to your group.
 2. promote me as admin and give all permission.
 3. then, add @{ASSISTANT_NAME} to your group or type /userbotjoin.
 3. make sure you turn on the voice chat first before start playing music.
-\n💁🏻‍♀️ **command for all user:**
+\n💁🏻‍♀️ **commands for all user:**
 \n/play (song name) - play song from youtube
 /stream (reply to audio) - play song using audio file
 /playlist - show the list song in queue
@@ -124,7 +124,7 @@ async def help_(client: Client, message: Message):
 /search (video name) - search video from youtube detailed
 /vsong (video name) - download video from youtube detailed
 /vk (song name) - download song from inline mode
-\n👷🏻‍♂️ **command for admins:**
+\n👷🏻‍♂️ **commands for admins:**
 \n/player - open music player settings panel
 /pause - pause the music streaming
 /resume - resume the music was paused
@@ -149,6 +149,8 @@ async def help_(client: Client, message: Message):
 \n/chika - check it by yourself
 /wibu - check it by yourself
 /asupan - check it by yourself
+/truth - check it by yourself
+/dare - check it by yourself
 </b>""",
         reply_markup=InlineKeyboardMarkup(
             [
