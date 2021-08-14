@@ -68,11 +68,10 @@ async def stream(_, message: Message):
         return await lel.delete()
     else:
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
+        costumer = message.from_user.mention
         await message.reply_photo(
         photo=f"{AUD_IMG}",
         reply_markup=keyboard,
-        caption=f"🎧 **now playing** a song requested by {}!\n\n⚡ Powered by {bn}".format(
-        message.from_user.mention()
-        ),
-    )
+        caption=f"🎧 **now playing** a song requested by {}!\n\n⚡ Powered by {bn}"),
+        )
         return await lel.delete()
