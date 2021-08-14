@@ -13,6 +13,7 @@ BOT_NAME = getenv("BOT_NAME", "Veez Music")
 BG_IMAGE = getenv("BG_IMAGE", "https://telegra.ph/file/d91623e9cefcef8fb3aa8.png")
 THUMB_IMG = getenv("THUMB_IMG", "https://telegra.ph/file/9dd2e33db6b44b8417e75.png")
 AUD_IMG = getenv("AUD_IMG", "https://telegra.ph/file/49342251174d89e1a671e.png")
+QUE_IMG = getenv("QUE_IMG", "https://telegra.ph/file/5c4e60fc17c45d56f39e8.png")
 admins = {}
 API_ID = int(getenv("API_ID"))
 API_HASH = getenv("API_HASH")
