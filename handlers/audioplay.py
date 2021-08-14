@@ -1,4 +1,5 @@
-# this module i created only for playing music using audio file, idk, because the audio player on play.py module not working so this is the alternative
+# this module i created only for playing music using audio file, idk, because the audio player on play.py module not working
+# so this is the alternative
 # audio play function
 
 from os import path
@@ -11,7 +12,7 @@ from callsmusic import callsmusic, queues
 import converter
 from downloaders import youtube
 
-from config import BOT_NAME as bn, DURATION_LIMIT, UPDATES_CHANNEL, AUD_IMG, QUE_IMG, OWNER_NAME
+from config import BOT_NAME as bn, DURATION_LIMIT, UPDATES_CHANNEL, AUD_IMG, QUE_IMG, GROUP_SUPPORT
 from helpers.filters import command, other_filters
 from helpers.decorators import errors
 from helpers.errors import DurationLimitError
@@ -30,11 +31,11 @@ async def stream(_, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        text="📣 CHANNEL",
-                        url=f"https://t.me/{UPDATES_CHANNEL}"),
+                        text="✨ ɢʀᴏᴜᴘ",
+                        url=f"https://t.me/{GROUP_SUPPORT}"),
                     InlineKeyboardButton(
-                        text="👩🏻‍💻 DEV'S",
-                        url=f"https://t.me/{OWNER_NAME}")
+                        text="🌻 ᴄʜᴀɴɴᴇʟ",
+                        url=f"https://t.me/{UPDATES_CHANNEL}")
                 ]
             ]
         )
@@ -63,14 +64,14 @@ async def stream(_, message: Message):
         await message.reply_photo(
         photo=f"{QUE_IMG}",
         reply_markup=keyboard,
-        caption=f"#⃣  your requested song was added to **queue** at position {position}!")
+        caption=f"#⃣  your requested song was added to **queue** at position {position}!\n\n⚡ Powered by {bn}")
         return await lel.delete()
     else:
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
         await message.reply_photo(
         photo=f"{AUD_IMG}",
         reply_markup=keyboard,
-        caption="🎧 **now playing** a song requested by {}!".format(
+        caption=f"🎧 **now playing** a song requested by {}!\n\n⚡ Powered by {bn}".format(
         message.from_user.mention()
         ),
     )
