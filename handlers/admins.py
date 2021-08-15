@@ -58,7 +58,7 @@ async def resume(_, message: Message):
 async def stop(_, message: Message):
     chat_id = get_chat_id(message.chat)
     if chat_id not in callsmusic.pytgcalls.active_calls:
-        await message.reply_text("❗ nothing is streaming!")
+        await message.reply_text("❗ nothing in streaming!")
     else:
         try:
             queues.clear(chat_id)
@@ -106,3 +106,35 @@ async def admincache(client, message: Message):
         ],
     )
     await message.reply_text("✅ admin cache cleared!")
+
+
+@Client.on_message(filters.command("auth"))
+@authorized_users_only
+async def authenticate(client, message):
+    global admins
+    if not message.reply_to_message:
+        await message.reply("reply to message to authorize user!")
+        return
+    if message.reply_to_message.from_user.id not in admins[message.chat.id]:
+        new_admins = admins[message.chat.id]
+        new_admins.append(message.reply_to_message.from_user.id)
+        admins[message.chat.id] = new_admins
+        await message.reply("🟢 user authorized.")
+    else:
+        await message.reply("✅ user already authorized!")
+
+
+@Client.on_message(filters.command("deauth"))
+@authorized_users_only
+async def deautenticate(client, message):
+    global admins
+    if not message.reply_to_message:
+        await message.reply("reply to message to deauthorize user!")
+        return
+    if message.reply_to_message.from_user.id in admins[message.chat.id]:
+        new_admins = admins[message.chat.id]
+        new_admins.remove(message.reply_to_message.from_user.id)
+        admins[message.chat.id] = new_admins
+        await message.reply("🔴 user deauthorized")
+    else:
+        await message.reply("✅ user already deauthorized!")
