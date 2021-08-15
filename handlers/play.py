@@ -504,39 +504,7 @@ async def play(_, message: Message):
     user_id = message.from_user.id
     user_name = message.from_user.first_name
     rpk = "[" + user_name + "](tg://user?id=" + str(user_id) + ")"
-    audio = (
-        (message.reply_to_message.audio or message.reply_to_message.voice)
-        if message.reply_to_message
-        else None
-    )
-    if audio:
-        if round(audio.duration / 60) > DURATION_LIMIT:
-            raise DurationLimitError(
-                f"❌ **lagu dengan durasi lebih dari** `{DURATION_LIMIT}` **menit tidak dapat diputar!**"
-            )
-        keyboard = InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton("⏺ Menu", callback_data="menu"),
-                    InlineKeyboardButton("🗑 Close", callback_data="cls"),
-                ],[
-                    InlineKeyboardButton("📣 CHANNEL", url=f"https://t.me/{UPDATES_CHANNEL}")
-                ],
-            ]
-        )
-        file_name = get_file_name(audio)
-        title = file_name
-        thumb_name = "https://telegra.ph/file/fa2cdb8a14a26950da711.png"
-        thumbnail = thumb_name
-        duration = round(audio.duration / 60)
-        views = "Locally added"
-        requested_by = message.from_user.first_name
-        await generate_cover(requested_by, title, views, duration, thumbnail)
-        file_path = await converter.convert(
-            (await message.reply_to_message.download(file_name))
-            if not path.isfile(path.join("downloads", file_name))
-            else file_name
-        )
+    
     elif urls:
         query = toxt
         await lel.edit("🎵 **processing song...**")
