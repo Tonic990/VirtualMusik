@@ -96,7 +96,7 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("etc/font.otf", 60)
-    draw.text((40, 550), f"Playing here...", (0, 0, 0), font=font)
+    draw.text((40, 550), f"Playing here....", (0, 0, 0), font=font)
     draw.text((40, 630),
         f"{title}",
         (0, 0, 0),
@@ -585,7 +585,7 @@ async def play(_, message: Message):
         try:
           results = YoutubeSearch(query, max_results=6).to_dict()
         except:
-          await lel.edit("**anda tidak memberikan judul lagu apapun !**")
+          await lel.edit("**please give a song name you want to play !**")
         # veez project
         try:
             toxxt = "⚡ __choose a song to play:__\n\n"
@@ -628,7 +628,7 @@ async def play(_, message: Message):
             return
             # veez project
         except:
-            await lel.edit("__no more results, starting to playing...__")
+            await lel.edit("__no more results to choose, starting to playing...__")
                         
             # print(results)
             try:
@@ -673,8 +673,8 @@ async def play(_, message: Message):
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption=f"🏷 **Judul:** [{title[:30]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Antrian Ke `{position}`\n" \
-                   +f"🎧 **Permintaan:** {message.from_user.mention}",
+            caption=f"🏷 **Title:** [{title[:30]}]({url})\n⏱ **Duration:** {duration}\n💡 **Status:** Queued position `{position}`\n" \
+                   +f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard
         )
        
@@ -690,12 +690,12 @@ async def play(_, message: Message):
         try:
             callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         except:
-            message.reply("**voice chat group tidak aktif, tidak dapat memutar lagu.**")
+            message.reply("**voice chat group not active, can't play a song.**")
             return
         await message.reply_photo(
             photo="final.png",
-            caption=f"🏷 **Judul:** [{title[:30]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** `Sedang Memutar`\n" \
-                   +f"🎧 **Permintaan:** {message.from_user.mention}",
+            caption=f"🏷 **Title:** [{title[:30]}]({url})\n⏱ **Duration:** {duration}\n💡 **Status:** `Playing`\n" \
+                   +f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard
         )
         os.remove("final.png")
@@ -713,7 +713,7 @@ async def lol_cb(b, cb):
         return
     useer_id = int(useer_id)
     if cb.from_user.id != useer_id:
-        await cb.answer("anda bukan orang yang meminta untuk memutar lagu ini!", show_alert=True)
+        await cb.answer("you are not people who requested this song!", show_alert=True)
         return
     #await cb.message.edit("🔁 **processing...**")
     x=int(x)
@@ -774,8 +774,8 @@ async def lol_cb(b, cb):
         await cb.message.delete()
         await b.send_photo(chat_id,
         photo="final.png",
-        caption=f"🏷 **Judul:** [{title[:25]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** Antrian Ke `{position}`\n" \
-               +f"🎧 **Permintaan:** {r_by.mention}",
+        caption=f"🏷 **Title:** [{title[:25]}]({url})\n⏱ **Duration:** {duration}\n💡 **Status:** Queued position `{position}`\n" \
+               +f"🎧 **Request by:** {r_by.mention}",
         reply_markup=keyboard,
         )
         os.remove("final.png")
@@ -794,8 +794,8 @@ async def lol_cb(b, cb):
         await cb.message.delete()
         await b.send_photo(chat_id,
         photo="final.png",
-        caption=f"🏷 **Judul:** [{title[:25]}]({url})\n⏱ **Durasi:** {duration}\n💡 **Status:** `Sedang Memutar`\n" \
-               +f"🎧 **Permintaan:** {r_by.mention}",
+        caption=f"🏷 **Title:** [{title[:25]}]({url})\n⏱ **Duration:** {duration}\n💡 **Status:** `Playing`\n" \
+               +f"🎧 **Request by:** {r_by.mention}",
         reply_markup=keyboard,
         )
         os.remove("final.png")
