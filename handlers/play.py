@@ -673,8 +673,8 @@ async def play(_, message: Message):
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption=f"💡 **Track added to the queue**\n\n🏷 **Name:** [{title[:30]}]({url})\n⏱ **Duration:** `{duration}`\n🔢 **Position:** »`{position}`\n" \
-                   +f"🎧 **Request by:** {message.from_user.mention}",
+            caption=f"💡 **Track added to the queue**\n\n🏷 **Name:** [{title[:30]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}\n" \
+                   +f"🔢 **At Position:** » `{position}` «",
             reply_markup=keyboard
         )
        
@@ -774,8 +774,8 @@ async def lol_cb(b, cb):
         await cb.message.delete()
         await b.send_photo(chat_id,
         photo="final.png",
-        caption=f"💡 **Track added to the queue**\n\n🏷 **Name:** [{title[:25]}]({url})\n⏱ **Duration:** `{duration}`\n🔢 **Position:** »`{position}`\n" \
-               +f"🎧 **Request by:** {r_by.mention}",
+        caption=f"💡 **Track added to the queue**\n\n🏷 **Name:** [{title[:25]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {r_by.mention}\n" \
+               +f"🔢 **At Position:** » `{position}` «",
         reply_markup=keyboard,
         )
         os.remove("final.png")
