@@ -30,14 +30,14 @@
             "value": "veezasisstant"
         },
         "BG_IMAGE": {
-            "description": "fill with your link costum background image",
+            "description": "fill with your costum background image link",
             "required": false,
-            "value": "https://telegra.ph/file/d91623e9cefcef8fb3aa8.png"
+            "value": "https://telegra.ph/file/20147c4f049e2c1f2f248.png"
         },
         "THUMB_IMG": {
             "description": "fill with costum thumbnail image it's different with bg_image",
             "required": false,
-            "value": "https://telegra.ph/file/14500969a4b584d1cd672.png"
+            "value": "https://telegra.ph/file/6809135960af808e931b9.png"
         },
         "OWNER_NAME": {
             "description": "fill with your username without @",
@@ -53,11 +53,11 @@
             "required": true
         },
         "SUDO_USERS": {
-            "description": "list id untuk daftar anggota sudo (pisahkan dengan spasi).",
+            "description": "fill with the user id who can access all function in your bot (separate with space).",
             "required": true
         },
         "DURATION_LIMIT": {
-            "description": "max durasi untuk video yang diunduh (dalam menit).",
+            "description": "max duration for video to download (in minutes).",
             "required": true,
             "value": "15"
         },
@@ -67,14 +67,14 @@
             "value": "ENABLE"
         },
         "UPDATES_CHANNEL": {
-            "description": "isi dengan username channel kamu, jika tidak punya lewati saja",
+            "description": "if you have channel fill the channel username here without @",
             "required": false,
             "value": "levinachannel"
         },
         "GROUP_SUPPORT": {
-            "description": "isi dengan username grup kamu, jika tidak punya skip saja",
+            "description": "if you have group fill the group username here without @",
             "required": false,
-            "value": "gcsupportbots"
+            "value": "VeezSupportGroup"
         }
     },
     "buildpacks": [
