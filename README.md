@@ -1,6 +1,9 @@
 <h2 align="centre">🎶 Veez Music Bot</h2>
 
-### Music bot for playing music on telegram voice chat group.
+### Veez Music Project is a bot for playing music on telegram voice chat group.
+
+### POWERED BY [PYTGCALLS](https://github.com/pytgcalls/pytgcalls) ⚡
+
 <p align="center"><a href="https://t.me/VeezMusicBot"><img src="https://telegra.ph/file/8bf3d62837cb59c3f8e7f.png" width="300"></a></p>
 <p align="center">
     <a href="https://www.python.org/" alt="made-with-python"> <img src="https://img.shields.io/badge/Made%20with-Python-black.svg?style=flat-square&logo=python&logoColor=blue&color=red" /></a>
@@ -24,6 +27,19 @@
 
 [![GenerateString](https://img.shields.io/badge/repl.it-generateString-yellowgreen)](https://replit.com/@levinalab/StringSession#main.py)
 
+## Features 🔮
+
+- Thumbnail Support
+- Playlist Support
+- Showing track names when skipping
+- Youtube, Local playback support
+- Settings panel
+- Control with buttons
+- Userbot auto join
+- Channel Music Play
+- Keyboard selection support for youtube play
+- Lyrics Scrapper
+- Unlimited Queue
 
 ## Commands 🛠
 
