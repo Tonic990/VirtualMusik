@@ -172,16 +172,6 @@ def r_ply(type_):
     return mar
 
 
-@Client.on_message(command(["current", f"current@{BOT_USERNAME}"]) & filters.group & ~filters.edited)
-async def ee(client, message):
-    queue = que.get(message.chat.id)
-    stats = updated_stats(message.chat, queue)
-    if stats:
-        await message.reply(stats)              
-    else:
-        await message.reply("**turn on the voice chat first!**")
-
-
 @Client.on_message(command(["player", f"player@{BOT_USERNAME}"]) & filters.group & ~filters.edited)
 @authorized_users_only
 async def settings(client, message):
@@ -201,7 +191,7 @@ async def settings(client, message):
 
 
 @Client.on_message(
-    filters.command("musicplayer") & ~filters.edited & ~filters.bot & ~filters.private
+    command("musicplayer") & ~filters.edited & ~filters.bot & ~filters.private
 )
 @authorized_users_only
 async def hfmm(_, message):
@@ -485,8 +475,9 @@ async def play(_, message: Message):
         )
         return
     text_links=None
-    await lel.edit("🔎 **finding song...**")
     if message.reply_to_message:
+        if message.reply_to_message.audio or message.reply_to_message.voice:
+            pass
         entities = []
         toxt = message.reply_to_message.text or message.reply_to_message.caption
         if message.reply_to_message.entities:
@@ -539,7 +530,7 @@ async def play(_, message: Message):
         )
     elif urls:
         query = toxt
-        await lel.edit("🎵 **processing song...**")
+        await lel.edit("🔎 **finding song...**")
         ydl_opts = {"format": "bestaudio[ext=m4a]"}
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
@@ -579,7 +570,6 @@ async def play(_, message: Message):
         for i in message.command[1:]:
             query += " " + str(i)
         print(query)
-        await lel.edit("🎵 **processing song...**")
         ydl_opts = {"format": "bestaudio[ext=m4a]"}
         
         try:
@@ -614,9 +604,6 @@ async def play(_, message: Message):
                     [InlineKeyboardButton(text="🗑 Close", callback_data="cls")],
                 ]
             )
-
-
-
             await message.reply_photo(
                 photo=f"{THUMB_IMG}",
                 caption=toxxt,
@@ -677,7 +664,6 @@ async def play(_, message: Message):
                    +f"🔢 **At Position:** » `{position}` «",
             reply_markup=keyboard
         )
-       
     else:
         chat_id = get_chat_id(message.chat)
         que[chat_id] = []
@@ -700,6 +686,8 @@ async def play(_, message: Message):
         )
         os.remove("final.png")
         return await lel.delete()
+
+
 @Client.on_callback_query(filters.regex(pattern=r"plll"))
 async def lol_cb(b, cb):
     global que
@@ -772,7 +760,8 @@ async def lol_cb(b, cb):
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         await cb.message.delete()
-        await b.send_photo(chat_id,
+        await b.send_photo(
+        chat_id,
         photo="final.png",
         caption=f"💡 **Track added to the queue**\n\n🏷 **Name:** [{title[:35]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {r_by.mention}\n" \
                +f"🔢 **At Position:** » `{position}` «",
@@ -792,7 +781,8 @@ async def lol_cb(b, cb):
         qeue.append(appendable)
         callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         await cb.message.delete()
-        await b.send_photo(chat_id,
+        await b.send_photo(
+        chat_id,
         photo="final.png",
         caption=f"🏷 **Name:** [{title[:35]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
                +f"🎧 **Request by:** {r_by.mention}",
