@@ -120,20 +120,30 @@ async def playlist(client, message):
         temp.append(t)
     now_playing = temp[0][0]
     by = temp[0][1].mention(style="md")
-    msg = "**Lagu Yang Sedang dimainkan** di {}".format(message.chat.title)
+    msg = "**Now playing** on {}".format(message.chat.title)
     msg += "\n• "+ now_playing
-    msg += "\n• Atas permintaan "+by
+    msg += "\n• Requested By "+by
     temp.pop(0)
     if temp:
         msg += "\n\n"
-        msg += "**Antrian Lagu**"
+        msg += "**Queued Song**"
         for song in temp:
             name = song[0]
             usr = song[1].mention(style="md")
             msg += f"\n• {name}"
-            msg += f"\n• Atas permintaan {usr}\n"
-    await message.reply_text(msg)
-
+            msg += f"\n• Requested by {usr}\n"
+            button=InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton(
+                            "💡 Group", url=f"https://t.me/{GROUP_SUPPORT}"),
+                        InlineKeyboardButton(
+                            "📣 Channel", url=f"https://t.me/{UPDATES_CHANNEL}")
+                    ]
+                ]
+            )
+            await message.reply_text(msg, reply_markup=button)
+                            
 # ============================= Settings =========================================
 def updated_stats(chat, queue, vol=100):
     if chat.id in callsmusic.pytgcalls.active_calls:
