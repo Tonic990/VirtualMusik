@@ -224,7 +224,7 @@ async def hfmm(_, message):
             return
         DISABLED_GROUPS.remove(message.chat.id)
         await lel.edit(
-            f"✅ **music player has been activated in this chat.** {message.chat.id}"
+            f"✅ **music player has been activated in this chat.**\n\n💬 {message.chat.id}"
         )
 
     elif status == "OFF" or status == "off" or status == "Off":
@@ -235,7 +235,7 @@ async def hfmm(_, message):
             return
         DISABLED_GROUPS.append(message.chat.id)
         await lel.edit(
-            f"✅ **music player has been deactivated in this chat.** {message.chat.id}"
+            f"✅ **music player has been deactivated in this chat.**\n\n💬 {message.chat.id}"
         )
     else:
         await message.reply_text(
@@ -556,7 +556,7 @@ async def play(_, message: Message):
             views = results[0]["views"]
         except Exception as e:
             await lel.edit(
-                "**❌ song not found.** please give a valid song name."
+                "😕 **Sorry, we couldn't find your requested song**\n• Check that the name is correct or try by searching in inline mode."
             )
             print(str(e))
             return
@@ -670,8 +670,8 @@ async def play(_, message: Message):
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption=f"💡 **Track added to the queue**\n\n🏷 **Name:** [{title[:35]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}\n" \
-                   +f"🔢 **At Position:** » `{position}` «",
+            caption=f"💡 **Track added to the queue**\n\n🏷 **Name:** [{title[:40]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}\n" \
+                   +f"\n🔢 **Track Position:** » `{position}` «",
             reply_markup=keyboard
         )
     else:
@@ -690,7 +690,7 @@ async def play(_, message: Message):
             return
         await message.reply_photo(
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:35]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
+            caption=f"🏷 **Name:** [{title[:40]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
                    +f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard
         )
@@ -711,7 +711,7 @@ async def lol_cb(b, cb):
         return
     useer_id = int(useer_id)
     if cb.from_user.id != useer_id:
-        await cb.answer("you are not people who requested this song!", show_alert=True)
+        await cb.answer("you are not people who requested this song !", show_alert=True)
         return
     #await cb.message.edit("🔁 **processing...**")
     x=int(x)
@@ -773,8 +773,8 @@ async def lol_cb(b, cb):
         await b.send_photo(
         chat_id,
         photo="final.png",
-        caption=f"💡 **Track added to the queue**\n\n🏷 **Name:** [{title[:35]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {r_by.mention}\n" \
-               +f"🔢 **At Position:** » `{position}` «",
+        caption=f"💡 **Track added to the queue**\n\n🏷 **Name:** [{title[:40]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {r_by.mention}\n" \
+               +f"\n🔢 **Track Position:** » `{position}` «",
         reply_markup=keyboard,
         )
         os.remove("final.png")
@@ -794,7 +794,7 @@ async def lol_cb(b, cb):
         await b.send_photo(
         chat_id,
         photo="final.png",
-        caption=f"🏷 **Name:** [{title[:35]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
+        caption=f"🏷 **Name:** [{title[:40]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
                +f"🎧 **Request by:** {r_by.mention}",
         reply_markup=keyboard,
         )
