@@ -88,7 +88,7 @@ For deployment on railway you can see the full of [Necessary Variables Here](htt
 - [Tofik](https://github.com/tofikdn): Dev
 - [Mr.Zxce3](https://github.com/Zxce3): Dev
 - [Laky](https://github.com/Laky-64) & [Andrew](https://github.com/AndrewLaneX): PyTgCalls
-- [Original Repo](https://github.com/suprojects/CallsMusic)
+- [Original Repo](https://github.com/callsmusic/callsmusic) CallsMusic
 - [Veez Music Bot](https://t.me/veezmusicbot) Our Music Bot
 - [RojSerBest](https://github.com/rojserbest) CallsMusic Developer
 
