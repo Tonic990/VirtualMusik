@@ -24,6 +24,7 @@ from helpers.filters import command, other_filters
 from helpers.decorators import authorized_users_only
 from helpers.gets import get_file_name, get_url
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, Voice
+from converter.converter import convert
 from cache.admins import admins as a
 from PIL import Image, ImageFont, ImageDraw
 
