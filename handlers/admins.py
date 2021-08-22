@@ -107,7 +107,7 @@ async def authenticate(client, message):
         new_admins = admins[message.chat.id]
         new_admins.append(message.reply_to_message.from_user.id)
         admins[message.chat.id] = new_admins
-        await message.reply("user authorized.")
+        await message.reply("🟢 user authorized.\n\nfrom now on, that's user can use the admin commands.")
     else:
         await message.reply("✅ user already authorized!")
 
@@ -123,6 +123,6 @@ async def deautenticate(client, message):
         new_admins = admins[message.chat.id]
         new_admins.remove(message.reply_to_message.from_user.id)
         admins[message.chat.id] = new_admins
-        await message.reply("user deauthorized")
+        await message.reply("🔴 user deauthorized.\n\nfrom now that's user can't use the admin commands.")
     else:
         await message.reply("✅ user already deauthorized!")
