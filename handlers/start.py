@@ -94,7 +94,7 @@ async def start(client: Client, message: Message):
 @Client.on_message(command(["help", f"help@{BOT_USERNAME}"]) & filters.group & ~filters.edited)
 async def help(client: Client, message: Message):
     await message.reply_text(
-        f"""<b>👋🏻 Hello {message.from_user.mention()}, please tap the button below to see the help message you can read for using this bot</b>""",
+        f"""<b>👋🏻 **Hello** {message.from_user.mention()}, **please tap the button below to see the help message you can read for using this bot**</b>""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -117,6 +117,7 @@ async def help_(client: Client, message: Message):
 3. make sure you turn on the voice chat first before start playing music.
 \n💁🏻‍♀️ **commands for all user:**
 \n/play (song name) - play song from youtube
+/ytp (song name) - play song from youtube directly
 /stream (reply to audio) - play song using audio file
 /playlist - show the list song in queue
 /song (song name) - download song from youtube
