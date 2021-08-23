@@ -18,7 +18,7 @@ from pyrogram.types import Message
 from youtube_search import YoutubeSearch
 from youtubesearchpython import SearchVideos
 
-from config import DURATION_LIMIT, BOT_USERNAME as bn
+from DaisyXMusic.config import DURATION_LIMIT, BOT_USERNAME as bn
 
 
 @Client.on_message(filters.command("song") & ~filters.channel)
@@ -82,7 +82,7 @@ def song(client, message):
     except Exception as e:
         print(e)
 
-
+        
 def get_text(message: Message) -> [None, str]:
     text_to_return = message.text
     if message.text is None:
@@ -226,7 +226,6 @@ def get_file_extension_from_url(url):
     return basename.split(".")[-1]
 
 
-# Funtion To Download Song
 async def download_song(url):
     song_name = f"{randint(6969, 6999)}.mp3"
     async with aiohttp.ClientSession() as session:
@@ -321,7 +320,7 @@ async def ytmusic(client, message: Message):
         progress_args=(
             pablo,
             c_time,
-            f"`uploading {urlissed} song from youtube music!`",
+            f"`📤 Uploading {urlissed} song from youtube music!`",
             file_stark,
         ),
     )
