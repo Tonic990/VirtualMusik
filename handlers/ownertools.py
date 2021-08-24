@@ -45,7 +45,7 @@ async def broadcast_handler_open(_, m: Message):
 
 
 # Ban User
-@Client.on_message(filters.private & filters.command("ban") & filters.user(OWNER_ID))
+@Client.on_message(filters.private & filters.command("block") & filters.user(OWNER_ID))
 async def ban(c: Client, m: Message):
     if len(m.command) == 1:
         await m.reply_text(
@@ -82,7 +82,7 @@ async def ban(c: Client, m: Message):
 
 
 # Unban User
-@Client.on_message(filters.private & filters.command("unban") & filters.user(OWNER_ID))
+@Client.on_message(filters.private & filters.command("unblock") & filters.user(OWNER_ID))
 async def unban(c: Client, m: Message):
     if len(m.command) == 1:
         await m.reply_text(
@@ -92,7 +92,7 @@ async def unban(c: Client, m: Message):
         return
     try:
         user_id = int(m.command[1])
-        unban_log_text = f"`unbanning user...` /n**user id:**{user_id}"
+        unban_log_text = f"`unbanning user...` \n**user id:**{user_id}"
         try:
             await c.send_message(
                 user_id,
@@ -117,7 +117,7 @@ async def unban(c: Client, m: Message):
 
 
 # Banned User List
-@Client.on_message(filters.private & filters.command("banlist") & filters.user(OWNER_ID))
+@Client.on_message(filters.private & filters.command("blocklist") & filters.user(OWNER_ID))
 async def _banned_usrs(_, m: Message):
     all_banned_users = await db.get_all_banned_users()
     banned_usr_count = 0
