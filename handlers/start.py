@@ -126,7 +126,7 @@ async def help_(client: Client, message: Message):
 /lyric - (song name) lyrics scrapper
 /vk (song name) - download song from inline mode
 \n👷🏻‍♂️ **commands for admins:**
-\n/player - open music player settings panel
+\n/player - show the music playing status
 /pause - pause the music streaming
 /resume - resume the music was paused
 /skip - skip to the next song
@@ -136,6 +136,7 @@ async def help_(client: Client, message: Message):
 /cache - for cleared admin cache
 /auth - authorized user for using music bot
 /deauth - unauthorized for using music bot
+/control - open the player settings panel
 /delcmd (on | off) - enable / disable del cmd feature
 /musicplayer (on / off) - disable / enable music player in your group
 \n🎧 channel streaming commands:
