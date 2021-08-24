@@ -17,7 +17,7 @@ from callsmusic.callsmusic import client as pakaya
 from helpers.database import db
 from helpers.dbtools import main_broadcast_handler
 from handlers.song import humanbytes, get_text
-from config import BOT_USERNAME, OWNER_NAME, SUDO_USERS, GROUP_SUPPORT
+from config import BOT_USERNAME, OWNER_ID, SUDO_USERS, GROUP_SUPPORT
 
 
 # Stats Of Your Bot
@@ -39,13 +39,13 @@ async def botstats(_, message: Message):
 
 
 
-@Client.on_message(filters.private & filters.command("broadcast") & filters.user(OWNER_NAME) & filters.reply)
+@Client.on_message(filters.private & filters.command("broadcast") & filters.user(OWNER_ID) & filters.reply)
 async def broadcast_handler_open(_, m: Message):
     await main_broadcast_handler(m, db)
 
 
 # Ban User
-@Client.on_message(filters.private & filters.command("ban") & filters.user(OWNER_NAME))
+@Client.on_message(filters.private & filters.command("ban") & filters.user(OWNER_ID))
 async def ban(c: Client, m: Message):
     if len(m.command) == 1:
         await m.reply_text(
@@ -82,7 +82,7 @@ async def ban(c: Client, m: Message):
 
 
 # Unban User
-@Client.on_message(filters.private & filters.command("unban") & filters.user(OWNER_NAME))
+@Client.on_message(filters.private & filters.command("unban") & filters.user(OWNER_ID))
 async def unban(c: Client, m: Message):
     if len(m.command) == 1:
         await m.reply_text(
@@ -117,7 +117,7 @@ async def unban(c: Client, m: Message):
 
 
 # Banned User List
-@Client.on_message(filters.private & filters.command("banlist") & filters.user(OWNER_NAME))
+@Client.on_message(filters.private & filters.command("banlist") & filters.user(OWNER_ID))
 async def _banned_usrs(_, m: Message):
     all_banned_users = await db.get_all_banned_users()
     banned_usr_count = 0
