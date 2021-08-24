@@ -152,7 +152,7 @@ async def help_(client: Client, message: Message):
 /stats - show the bot statistic
 \n👨🏻‍✈️ owner only:
 \n/broadcast - send a broadcast message from bot
-/block (user id - reason) - block user for using your bot
+/block (user id - duration - reason) - block user for using your bot
 /unblock (user id - reason) - unblock user you blocked for using your bot
 /blocklist - show you the list of user was blocked for using your bot
 \n🎊 **commands for fun:**
