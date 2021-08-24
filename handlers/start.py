@@ -138,6 +138,8 @@ async def help_(client: Client, message: Message):
 /deauth - unauthorized for using music bot
 /control - open the player settings panel
 /delcmd (on | off) - enable / disable del cmd feature
+/silent - mute the music player on voice chat
+/unsilent - unmute the music player on voice chat
 /musicplayer (on / off) - disable / enable music player in your group
 \n🎧 channel streaming commands:
 \n/cplay - stream music on channel voice chat
