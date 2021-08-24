@@ -136,6 +136,7 @@ async def help_(client: Client, message: Message):
 /cache - for cleared admin cache
 /auth - authorized user for using music bot
 /deauth - unauthorized for using music bot
+/delcmd (on | off) - enable / disable del cmd feature
 /musicplayer (on / off) - disable / enable music player in your group
 \n🎧 channel streaming commands:
 \n/cplay - stream music on channel voice chat
@@ -148,12 +149,19 @@ async def help_(client: Client, message: Message):
 \n🧙‍♂️ command for sudo users:
 \n/userbotleaveall - order the assistant to leave from all group
 /gcast - send a broadcast message trought the assistant
+/stats - show the bot statistic
+\n👨🏻‍✈️ owner only:
+\n/broadcast - send a broadcast message from bot
+/block (user id - reason) - block user for using your bot
+/unblock (user id - reason) - unblock user you blocked for using your bot
+/blocklist - show you the list of user was blocked for using your bot
 \n🎊 **commands for fun:**
 \n/chika - check it by yourself
 /wibu - check it by yourself
 /asupan - check it by yourself
 /truth - check it by yourself
 /dare - check it by yourself
+\n💡 version 0.6.5 (latest)
 </b>""",
         reply_markup=InlineKeyboardMarkup(
             [
