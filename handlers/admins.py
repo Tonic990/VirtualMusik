@@ -76,6 +76,11 @@ async def controlset(_, message: Message):
                     InlineKeyboardButton(
                         "🔊 unmute player", callback_data="cbunmute"
                     )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "🗑 del cmd", callback_data="cbdelcmds"
+                    )
                 ]
             ]
         )
