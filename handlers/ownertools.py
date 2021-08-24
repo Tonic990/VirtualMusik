@@ -44,31 +44,6 @@ async def broadcast_handler_open(_, m: Message):
     await main_broadcast_handler(m, db)
 
 
-@Client.on_message(filters.command(["chatcast"]))
-async def chatcast(_, message: Message):
-    sent=0
-    failed=0
-    if message.from_user.id not in SUDO_USERS:
-        await message.reply("this is not for you !")
-        return
-    else:
-        wtf = await message.reply("`starting a chatcast...`")
-        if not message.reply_to_message:
-            await wtf.edit("reply to a message to do chat cast!")
-            return
-        lmao = message.reply_to_message.text
-        async for dialog in pakaya.iter_dialogs():
-            try:
-                await pakaya.send_message(dialog.chat.id, lmao)
-                sent = sent+1
-                await wtf.edit(f"`Casting...` \n\n**Sent to:** `{sent}` Chats \n**Failed in:** {failed} Chats")
-            except:
-                failed=failed+1
-                await wtf.edit(f"`Casting...` \n\n**Sent to:** `{sent}` Chats \n**Failed in:** {failed} Chats")
-            await asyncio.sleep(3)
-        await message.reply_text(f"✅ `Chat casting finished` \n\n**Sent to:** `{sent}` Chats \n**Failed in:** {failed} Chats")
-
-
 # Ban User
 @Client.on_message(filters.private & filters.command("ban") & filters.user(OWNER_NAME))
 async def ban(c: Client, m: Message):
