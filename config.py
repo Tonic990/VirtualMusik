@@ -25,8 +25,9 @@ OWNER_NAME = getenv("OWNER_NAME", "dlwrml") # isi dengan username kamu tanpa sim
 DEV_NAME = getenv("DEV_NAME", "dlwrml")
 PMPERMIT = getenv("PMPERMIT", None)
 
+OWNER_ID = int(os.environ.get("OWNER_ID")) # fill with your id as the owner of the bot
 DATABASE_URL = os.environ.get("DATABASE_URL") # fill with your mongodb url
-LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL")) # make a private channel and get the id
+LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL")) # make a private channel and get the channel id
 BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False)) # just fill with True or False (optional)
 
 DURATION_LIMIT = int(getenv("DURATION_LIMIT", "60"))
