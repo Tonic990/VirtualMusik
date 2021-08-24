@@ -16,7 +16,12 @@
         },
         "BOT_NAME": {
             "description": "your music bot name.",
-            "required": false,
+            "required": true,
+            "value": ""
+        },
+        "OWNER_ID": {
+            "description": "fill with your telegram id as the owner of the bot",
+            "required": true,
             "value": ""
         },
         "DATABASE_URL": {
@@ -25,7 +30,7 @@
             "value": ""
         },
         "LOG_CHANNEL": {
-            "description": "make a private channel and get the channel id, add your bot as admin to the channel too",
+            "description": "create a private channel and get the channel id, add your bot as admin to the channel too",
             "required": true,
             "value": ""
         },
