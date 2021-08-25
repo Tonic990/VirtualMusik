@@ -26,7 +26,7 @@ async def _(bot: Client, cmd: Message):
 # Back Button
 BACK_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("🏡 BACK", callback_data="cbback")]])
 
-@Client.on_message(~filters.private)
+@Client.on_message(filters.text & ~filters.private)
 async def delcmd(_, message: Message):
     if await delcmd_is_on(message.chat.id) and message.text.startswith("/") or message.text.startswith("!"):
         await message.delete()
