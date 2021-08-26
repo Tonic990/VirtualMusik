@@ -25,7 +25,7 @@ async def cbstart(_, query: CallbackQuery):
                         "❓ How to use Me", callback_data="cbguides")
                 ],[
                     InlineKeyboardButton(
-                         "📚 Commands", callback_data="cbhelp"
+                         "📚 Commands", callback_data="cbhelps"
                     ),
                     InlineKeyboardButton(
                         "💝 Donate", url=f"https://t.me/{OWNER_NAME}")
@@ -52,7 +52,7 @@ async def cbstart(_, query: CallbackQuery):
 @Client.on_callback_query(filters.regex("cbhelp"))
 async def cbhelp(_, query: CallbackQuery):
     await query.edit_message_text(
-        f"""<b>💡 Hello {query.message.from_user.mention} welcome to the help menu !</b>
+        f"""<b>💡 Hello there, welcome to the help menu !</b>
 
 **in this menu you can open several available command menus, in each command menu there is also a brief explanation of each command**
 
@@ -61,28 +61,28 @@ async def cbhelp(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "📚 Basic Commands", callback_data="cbbasic"
+                        "📚 Basic Cmd", callback_data="cbbasic"
                     ),
                     InlineKeyboardButton(
-                        "📕 Advanced Commands", callback_data="cbadvanced"
+                        "📕 Advanced Cmd", callback_data="cbadvanced"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "📘 Admin Commands", callback_data="cbadmin"
+                        "📘 Admin Cmd", callback_data="cbadmin"
                     ),
                     InlineKeyboardButton(
-                        "📗 Sudo Commands", callback_data="cbsudo"
+                        "📗 Sudo Cmd", callback_data="cbsudo"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "📙 Bot Owner Commands", callback_data="cbowner"
+                        "📙 Owner Cmd", callback_data="cbowner"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "📔 Fun Commands", callback_data="cbfun"
+                        "📔 Fun Cmd", callback_data="cbfun"
                     )
                 ]
             ]
@@ -399,7 +399,7 @@ async def cbhelps(_, query: CallbackQuery):
                 ],
                 [
                     InlineKeyboardButton(
-                        "🏡 BACK", callback_data="cbguide"
+                        "🏡 BACK TO HOME", callback_data="cbstart"
                     )
                 ]
             ]
