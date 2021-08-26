@@ -176,8 +176,6 @@ async def cbadmin(_, query: CallbackQuery):
 /deauth - unauthorized for using music bot
 /control - open the player settings panel
 /delcmd (on | off) - enable / disable del cmd feature
-/silent - mute the music player on voice chat
-/unsilent - unmute the music player on voice chat
 /musicplayer (on / off) - disable / enable music player in your group
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
@@ -318,14 +316,6 @@ async def cbback(_, query: CallbackQuery):
                     ),
                     InlineKeyboardButton(
                         "⏹ end music", callback_data="cbend"
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        "🔇 mute player", callback_data="cbmute"
-                    ),
-                    InlineKeyboardButton(
-                        "🔊 unmute player", callback_data="cbunmute"
                     )
                 ],
                 [
