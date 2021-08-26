@@ -88,7 +88,7 @@ async def cbhelp(_, query: CallbackQuery):
                 ],
                 [
                     InlineKeyboardButton(
-                        "🏡 BACK TO HELP", callback_data"cbguide"
+                        "🏡 BACK TO HELP", callback_data="cbguide"
                     )
                 ]
             ]
