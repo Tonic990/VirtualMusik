@@ -248,6 +248,7 @@ async def unsilent(_, message: Message):
 # music player callbacks (control by buttons feature)
 
 @Client.on_callback_query(filters.regex("cbpause"))
+@authorized_users_only
 async def cbpause(_, query: CallbackQuery):
     if callsmusic.pause(query.message.chat.id):
         await query.edit_message_text("⏸ music paused", reply_markup=BACK_BUTTON)
@@ -262,6 +263,7 @@ async def cbresume(_, query: CallbackQuery):
         await query.edit_message_text("❗️ nothing is paused", reply_markup=BACK_BUTTON)
 
 @Client.on_callback_query(filters.regex("cbend"))
+@authorized_users_only
 async def cbend(_, query: CallbackQuery):
     if query.message.chat.id not in callsmusic.active_chats:
         await query.edit_message_text("❗️ nothing is playing", reply_markup=BACK_BUTTON)
@@ -275,6 +277,7 @@ async def cbend(_, query: CallbackQuery):
         await query.edit_message_text("✅ cleared the queue and left the voice chat!", reply_markup=BACK_BUTTON)
 
 @Client.on_callback_query(filters.regex("cbskip"))
+@authorized_users_only
 async def cbskip(_, query: CallbackQuery):
      if query.message.chat.id not in callsmusic.active_chats:
         await query.edit_message_text("❗️ nothing is playing", reply_markup=BACK_BUTTON)
@@ -291,6 +294,7 @@ async def cbskip(_, query: CallbackQuery):
         await query.edit_message_text("⏭ skipped to the next music", reply_markup=BACK_BUTTON)
 
 @Client.on_callback_query(filters.regex("cbmute"))
+@authorized_users_only
 async def cbmute(_, query: CallbackQuery):
     result = callsmusic.mute(query.message.chat.id)
 
@@ -302,6 +306,7 @@ async def cbmute(_, query: CallbackQuery):
         await query.edit_message_text("❗️ not connected to voice chat", reply_markup=BACK_BUTTON)
 
 @Client.on_callback_query(filters.regex("cbunmute"))
+@authorized_users_only
 async def cbunmute(_, query: CallbackQuery):
     result = callsmusic.unmute(query.message.chat.id)
 
