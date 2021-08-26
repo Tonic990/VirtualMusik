@@ -74,7 +74,7 @@
 - `/userbotleaveall` - order the assistant to leave all groups
 - `/gcast` - send a broadcast message from the assistant
 
-### Owner Only
+### Owner Only 👨🏻‍✈️
 - `/broadcast` - send a broadcast message from the bot
 - `/block` - block people for using your bot
 - `/unblock` - unblock people you blocked for using your bot
