@@ -70,14 +70,6 @@ async def controlset(_, message: Message):
                 ],
                 [
                     InlineKeyboardButton(
-                        "🔇 mute player", callback_data="cbmute"
-                    ),
-                    InlineKeyboardButton(
-                        "🔊 unmute player", callback_data="cbunmute"
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
                         "🗑 del cmd", callback_data="cbdelcmds"
                     )
                 ]
@@ -157,7 +149,7 @@ async def skip(_, message: Message):
     await message.reply_text(f"⫸ skipped : **{skip[0]}**\n⫸ now playing : **{qeue[0][0]}**")
 
 
-@Client.on_message(filters.command("auth"))
+@Client.on_message(command("auth") & other_filters)
 @authorized_users_only
 async def authenticate(client, message):
     global admins
@@ -173,7 +165,7 @@ async def authenticate(client, message):
         await message.reply("✅ user already authorized!")
 
 
-@Client.on_message(filters.command("deauth"))
+@Client.on_message(command("deauth") & other_filters)
 @authorized_users_only
 async def deautenticate(client, message):
     global admins
@@ -190,7 +182,7 @@ async def deautenticate(client, message):
 
 
 # this is a anti cmd feature
-@Client.on_message(filters.command(["delcmd", f"delcmd@{BOT_USERNAME}"]) & ~filters.private)
+@Client.on_message(command(["delcmd", f"delcmd@{BOT_USERNAME}"]) & ~filters.private)
 @authorized_users_only
 async def delcmdc(_, message: Message):
     if len(message.command) != 2:
@@ -217,43 +209,20 @@ async def delcmdc(_, message: Message):
         )
 
 
-@Client.on_message(command(["silent", f"silent@{BOT_USERNAME}", "m"]))
-@errors
-@authorized_users_only
-async def silent(_, message: Message):
-    result = callsmusic.mute(message.chat.id)
-
-    if result == 0:
-        await message.reply_text("🔇 assistant muted")
-    elif result == 1:
-        await message.reply_text("✅ assistant already muted")
-    elif result == 2:
-        await message.reply_text("❗️ not connected to voice chat")
-
-
-@Client.on_message(command(["unsilent", f"unsilent@{BOT_USERNAME}", "um"]))
-@errors
-@authorized_users_only
-async def unsilent(_, message: Message):
-    result = callsmusic.unmute(message.chat.id)
-
-    if result == 0:
-        await message.reply_text("🔊 assistant unmuted")
-    elif result == 1:
-        await message.reply_text("✅ assistant already unmuted")
-    elif result == 2:
-        await message.reply_text("❗️ not connected to voice chat")
-
-
 # music player callbacks (control by buttons feature)
 
 @Client.on_callback_query(filters.regex("cbpause"))
 @authorized_users_only
 async def cbpause(_, query: CallbackQuery):
-    if callsmusic.pause(query.message.chat.id):
-        await query.edit_message_text("⏸ music paused", reply_markup=BACK_BUTTON)
-    else:
+    if (
+        query.message.chat.id not in callsmusic.pytgcalls.active_calls
+            ) or (
+                callsmusic.pytgcalls.active_calls[query.message.chat.id] == "paused"
+            ):
         await query.edit_message_text("❗️ nothing is playing", reply_markup=BACK_BUTTON)
+    else:
+        callsmusic.pytgcalls.pause_stream(query.message.chat.id)
+        await query.edit_message_text("⏸ music paused", reply_markup=BACK_BUTTON)
 
 @Client.on_callback_query(filters.regex("cbresume"))
 async def cbresume(_, query: CallbackQuery):
@@ -292,29 +261,5 @@ async def cbskip(_, query: CallbackQuery):
             )
 
         await query.edit_message_text("⏭ skipped to the next music", reply_markup=BACK_BUTTON)
-
-@Client.on_callback_query(filters.regex("cbmute"))
-@authorized_users_only
-async def cbmute(_, query: CallbackQuery):
-    result = callsmusic.mute(query.message.chat.id)
-
-    if result == 0:
-        await query.edit_message_text("🔇 assistant muted", reply_markup=BACK_BUTTON)
-    elif result == 1:
-        await query.edit_message_text("✅ assistant already muted", reply_markup=BACK_BUTTON)
-    elif result == 2:
-        await query.edit_message_text("❗️ not connected to voice chat", reply_markup=BACK_BUTTON)
-
-@Client.on_callback_query(filters.regex("cbunmute"))
-@authorized_users_only
-async def cbunmute(_, query: CallbackQuery):
-    result = callsmusic.unmute(query.message.chat.id)
-
-    if result == 0:
-        await query.edit_message_text("🔊 assistant unmuted", reply_markup=BACK_BUTTON)
-    elif result == 1:
-        await query.edit_message_text("✅ assistant already unmuted", reply_markup=BACK_BUTTON)
-    elif result == 2:
-        await query.edit_message_text("❗️ not connected to voice chat", reply_markup=BACK_BUTTON)
 
 # (C) supun-maduraga for his project on call-music-plus 
