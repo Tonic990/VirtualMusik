@@ -23,10 +23,10 @@ async def cbstart(_, query: CallbackQuery):
                         "➕ Add me to your Group ➕", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")
                 ],[
                     InlineKeyboardButton(
-                        "❓ How to use Me", callback_data="cbguides")
+                        "❓ How to use Me", callback_data="cbhowtouse")
                 ],[
                     InlineKeyboardButton(
-                         "📚 Commands", callback_data="cbhelps"
+                         "📚 Commands", callback_data="cbcmds"
                     ),
                     InlineKeyboardButton(
                         "💝 Donate", url=f"https://t.me/{OWNER_NAME}")
@@ -84,6 +84,11 @@ async def cbhelp(_, query: CallbackQuery):
                 [
                     InlineKeyboardButton(
                         "📔 Fun Cmd", callback_data="cbfun"
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "🏡 BACK TO HELP", callback_data"cbguide"
                     )
                 ]
             ]
@@ -275,7 +280,7 @@ async def cbguide(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "📚 Command List", callback_data="cbhelps"
+                        "📚 Command List", callback_data="cbhelp"
                     )
                 ],
                 [
@@ -363,10 +368,10 @@ async def cbdelcmds(_, query: CallbackQuery):
     )
 
 
-@Client.on_callback_query(filters.regex("cbhelps"))
+@Client.on_callback_query(filters.regex("cbcmds"))
 async def cbhelps(_, query: CallbackQuery):
     await query.edit_message_text(
-        f"""<b>💡 Hello {query.message.from_user.mention} welcome to the help menu !</b>
+        f"""<b>💡 Hello there, welcome to the help menu !</b>
 
 **in this menu you can open several available command menus, in each command menu there is also a brief explanation of each command**
 
@@ -375,28 +380,28 @@ async def cbhelps(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "📚 Basic Commands", callback_data="cbbasic"
+                        "📚 Basic Cmd", callback_data="cbbasic"
                     ),
                     InlineKeyboardButton(
-                        "📕 Advanced Commands", callback_data="cbadvanced"
+                        "📕 Advanced Cmd", callback_data="cbadvanced"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "📘 Admin Commands", callback_data="cbadmin"
+                        "📘 Admin Cmd", callback_data="cbadmin"
                     ),
                     InlineKeyboardButton(
-                        "📗 Sudo Commands", callback_data="cbsudo"
+                        "📗 Sudo Cmd", callback_data="cbsudo"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "📙 Bot Owner Commands", callback_data="cbowner"
+                        "📙 Owner Cmd", callback_data="cbowner"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "📔 Fun Commands", callback_data="cbfun"
+                        "📔 Fun Cmd", callback_data="cbfun"
                     )
                 ],
                 [
@@ -409,7 +414,7 @@ async def cbhelps(_, query: CallbackQuery):
     )
 
 
-@Client.on_callback_query(filters.regex("cbguides"))
+@Client.on_callback_query(filters.regex("cbhowtouse"))
 async def cbguides(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""❓ HOW TO USE THIS BOT:
@@ -424,7 +429,7 @@ async def cbguides(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "🏡 BACK", callback_data="cbstart"
+                        "🏡 BACK TO HOME", callback_data="cbstart"
                     )
                 ]
             ]
