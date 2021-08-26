@@ -49,7 +49,7 @@ async def start_(client: Client, message: Message):
                         "❓ How to use Me", callback_data="cbguides")
                 ],[
                     InlineKeyboardButton(
-                         "📚 Commands", callback_data="cbhelp"
+                         "📚 Commands", callback_data="cbhelps"
                     ),
                     InlineKeyboardButton(
                         "💝 Donate", url=f"https://t.me/{OWNER_NAME}")
@@ -125,28 +125,33 @@ async def help_(client: Client, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        "📚 Basic", callback_data="cbbasic"
+                        "📚 Basic Cmd", callback_data="cbbasic"
                     ),
                     InlineKeyboardButton(
-                        "📕 Advanced", callback_data="cbadvanced"
+                        "📕 Advanced Cmd", callback_data="cbadvanced"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "📘 Admin Commands", callback_data="cbadmin"
+                        "📘 Admin Cmd", callback_data="cbadmin"
                     ),
                     InlineKeyboardButton(
-                        "📗 Sudo Commands", callback_data="cbsudo"
+                        "📗 Sudo Cmd", callback_data="cbsudo"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "📙 Owner Commands", callback_data="cbowner"
+                        "📙 Owner Cmd", callback_data="cbowner"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "📔 Fun Commands", callback_data="cbfun"
+                        "📔 Fun Cmd", callback_data="cbfun"
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "🏡 BACK TO HOME", callback_data="cbstart"
                     )
                 ]
             ]
