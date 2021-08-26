@@ -25,7 +25,7 @@
             "value": ""
         },
         "DATABASE_URL": {
-            "description": "fill with the mongodb url get from mongodb.com",
+            "description": "fill with the mongodb url get from cloud.mongodb.com",
             "required": true,
             "value": ""
         },
@@ -79,7 +79,7 @@
         "DURATION_LIMIT": {
             "description": "max duration for video to download (in minutes).",
             "required": true,
-            "value": "15"
+            "value": "60"
         },
         "PMPERMIT": {
             "description": "pm-permit for assistant.",
