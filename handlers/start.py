@@ -3,7 +3,7 @@ from datetime import datetime
 from config import BOT_USERNAME, BOT_NAME, ASSISTANT_NAME, OWNER_NAME, UPDATES_CHANNEL, GROUP_SUPPORT
 from helpers.filters import command
 from pyrogram import Client, filters
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, Chat, CallbackQuery
 from helpers.decorators import authorized_users_only
 
 
@@ -125,10 +125,10 @@ async def help_(client: Client, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        "📚 Basic Commands", callback_data="cbbasic"
+                        "📚 Basic", callback_data="cbbasic"
                     ),
                     InlineKeyboardButton(
-                        "📕 Advanced Commands", callback_data="cbadvanced"
+                        "📕 Advanced", callback_data="cbadvanced"
                     )
                 ],
                 [
@@ -141,7 +141,7 @@ async def help_(client: Client, message: Message):
                 ],
                 [
                     InlineKeyboardButton(
-                        "📙 Bot Owner Commands", callback_data="cbowner"
+                        "📙 Owner Commands", callback_data="cbowner"
                     )
                 ],
                 [
