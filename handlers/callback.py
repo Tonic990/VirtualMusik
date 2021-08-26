@@ -6,7 +6,7 @@ from config import BOT_NAME, BOT_USERNAME, OWNER_NAME, GROUP_SUPPORT, UPDATES_CH
 
 
 @Client.on_callback_query(filters.regex("cbstart"))
-async def cbback(_, query: CallbackQuery):
+async def cbstart(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""<b>✨ **Welcome {query.message.from_user.mention}** \n
 💭 **[{BOT_NAME}](https://t.me/{BOT_USERNAME}) 𝗮𝗹𝗹𝗼𝘄 𝘆𝗼𝘂 𝘁𝗼 𝗽𝗹𝗮𝘆 𝗺𝘂𝘀𝗶𝗰 𝗼𝗻 𝗴𝗿𝗼𝘂𝗽𝘀 𝘁𝗵𝗿𝗼𝘂𝗴𝗵 𝘁𝗵𝗲 𝗻𝗲𝘄 𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺'𝘀 𝘃𝗼𝗶𝗰𝗲 𝗰𝗵𝗮𝘁𝘀 !**
@@ -50,7 +50,7 @@ async def cbback(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbhelp"))
-async def cbback(_, query: CallbackQuery):
+async def cbhelp(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""<b>💡 Hello {query.message.from_user.mention} welcome to the help menu !</b>
 
@@ -91,7 +91,7 @@ async def cbback(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbbasic"))
-async def cbback(_, query: CallbackQuery):
+async def cbbasic(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""<b>🏮 here is the basic commands</b>
 
@@ -132,7 +132,7 @@ async def cbback(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbadvanced"))
-async def cbback(_, query: CallbackQuery):
+async def cbadvanced(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""<b>🏮 here is the advanced commands</b>
 
@@ -156,7 +156,7 @@ async def cbback(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbadmin"))
-async def cbback(_, query: CallbackQuery):
+async def cbadmin(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""<b>🏮 here is the admin commands</b>
 
@@ -188,7 +188,7 @@ async def cbback(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbsudo"))
-async def cbback(_, query: CallbackQuery):
+async def cbsudo(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""<b>🏮 here is the sudo commands</b>
 
@@ -210,7 +210,7 @@ async def cbback(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbowner"))
-async def cbback(_, query: CallbackQuery):
+async def cbowner(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""<b>🏮 here is the owner commands</b>
 
@@ -236,7 +236,7 @@ async def cbback(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbfun"))
-async def cbback(_, query: CallbackQuery):
+async def cbfun(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""<b>🏮 here is the fun commands</b>
 
@@ -260,7 +260,7 @@ async def cbback(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbguide"))
-async def cbback(_, query: CallbackQuery):
+async def cbguide(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""❓ HOW TO USE THIS BOT:
 
@@ -362,7 +362,7 @@ async def cbdelcmds(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbhelps"))
-async def cbback(_, query: CallbackQuery):
+async def cbhelps(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""<b>💡 Hello {query.message.from_user.mention} welcome to the help menu !</b>
 
@@ -408,7 +408,7 @@ async def cbback(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbguides"))
-async def cbback(_, query: CallbackQuery):
+async def cbguides(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""❓ HOW TO USE THIS BOT:
 
