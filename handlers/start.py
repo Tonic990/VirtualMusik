@@ -46,7 +46,10 @@ async def start_(client: Client, message: Message):
                         "➕ Add me to your Group ➕", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")
                 ],[
                     InlineKeyboardButton(
-                         "📚 Commands", url="https://telegra.ph/VEEZ-MUSIC-GUIDE-07-27"
+                        "❓ How to use Me", callback_data="cbguides")
+                ],[
+                    InlineKeyboardButton(
+                         "📚 Commands", callback_data="cbhelp"
                     ),
                     InlineKeyboardButton(
                         "💝 Donate", url=f"https://t.me/{OWNER_NAME}")
@@ -94,12 +97,16 @@ async def start(client: Client, message: Message):
 @Client.on_message(command(["help", f"help@{BOT_USERNAME}"]) & filters.group & ~filters.edited)
 async def help(client: Client, message: Message):
     await message.reply_text(
-        f"""<b>👋🏻 **Hello** {message.from_user.mention()}, **please tap the button below to see the help message you can read for using this bot**</b>""",
+        f"""<b>👋🏻 **Hello** {message.from_user.mention()}</b>
+
+**Please press the button below to read the explanation and see the list of available commands !**
+
+⚡ __Powered by {BOT_NAME} A.I""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text="❔ HOW TO USE ME", url=f"https://t.me/{BOT_USERNAME}?start=help"
+                        text="❔ HOW TO USE ME", callback_data=f"cbguide"
                     )
                 ]
             ]
@@ -109,76 +116,37 @@ async def help(client: Client, message: Message):
 @Client.on_message(command("help") & filters.private & ~filters.edited)
 async def help_(client: Client, message: Message):
     await message.reply_text(
-        f"""<b>Hello {message.from_user.mention()}, welcome to help menu ✨
-\n📙 HOW TO USE ME ?
-\n1. first add me to your group.
-2. promote me as admin and give all permission.
-3. then, add @{ASSISTANT_NAME} to your group or type /userbotjoin.
-3. make sure you turn on the voice chat first before start playing music.
-\n💁🏻‍♀️ **commands for all user:**
-\n/play (song name) - play song from youtube
-/ytp (song name) - play song from youtube directly
-/stream (reply to audio) - play song using audio file
-/playlist - show the list song in queue
-/song (song name) - download song from youtube
-/search (video name) - search video from youtube detailed
-/vsong (video name) - download video from youtube detailed
-/lyric - (song name) lyrics scrapper
-/vk (song name) - download song from inline mode
-\n👷🏻‍♂️ **commands for admins:**
-\n/player - show the music playing status
-/pause - pause the music streaming
-/resume - resume the music was paused
-/skip - skip to the next song
-/end - stop music streaming
-/userbotjoin - invite assistant join to your group
-/reload - for refresh the admin list
-/cache - for cleared admin cache
-/auth - authorized user for using music bot
-/deauth - unauthorized for using music bot
-/control - open the player settings panel
-/delcmd (on | off) - enable / disable del cmd feature
-/silent - mute the music player on voice chat
-/unsilent - unmute the music player on voice chat
-/musicplayer (on / off) - disable / enable music player in your group
-\n🎧 channel streaming commands:
-\n/cplay - stream music on channel voice chat
-/cplayer - show the song in streaming
-/cpause - pause the streaming music
-/cresume - resume the streaming was paused
-/cskip - skip streaming to the next song
-/cend - end the streaming music
-/admincache - refresh the admin cache
-\n🧙‍♂️ command for sudo users:
-\n/userbotleaveall - order the assistant to leave from all group
-/gcast - send a broadcast message trought the assistant
-/stats - show the bot statistic
-\n👨🏻‍✈️ owner only:
-\n/broadcast - send a broadcast message from bot
-/block (user id - duration - reason) - block user for using your bot
-/unblock (user id - reason) - unblock user you blocked for using your bot
-/blocklist - show you the list of user was blocked for using your bot
-\n🎊 **commands for fun:**
-\n/chika - check it by yourself
-/wibu - check it by yourself
-/asupan - check it by yourself
-/truth - check it by yourself
-/dare - check it by yourself
-\n💡 version 0.6.5 (latest)
-</b>""",
+        f"""<b>💡 Hello {message.from_user.mention} welcome to the help menu !</b>
+
+**in this menu you can open several available command menus, in each command menu there is also a brief explanation of each command**
+
+⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "✨ GROUP", url=f"https://t.me/{GROUP_SUPPORT}"
+                        "📚 Basic Commands", callback_data="cbbasic"
                     ),
                     InlineKeyboardButton(
-                        "📣 CHANNEL", url=f"https://t.me/{UPDATES_CHANNEL}"
+                        "📕 Advanced Commands", callback_data="cbadvanced"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "👩🏻‍💻 DEVELOPER", url=f"https://t.me/{OWNER_NAME}"
+                        "📘 Admin Commands", callback_data="cbadmin"
+                    ),
+                    InlineKeyboardButton(
+                        "📗 Sudo Commands", callback_data="cbsudo"
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "📙 Bot Owner Commands", callback_data="cbowner"
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "📔 Fun Commands", callback_data="cbfun"
                     )
                 ]
             ]
