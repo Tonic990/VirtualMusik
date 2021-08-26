@@ -47,6 +47,7 @@
 - `/search <query>` - search videos on youtube with details
 - `/vsong <song name>` - download videos you want quickly
 - `/lyric <song name>` - lyrics scrapper
+- `/vk <song name>` - generate song without download
 
 #### Admins Only 👷‍♂️
 - `/player` - open music player settings panel
@@ -61,11 +62,23 @@
 - `/reload` - Refresh admin list
 - `/uptime` - check the bot uptime status
 - `/ping` - check the bot ping status
+- `/auth` - authorized people to access the admin commands
+- `/deauth` - deauthorized people to access the admin commands
+- `/control` - open the music player control panel
+- `/silent` - mute the music player on voice chat
+- `/unsilent` - unmute the music player on voice chat
 
 ### Sudo User 🧙‍♂️
+- `/stats` - see the bot statistic
 - `/pmpermit on | off` turn on/off the assistant pmpermit
 - `/userbotleaveall` - order the assistant to leave all groups
-- `/gcast` - send a broadcast message
+- `/gcast` - send a broadcast message from the assistant
+
+### Owner Only
+- `/broadcast` - send a broadcast message from the bot
+- `/block` - block people for using your bot
+- `/unblock` - unblock people you blocked for using your bot
+- `/blocklist` - show the list of all people who's blocked for using your bot
 
 ### pm-permit 💬
 - `.yes` - approve user for sending message to assistant
