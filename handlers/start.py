@@ -46,10 +46,10 @@ async def start_(client: Client, message: Message):
                         "➕ Add me to your Group ➕", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")
                 ],[
                     InlineKeyboardButton(
-                        "❓ How to use Me", callback_data="cbguides")
+                        "❓ How to use Me", callback_data="cbhowtouse")
                 ],[
                     InlineKeyboardButton(
-                         "📚 Commands", callback_data="cbhelps"
+                         "📚 Commands", callback_data="cbcmds"
                     ),
                     InlineKeyboardButton(
                         "💝 Donate", url=f"https://t.me/{OWNER_NAME}")
@@ -147,11 +147,6 @@ async def help_(client: Client, message: Message):
                 [
                     InlineKeyboardButton(
                         "📔 Fun Cmd", callback_data="cbfun"
-                    )
-                ],
-                [
-                    InlineKeyboardButton(
-                        "🏡 BACK TO HOME", callback_data="cbstart"
                     )
                 ]
             ]
