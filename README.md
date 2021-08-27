@@ -20,6 +20,7 @@
 - NodeJS [nodesource.com](https://nodesource.com/)
 - Python 3.8+ or 3.7
 - [PyTgCalls](https://github.com/pytgcalls/pytgcalls)
+- [MongoDB](https://cloud.mongodb.com/)
 
 🧪 Get STRING_SESSION from here:
 
@@ -65,8 +66,6 @@
 - `/auth` - authorized people to access the admin commands
 - `/deauth` - deauthorized people to access the admin commands
 - `/control` - open the music player control panel
-- `/silent` - mute the music player on voice chat
-- `/unsilent` - unmute the music player on voice chat
 
 ### Sudo User 🧙‍♂️
 - `/stats` - see the bot statistic
