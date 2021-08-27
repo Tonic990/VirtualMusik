@@ -49,7 +49,7 @@ async def update_admin(client, message):
 @authorized_users_only
 async def controlset(_, message: Message):
     await message.reply_text(
-        "**💡 music player control menu opened !**",
+        "**💡 opened music player control menu!**\n\n**💭 you can control the music player just by pressing one of the buttons below**",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
