@@ -249,7 +249,7 @@ async def cbresume(_, query: CallbackQuery):
 @cb_admin_check
 async def cbend(_, query: CallbackQuery):
     chat_id = get_chat_id(message.chat)
-    if query.message.chat.id not in callsmusic.pytgcalls.active_calls
+    if query.message.chat.id not in callsmusic.pytgcalls.active_calls:
         await query.edit_message_text("❗️ nothing is playing", reply_markup=BACK_BUTTON)
     else:
         try:
