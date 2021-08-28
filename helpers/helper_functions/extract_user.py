@@ -28,7 +28,7 @@ def extract_user(message: Message) -> (int, str):
         try:
             user_id = int(user_id)
         except ValueError:
-            print("പൊട്ടൻ ")
+            print("scam")
 
     else:
         user_id = message.from_user.id
