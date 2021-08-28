@@ -4,6 +4,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, Chat, CallbackQuery
 from helpers.decorators import authorized_users_only
 from config import BOT_NAME, BOT_USERNAME, OWNER_NAME, GROUP_SUPPORT, UPDATES_CHANNEL, ASSISTANT_NAME
+from handlers.play import cb_admin_check
 
 
 @Client.on_callback_query(filters.regex("cbstart"))
@@ -297,6 +298,7 @@ async def close(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbback"))
+@cb_admin_check
 async def cbback(_, query: CallbackQuery):
     await query.edit_message_text(
         "**💡 here is the control menu of bot:**",
@@ -304,23 +306,28 @@ async def cbback(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "⏸ pause music", callback_data="cbpause"
+                        "⏸ pause", callback_data="cbpause"
                     ),
                     InlineKeyboardButton(
-                        "▶️ resume music", callback_data="cbresume"
+                        "▶️ resume", callback_data="cbresume"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "⏩ skip music", callback_data="cbskip"
+                        "⏩ skip", callback_data="cbskip"
                     ),
                     InlineKeyboardButton(
-                        "⏹ end music", callback_data="cbend"
+                        "⏹ end", callback_data="cbend"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "🗑 del cmd", callback_data="cbdelcmds"
+                        "⛔ anti cmd", callback_data="cbdelcmds"
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "🗑 Close", callback_data="close"
                     )
                 ]
             ]
@@ -330,6 +337,7 @@ async def cbback(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("cbdelcmds"))
+@cb_admin_check
 @authorized_users_only
 async def cbdelcmds(_, query: CallbackQuery):
     await query.edit_message_text(
