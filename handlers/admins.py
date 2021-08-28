@@ -399,17 +399,17 @@ async def un_ban_user(_, message):
     else:
         if str(user_id).lower().startswith("@"):
             await message.reply_text(
-                "ok accepted, user "
-                f"{user_first_name} to "
-                " can join to this group again!"
+                "✅ ok accepted, user "
+                f"{user_first_name} can"
+                " join to this group again!"
             )
         else:
             await message.reply_text(
-                "ok, now "
+                "✅ ok, now "
                 f"<a href='tg://user?id={user_id}'>"
                 f"{user_first_name}"
-                "</a> can "
-                " join to this group again!"
+                "</a> is not"
+                " restricted again!"
             )
 
 @Client.on_message(filters.command("m", COMMAND_PREFIXES))
