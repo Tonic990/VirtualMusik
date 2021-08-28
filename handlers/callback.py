@@ -178,6 +178,8 @@ async def cbadmin(_, query: CallbackQuery):
 /control - open the player settings panel
 /delcmd (on | off) - enable / disable del cmd feature
 /musicplayer (on / off) - disable / enable music player in your group
+/b and /tb (ban / temporary ban) - banned permanently or temporarily banned user in group.
+/m and /tm (mute / temporary mute) - mute permanently or temporarily muted user in group.
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
@@ -302,7 +304,7 @@ async def close(_, query: CallbackQuery):
 @cb_admin_check
 async def cbback(_, query: CallbackQuery):
     await query.edit_message_text(
-        "**💡 here is the control menu of bot:**",
+        "**💡 here is the control menu of bot :**",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -328,6 +330,11 @@ async def cbback(_, query: CallbackQuery):
                 ],
                 [
                     InlineKeyboardButton(
+                        "🛄 group tools", callback_data="cbgtools"
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
                         "🗑 Close", callback_data="close"
                     )
                 ]
@@ -336,17 +343,52 @@ async def cbback(_, query: CallbackQuery):
     )
 
 
+@Client.on_callback_query(filters.regex("cbgtools"))
+@cb_admin_check
+@authorized_users_only
+async def cbgtools(_, query: CallbackQuery):
+    await query.edit_message_text(
+        f"""<b>this is the feature information :</b>
+
+💡 **Feature:** this feature contains functions that can ban, mute, unban, unmute users in your group.
+
+and you can also set a time for the ban and mute penalties for members in your group so that they can be released from the punishment with the specified time.
+
+❔ **usage:**
+
+1️⃣ ban & temporarily ban user from your group:
+   » type `/b username/reply to message` ban permanently
+   » type `/tb username/reply to message/duration` temporarily ban user
+
+2️⃣ mute & temporarily mute user in your group:
+   » type `/m username/reply to message` mute permanently
+   » type `/tm username/reply to message/duration` temporarily mute user
+
+📝 note: cmd /b and /tb is the function to banned user from your group, whereas /m and /tm are commands to mute user in your group.
+
+⚡ __Powered by {BOT_NAME} A.I__""",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "🏡 GO BACK", callback_data="cbback"
+                    )
+                ]
+            ]
+        )
+    )
+
 
 @Client.on_callback_query(filters.regex("cbdelcmds"))
 @cb_admin_check
 @authorized_users_only
 async def cbdelcmds(_, query: CallbackQuery):
     await query.edit_message_text(
-        f"""<b>this is the feature information:</b>
+        f"""<b>this is the feature information :</b>
         
 **💡 Feature:** delete every commands sent by users to avoid spam in groups !
 
-**❔ usage:**
+❔ usage:**
 
  1️⃣ to turn on feature:
      » type `/delcmd on`
@@ -359,7 +401,7 @@ async def cbdelcmds(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "🏡 BACK", callback_data="cbback"
+                        "🏡 GO BACK", callback_data="cbback"
                     )
                 ]
             ]
