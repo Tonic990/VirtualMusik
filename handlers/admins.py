@@ -220,7 +220,7 @@ async def delcmdc(_, message: Message):
 @Client.on_callback_query(filters.regex("cbpause"))
 @cb_admin_check
 async def cbpause(_, query: CallbackQuery):
-    chat_id = get_chat_id(message.chat)
+    chat_id = get_chat_id(query.message.chat)
     if (
         query.message.chat.id not in callsmusic.pytgcalls.active_calls
             ) or (
@@ -234,7 +234,7 @@ async def cbpause(_, query: CallbackQuery):
 @Client.on_callback_query(filters.regex("cbresume"))
 @cb_admin_check
 async def cbresume(_, query: CallbackQuery):
-    chat_id = get_chat_id(message.chat)
+    chat_id = get_chat_id(query.message.chat)
     if (
         query.message.chat.id not in callsmusic.pytgcalls.active_calls
             ) or (
@@ -248,7 +248,7 @@ async def cbresume(_, query: CallbackQuery):
 @Client.on_callback_query(filters.regex("cbend"))
 @cb_admin_check
 async def cbend(_, query: CallbackQuery):
-    chat_id = get_chat_id(message.chat)
+    chat_id = get_chat_id(query.message.chat)
     if query.message.chat.id not in callsmusic.pytgcalls.active_calls:
         await query.edit_message_text("❗️ nothing is playing", reply_markup=BACK_BUTTON)
     else:
@@ -264,7 +264,7 @@ async def cbend(_, query: CallbackQuery):
 @cb_admin_check
 async def cbskip(_, query: CallbackQuery):
     global que
-    chat_id = get_chat_id(message.chat)
+    chat_id = get_chat_id(query.message.chat)
     if query.message.chat.id not in callsmusic.pytgcalls.active_calls:
         await query.edit_message_text("❗️ nothing is playing", reply_markup=BACK_BUTTON)
     else:
