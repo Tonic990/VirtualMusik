@@ -10,6 +10,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, 
 from cache.admins import admins
 from helpers.channelmusic import get_chat_id
 from helpers.decorators import authorized_users_only, errors
+from handlers.play import cb_admin_check
 from helpers.filters import command, other_filters
 from callsmusic import callsmusic
 from callsmusic.queues import queues
@@ -54,23 +55,28 @@ async def controlset(_, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        "⏸ pause music", callback_data="cbpause"
+                        "⏸ pause", callback_data="cbpause"
                     ),
                     InlineKeyboardButton(
-                        "▶️ resume music", callback_data="cbresume"
+                        "▶️ resume", callback_data="cbresume"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "⏩ skip music", callback_data="cbskip"
+                        "⏩ skip", callback_data="cbskip"
                     ),
                     InlineKeyboardButton(
-                        "⏹ end music", callback_data="cbend"
+                        "⏹ end", callback_data="cbend"
                     )
                 ],
                 [
                     InlineKeyboardButton(
-                        "🗑 del cmd", callback_data="cbdelcmds"
+                        "⛔ anti cmd", callback_data="cbdelcmds"
+                    )
+                ],
+                [
+                    InlineKeyboardButton(
+                        "🗑 Close", callback_data="close"
                     )
                 ]
             ]
@@ -212,8 +218,9 @@ async def delcmdc(_, message: Message):
 # music player callbacks (control by buttons feature)
 
 @Client.on_callback_query(filters.regex("cbpause"))
-@authorized_users_only
+@cb_admin_check
 async def cbpause(_, query: CallbackQuery):
+    chat_id = get_chat_id(message.chat)
     if (
         query.message.chat.id not in callsmusic.pytgcalls.active_calls
             ) or (
@@ -222,10 +229,12 @@ async def cbpause(_, query: CallbackQuery):
         await query.edit_message_text("❗️ nothing is playing", reply_markup=BACK_BUTTON)
     else:
         callsmusic.pytgcalls.pause_stream(query.message.chat.id)
-        await query.edit_message_text("▶️ music paused", reply_markup=BACK_BUTTON)
+        await query.edit_message_text("▶️ music is paused", reply_markup=BACK_BUTTON)
 
 @Client.on_callback_query(filters.regex("cbresume"))
+@cb_admin_check
 async def cbresume(_, query: CallbackQuery):
+    chat_id = get_chat_id(message.chat)
     if (
         query.message.chat.id not in callsmusic.pytgcalls.active_calls
             ) or (
@@ -234,15 +243,13 @@ async def cbresume(_, query: CallbackQuery):
         await query.edit_message_text("❗️ nothing is paused", reply_markup=BACK_BUTTON)
     else:
         callsmusic.pytgcalls.resume_stream(query.message.chat.id)
-        await query.edit_message_text("⏸ music resumed", reply_markup=BACK_BUTTON)
+        await query.edit_message_text("⏸ music is resumed", reply_markup=BACK_BUTTON)
 
 @Client.on_callback_query(filters.regex("cbend"))
+@cb_admin_check
 async def cbend(_, query: CallbackQuery):
-    if (
-        query.message.chat.id not in callsmusic.pytgcalls.active_calls
-            ) or (
-                callsmusic.pytgcalls.active_calls[query.message.chat.id] == "resumed"
-            ):
+    chat_id = get_chat_id(message.chat)
+    if query.message.chat.id not in callsmusic.pytgcalls.active_calls
         await query.edit_message_text("❗️ nothing is playing", reply_markup=BACK_BUTTON)
     else:
         try:
@@ -251,10 +258,10 @@ async def cbend(_, query: CallbackQuery):
             pass
         
         callsmusic.pytgcalls.leave_group_call(query.message.chat.id)
-        await query.edit_message_text("✅ queue cleared and left from voice chat!", reply_markup=BACK_BUTTON)
+        await query.edit_message_text("✅ the music queue has been cleared and successfully left voice chat", reply_markup=BACK_BUTTON)
 
 @Client.on_callback_query(filters.regex("cbskip"))
-@authorized_users_only
+@cb_admin_check
 async def cbskip(_, query: CallbackQuery):
     global que
     chat_id = get_chat_id(message.chat)
