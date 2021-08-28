@@ -178,8 +178,10 @@ async def cbadmin(_, query: CallbackQuery):
 /control - open the player settings panel
 /delcmd (on | off) - enable / disable del cmd feature
 /musicplayer (on / off) - disable / enable music player in your group
-/b and /tb (ban / temporary ban) - banned permanently or temporarily banned user in group.
-/m and /tm (mute / temporary mute) - mute permanently or temporarily muted user in group.
+/b and /tb (ban / temporary ban) - banned permanently or temporarily banned user in group
+/ub - to unbanned user you're banned from group
+/m and /tm (mute / temporary mute) - mute permanently or temporarily muted user in group
+/um - to unmute user you're muted in group
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
@@ -359,12 +361,14 @@ and you can also set a time for the ban and mute penalties for members in your g
 1️⃣ ban & temporarily ban user from your group:
    » type `/b username/reply to message` ban permanently
    » type `/tb username/reply to message/duration` temporarily ban user
+   » type `/ub username/reply to message` to unban user
 
 2️⃣ mute & temporarily mute user in your group:
    » type `/m username/reply to message` mute permanently
    » type `/tm username/reply to message/duration` temporarily mute user
+   » type `/um username/reply to message` to unmute user
 
-📝 note: cmd /b and /tb is the function to banned user from your group, whereas /m and /tm are commands to mute user in your group.
+📝 note: cmd /b, /tb and /ub is the function to banned/unbanned user from your group, whereas /m, /tm and /um are commands to mute/unmute user in your group.
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
