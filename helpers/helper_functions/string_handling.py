@@ -5,8 +5,8 @@ from pyrogram.types import (
     Message,
     InlineKeyboardButton
 )
-from pyrobot import (
-    COMMAND_HAND_LER
+from config import (
+    COMMAND_PREFIXES
 )
 
 
