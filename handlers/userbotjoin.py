@@ -1,12 +1,13 @@
+import asyncio
 from pyrogram import Client, filters
 from pyrogram.errors import UserAlreadyParticipant
-import asyncio
+from helpers.filters import command
 from helpers.decorators import authorized_users_only, errors
 from callsmusic.callsmusic import client as USER
-from config import SUDO_USERS
+from config import BOT_USERNAME, SUDO_USERS
 
 
-@Client.on_message(filters.command(["userbotjoin"]) & ~filters.private & ~filters.bot)
+@Client.on_message(command(["userbotjoin", f"userbotjoin@{BOT_USERNAME}"]) & ~filters.private & ~filters.bot)
 @authorized_users_only
 @errors
 async def addchannel(client, message):
@@ -43,7 +44,7 @@ async def addchannel(client, message):
     )
 
 
-@Client.on_message(filters.group & filters.command(["userbotleave"]))
+@Client.on_message(command(["userbotleave", f"userbotleave@{BOT_USERNAME}"]) & filters.group & ~filters.edited)
 @authorized_users_only
 async def rem(client, message):
     try:
@@ -55,7 +56,7 @@ async def rem(client, message):
         )
         return
     
-@Client.on_message(filters.command(["userbotleaveall"]))
+@Client.on_message(command(["userbotleaveall", f"userbotleaveall@{BOT_USERNAME}"]))
 async def bye(client, message):
     if message.from_user.id in SUDO_USERS:
         left=0
@@ -73,7 +74,7 @@ async def bye(client, message):
         await client.send_message(message.chat.id, f"Left {left} chats. Failed {failed} chats.")
 
 
-@Client.on_message(filters.command(["userbotjoinchannel","ubjoinc"]) & ~filters.private & ~filters.bot)
+@Client.on_message(command(["userbotjoinchannel", "ubjoinc"]) & ~filters.private & ~filters.bot)
 @authorized_users_only
 @errors
 async def addcchannel(client, message):
