@@ -1,8 +1,5 @@
 # Copyright (C) 2021 VeezMusicProject
 
-import re
-import player
-import subprocess
 import traceback
 import asyncio
 from asyncio import QueueEmpty
@@ -17,7 +14,7 @@ from handlers.play import cb_admin_check
 from helpers.filters import command, other_filters
 from callsmusic import callsmusic
 from callsmusic.queues import queues
-from config import LOG_CHANNEL, OWNER_ID, BOT_USERNAME, COMMAND_PREFIXES, SUDO_USERS
+from config import LOG_CHANNEL, OWNER_ID, BOT_USERNAME, COMMAND_PREFIXES
 from helpers.database import db, dcmdb, Database
 from helpers.dbtools import handle_user_status, delcmd_is_on, delcmd_on, delcmd_off
 from helpers.helper_functions.admin_check import admin_check
@@ -500,53 +497,3 @@ async def temp_mute_user(_, message):
                 " now "
                 f" muted, for {message.command[1]}!"
             )
-
-@Client.on_message(command("volume") & other_filters)
-@authorized_users_only
-async def volume(client, message):
-    if len(message.text.split()) == 2:
-        try:
-            volume = int(message.text.split()[1])
-            if volume in range(1, 101):
-                volume = f"{volume}%"
-                subprocess.Popen(
-                    [
-                        "pactl",
-                        "set-sink-volume",
-                        "MySink",
-                        volume
-                    ]
-                ).wait()
-                await message.reply_text(
-                    ("volume set to {0}").format(volume)
-                )
-                return
-        except:
-            pass
-
-    current_volume = "".join(re.search(r"Volume\:(.+)\n", subprocess.check_output(
-        ["pactl", "list", "sinks"]).decode()).group(0).split()).split("/")[1]
-
-    if message.from_user.id in SUDO_USERS:
-        await message.reply_text(
-            ("current volume is {0}").format(current_volume),
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            "➖",
-                            callback_data="decrease_volume"
-                        ),
-                        InlineKeyboardButton(
-                            "➕",
-                            callback_data="increase_volume"
-                        )
-                    ]
-                ]
-            ),
-            quote=True
-        )
-    else:
-        await message.reply_text(
-            ("current volume is {0}").format(current_volume),
-        )
