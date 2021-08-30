@@ -22,7 +22,7 @@ from strings import string as tgl
 
 @Client.on_message(command("stream") & other_filters)
 @errors
-async def stream(_, client, message):
+async def stream(_, client: Client, message: Message):
 
     lel = await message.reply_text(tgl("process_one"))
     sender_id = message.from_user.id
