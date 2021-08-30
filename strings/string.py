@@ -14,7 +14,7 @@ class String:
             return self.languages[LANG][string]
         except KeyError:
             # a keyerror happened, the english file must have it
-            return self.languages["en"][string]
+            return self.languages["id"][string]
 
     def reload_strings(self):
         for filename in os.listdir(r"./strings"):
