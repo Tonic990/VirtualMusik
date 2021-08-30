@@ -30,3 +30,4 @@ BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False)) # just fill
 DURATION_LIMIT = int(getenv("DURATION_LIMIT", "60"))
 COMMAND_PREFIXES = list(getenv("COMMAND_PREFIXES", "/ ! .").split())
 SUDO_USERS = list(map(int, getenv("SUDO_USERS").split()))
+LANG = getenv("LANG", "id")
