@@ -22,7 +22,6 @@ ASSISTANT_NAME = getenv("ASSISTANT_NAME", "veezassistant")
 GROUP_SUPPORT = getenv("GROUP_SUPPORT", "VeezSupportGroup")
 UPDATES_CHANNEL = getenv("UPDATES_CHANNEL", "levinachannel")
 OWNER_NAME = getenv("OWNER_NAME", "dlwrml") # isi dengan username kamu tanpa simbol @
-DEV_NAME = getenv("DEV_NAME", "dlwrml")
 PMPERMIT = getenv("PMPERMIT", None)
 OWNER_ID = int(os.environ.get("OWNER_ID")) # fill with your id as the owner of the bot
 DATABASE_URL = os.environ.get("DATABASE_URL") # fill with your mongodb url
