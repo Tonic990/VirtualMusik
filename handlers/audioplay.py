@@ -22,7 +22,7 @@ from strings import string as _lang
 
 @Client.on_message(command("stream") & other_filters)
 @errors
-async def stream(_lang, message: Message):
+async def stream(_lang, client, message):
 
     lel = await message.reply_text(_lang("process_one"))
     sender_id = message.from_user.id
