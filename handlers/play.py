@@ -768,7 +768,8 @@ async def lol_cb(b, cb):
                +f"\n🔢 **Track Position:** » `{position}` «",
         reply_markup=keyboard,
         )
-        os.remove("final.png")
+        if path.exists("final.png"):
+            os.remove("final.png")
     else:
         que[chat_id] = []
         qeue = que.get(chat_id)
@@ -789,10 +790,11 @@ async def lol_cb(b, cb):
                +f"🎧 **Request by:** {r_by.mention}",
         reply_markup=keyboard,
         )
-        os.remove("final.png")
+        if path.exists("final.png"):
+            os.remove("final.png")
 
 
-@Client.on_message(filters.command("ytp") & filters.group & ~filters.edited)
+@Client.on_message(command("ytp") & other_filters)
 async def ytplay(_, message: Message):
     global que
     if message.chat.id in DISABLED_GROUPS:
