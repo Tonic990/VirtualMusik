@@ -297,7 +297,6 @@ async def cbguide(_, query: CallbackQuery):
 
 
 @Client.on_callback_query(filters.regex("close"))
-@cb_admin_check
 async def close(_, query: CallbackQuery):
     await query.message.delete()
 
