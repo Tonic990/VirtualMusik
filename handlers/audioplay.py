@@ -23,7 +23,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 @errors
 async def stream(client, m: Message):
 
-    lel = await message.reply("🔁 **processing** sound...")
+    lel = await message.reply_text(_("process_one"))
     sender_id = message.from_user.id
     sender_name = message.from_user.first_name
 
@@ -57,7 +57,7 @@ async def stream(client, m: Message):
     elif url:
         file_path = await converter.convert(youtube.download(url))
     else:
-        return await lel.edit_text("❗ you did not give me audio file or yt link to stream!")
+        return await lel.edit_text(_("where_file"))
 
     if message.chat.id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(message.chat.id, file=file_path)
