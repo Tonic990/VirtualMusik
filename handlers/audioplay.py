@@ -21,7 +21,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 @Client.on_message(command("stream") & other_filters)
 @errors
-async def stream(_, message: Message):
+async def stream(client, m: Message):
 
     lel = await message.reply("🔁 **processing** sound...")
     sender_id = message.from_user.id
