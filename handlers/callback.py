@@ -204,6 +204,7 @@ async def cbsudo(_, query: CallbackQuery):
 /userbotleaveall - order the assistant to leave from all group
 /gcast - send a broadcast message trought the assistant
 /stats - show the bot statistic
+/rmd - remove all downloaded files
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
