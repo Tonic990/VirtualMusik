@@ -13,11 +13,11 @@ downloads = os.path.realpath("downloads")
 @Client.on_message(command(["rmd", "rmdownloads", "cleardownloads"]) & ~filters.edited)
 @sudo_users_only
 @errors
-def clear_downloads(_, message: Message):
+asycn def clear_downloads(_, message: Message):
     ls_dir = os.listdir(downloads)
     if ls_dir:
         for file in os.listdir(downloads):
             os.remove(os.path.join(downloads, file))
-        message.reply_text("<b>✅ deleted all downloaded files</b>", quote=False)
+        await message.reply_text("<b>✅ deleted all downloaded files</b>", quote=False)
     else:
-        message.reply_text("<b>❌ no files downloaded</b>", quote=False)
+        await message.reply_text("<b>❌ no files downloaded</b>", quote=False)
