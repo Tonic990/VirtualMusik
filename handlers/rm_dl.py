@@ -13,7 +13,7 @@ downloads = os.path.realpath("downloads")
 @Client.on_message(command(["rmd", "rmdownloads", "cleardownloads"]) & ~filters.edited)
 @sudo_users_only
 @errors
-asycn def clear_downloads(_, message: Message):
+async def clear_downloads(_, message: Message):
     ls_dir = os.listdir(downloads)
     if ls_dir:
         for file in os.listdir(downloads):
