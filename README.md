@@ -98,6 +98,21 @@ For deployment on railway you can see the full of [Necessary Variables Here](htt
 
 [![Deploy+on+Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/levina-lab/VeezMusic&envs=SESSION_NAME,BOT_TOKEN,BOT_USERNAME,BOT_NAME,GROUP_SUPPORT,ASSISTANT_NAME,OWNER_NAME,OWNER_ID,DATABASE_URL,LOG_CHANNEL,BROADCAST_AS_COPY,BG_IMAGE,UPDATES_CHANNEL,API_ID,API_HASH,PMPERMIT,SUDO_USERS,DURATION_LIMIT,THUMB_IMG)
 
+## Deploy On VPS 💜
+
+- `sudo apt update && apt upgrade -y`
+- `sudo apt install git curl python3-pip ffmpeg -y`
+- `pip3 install -U pip`
+- `curl -sL https://deb.nodesource.com/setup_16.x | bash -`
+- `sudo apt-get install -y nodejs`
+- `npm i -g npm`
+- `git clone https://github.com/levina-lab/VeezMusic` # Clone your repo.
+- `cd VeezMusic`
+- `pip3 install -U -r requirements.txt`
+- `cp example.env .env` #Use vim to edit ENVs
+- `vim .env` #Fill up your ENVs ( Steps press `i` to enter in insert mode then edit the file. Press `Esc` to exit the editing mode then type `:wq!` and press `Enter` key to save the file.)
+- `python3 main.py` # Run the bot
+
 ### Special Credits 💖
 - [Levina](https://github.com/levina-lab): Dev
 - [Tofik](https://github.com/tofikdn): Dev
@@ -106,7 +121,7 @@ For deployment on railway you can see the full of [Necessary Variables Here](htt
 - [Original Repo](https://github.com/callsmusic/callsmusic) CallsMusic
 - [Veez Music Bot](https://t.me/veezmusicbot) Our Music Bot
 - [RojSerBest](https://github.com/rojserbest) CallsMusic Developer
-- [TeamDaisyX](https://github.com/TeamDaisyX) for basic code
+- [TeamDaisyX](https://github.com/TeamDaisyX) for base code
 
 ### Support & Updates 🎑
 <a href="https://t.me/VeezSupportGroup"><img src="https://img.shields.io/badge/Join-Group%20Support-blue.svg?style=for-the-badge&logo=Telegram"></a> <a href="https://t.me/levinachannel"><img src="https://img.shields.io/badge/Join-Updates%20Channel-blue.svg?style=for-the-badge&logo=Telegram"></a>
