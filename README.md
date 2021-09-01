@@ -1,4 +1,5 @@
-<h2 align="centre">🎶 VEEZ MUSIC BOT</h2>
+<h2 align="centre">🎶 Veez Music [![Mentioned in Awesome Python](https://awesome.re/mentioned-badge.svg)](https://github.com/levina-lab/VeezMusic)
+</h2>
 
 ### Veez Music is a telegram bot project that's allow you to play music on telegram voice chat group.
 
