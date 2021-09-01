@@ -1,4 +1,4 @@
-### 🎶 Veez Music [![Mentioned in Awesome Python](https://awesome.re/mentioned-badge.svg)](https://github.com/levina-lab/VeezMusic)
+<h2 align="centre">🎵 VEEZ MUSIC BOT</h2>
 
 ### Veez Music is a telegram bot project that's allow you to play music on telegram voice chat group.
 
@@ -25,6 +25,9 @@
 🧪 Get STRING_SESSION from here:
 
 [![GenerateString](https://img.shields.io/badge/repl.it-generateString-yellowgreen)](https://replit.com/@levinalab/StringSession#main.py)
+
+🎖 History
+- [![Mentioned in Awesome Python](https://awesome.re/mentioned-badge.svg)](https://github.com/levina-lab/VeezMusic)
 
 ## Features 🔮
 
