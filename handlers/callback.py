@@ -205,6 +205,7 @@ async def cbsudo(_, query: CallbackQuery):
 /gcast - send a broadcast message trought the assistant
 /stats - show the bot statistic
 /rmd - remove all downloaded files
+/clean - Remove all raw files
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
