@@ -28,10 +28,11 @@ from converter.converter import convert
 from cache.admins import admins as a
 from PIL import Image, ImageFont, ImageDraw
 
+
 aiohttpsession = aiohttp.ClientSession()
 chat_id = None
-DISABLED_GROUPS = []
 useer ="NaN"
+DISABLED_GROUPS = []
 
 
 def cb_admin_check(func: Callable) -> Callable:
@@ -80,7 +81,7 @@ def changeImageSize(maxWidth, maxHeight, image):
     return newImage
 
 
-async def generate_cover(requested_by, title, views, duration, thumbnail):
+async def generate_cover(title, thumbnail):
     async with aiohttp.ClientSession() as session:
         async with session.get(thumbnail) as resp:
             if resp.status == 200:
@@ -97,12 +98,8 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("etc/font.otf", 60)
-    draw.text((40, 550), f"Playing here....", (0, 0, 0), font=font)
-    draw.text((40, 630),
-        f"{title}",
-        (0, 0, 0),
-        font=font,
-    )
+    draw.text((40, 550), "Playing here...", (0, 0, 0), font=font)
+    draw.text((40, 630), f"{title}", (0, 0, 0), font=font)
     img.save("final.png")
     os.remove("temp.png")
     os.remove("background.png")
@@ -192,7 +189,7 @@ async def settings(client, message):
 
 
 @Client.on_message(
-    command("musicplayer") & ~filters.edited & ~filters.bot & ~filters.private
+    command(["musicplayer", f"musicplayer@{BOT_USERNAME}"]) & ~filters.edited & ~filters.bot & ~filters.private
 )
 @authorized_users_only
 async def hfmm(_, message):
@@ -418,7 +415,7 @@ async def m_cb(b, cb):
             await cb.answer("assistant is not connected to voice chat!", show_alert=True)
 
 
-@Client.on_message(command("play") & other_filters)
+@Client.on_message(command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
 async def play(_, message: Message):
     global que
     global useer
@@ -523,7 +520,7 @@ async def play(_, message: Message):
         duration = round(audio.duration / 60)
         views = "Locally added"
         requested_by = message.from_user.first_name
-        await generate_cover(requested_by, title, views, duration, thumbnail)
+        await generate_cover(title, thumbnail)
         file_path = await converter.convert(
             (await message.reply_to_message.download(file_name))
             if not path.isfile(path.join("downloads", file_name))
@@ -564,7 +561,7 @@ async def play(_, message: Message):
             ]
         )
         requested_by = message.from_user.first_name
-        await generate_cover(requested_by, title, views, duration, thumbnail)
+        await generate_cover(title, thumbnail)
         file_path = await converter.convert(youtube.download(url))        
     else:
         query = ""
@@ -648,7 +645,7 @@ async def play(_, message: Message):
             ]
             )
             requested_by = message.from_user.first_name
-            await generate_cover(requested_by, title, views, duration, thumbnail)
+            await generate_cover(title, thumbnail)
             file_path = await converter.convert(youtube.download(url))   
     chat_id = get_chat_id(message.chat)
     if chat_id in callsmusic.pytgcalls.active_calls:
@@ -747,7 +744,7 @@ async def lol_cb(b, cb):
             ]
     )
     requested_by = useer_name
-    await generate_cover(requested_by, title, views, duration, thumbnail)
+    await generate_cover(title, thumbnail)
     file_path = await converter.convert(youtube.download(url))  
     if chat_id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(chat_id, file=file_path)
@@ -794,7 +791,7 @@ async def lol_cb(b, cb):
             os.remove("final.png")
 
 
-@Client.on_message(command("ytp") & other_filters)
+@Client.on_message(command(["ytp", f"ytp@{BOT_USERNAME}"]) & other_filters)
 async def ytplay(_, message: Message):
     global que
     if message.chat.id in DISABLED_GROUPS:
@@ -897,7 +894,7 @@ async def ytplay(_, message: Message):
         ]
     )
     requested_by = message.from_user.first_name
-    await generate_cover(requested_by, title, views, duration, thumbnail)
+    await generate_cover(title, thumbnail)
     file_path = await convert(youtube.download(url))
     chat_id = get_chat_id(message.chat)
     if chat_id in callsmusic.pytgcalls.active_calls:
