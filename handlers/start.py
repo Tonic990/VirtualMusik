@@ -106,11 +106,11 @@ async def help(client: Client, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        text="❔ HOW TO USE ME", callback_data=f"cbguide"
+                        text="❔ HOW TO USE ME", callback_data="cbguide"
                     )
                 ]
             ]
-        )
+        ),
     )
 
 @Client.on_message(command(["help", f"help@{BOT_USERNAME}"]) & filters.private & ~filters.edited)
