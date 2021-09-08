@@ -55,7 +55,8 @@ async def rem(client, message):
         )
 
         return
-    
+
+
 @Client.on_message(command(["userbotleaveall", f"userbotleaveall@{BOT_USERNAME}"]))
 async def bye(client, message):
     if message.from_user.id not in SUDO_USERS:
