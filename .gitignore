@@ -10,3 +10,4 @@ venv
 local.env
 *.jpg
 *png
+unknown_errors.txt
