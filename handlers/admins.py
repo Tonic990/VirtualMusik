@@ -36,7 +36,7 @@ async def delcmd(_, message: Message):
     await message.continue_propagation()
 
 
-@Client.on_message(filters.command("reload"))
+@Client.on_message(filters.command(["reload", f"reload@{BOT_USERNAME}"]) & other_filters)
 async def update_admin(client, message):
     global admins
     new_admins = []
@@ -48,7 +48,7 @@ async def update_admin(client, message):
 
 
 # Control Menu Of Player
-@Client.on_message(command(["control", f"control@{BOT_USERNAME}", "p"]))
+@Client.on_message(command(["control", f"control@{BOT_USERNAME}"]) & other_filters)
 @errors
 @authorized_users_only
 async def controlset(_, message: Message):
@@ -168,8 +168,7 @@ async def skip(_, message: Message):
 async def authenticate(client, message):
     global admins
     if not message.reply_to_message:
-        await message.reply("❗ reply to message to authorize user!")
-        return
+        return await message.reply("❗ reply to message to authorize user!")
     if message.reply_to_message.from_user.id not in admins[message.chat.id]:
         new_admins = admins[message.chat.id]
         new_admins.append(message.reply_to_message.from_user.id)
@@ -184,8 +183,7 @@ async def authenticate(client, message):
 async def deautenticate(client, message):
     global admins
     if not message.reply_to_message:
-        await message.reply("❗ reply to message to deauthorize user!")
-        return
+        return await message.reply("❗ reply to message to deauthorize user!")
     if message.reply_to_message.from_user.id in admins[message.chat.id]:
         new_admins = admins[message.chat.id]
         new_admins.remove(message.reply_to_message.from_user.id)
@@ -200,15 +198,13 @@ async def deautenticate(client, message):
 @authorized_users_only
 async def delcmdc(_, message: Message):
     if len(message.command) != 2:
-        await message.reply_text("read the /help message to know how to use this command")
-        return
+        return await message.reply_text("read the /help message to know how to use this command")
     status = message.text.split(None, 1)[1].strip()
     status = status.lower()
     chat_id = message.chat.id
     if status == "on":
         if await delcmd_is_on(message.chat.id):
-            await message.reply_text("✅ already activated")
-            return
+            return await message.reply_text("✅ already activated")
         else:
             await delcmd_on(chat_id)
             await message.reply_text(
