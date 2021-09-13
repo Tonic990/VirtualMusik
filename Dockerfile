@@ -8,5 +8,5 @@ RUN npm install -g npm@7.23.0
 RUN mkdir /app/
 COPY . /app/
 WORKDIR /app/
-RUN python3 -m pip -U -r requirements.txt
+RUN python3 -m pip install -U -r requirements.txt
 CMD python3 main.py
