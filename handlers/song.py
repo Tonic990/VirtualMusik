@@ -20,7 +20,6 @@ from pyrogram.errors import FloodWait, MessageNotModified
 from pyrogram.types import Message
 from youtube_search import YoutubeSearch
 
-from config import Veez
 from helpers.filters import command
 from helpers.decorators import humanbytes
 from config import DURATION_LIMIT, BOT_USERNAME as bn
