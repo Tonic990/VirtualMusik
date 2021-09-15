@@ -25,7 +25,7 @@ from helpers.decorators import humanbytes
 from config import DURATION_LIMIT, BOT_USERNAME as bn
 
 
-@Client.on_message(command(["song", f"song@{BOT_USERNAME}"]) & ~filters.channel)
+@Client.on_message(command(["song", f"song@{bn}"]) & ~filters.channel)
 def song(_, message):
     query = " ".join(message.command[1:])
     m = message.reply("🔎 finding song...")
@@ -225,7 +225,7 @@ def time_to_seconds(times):
     return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
 
 
-@Client.on_message(command(["vsong", f"vsong@{BOT_USERNAME}"]) & filters.group & ~filters.edited)
+@Client.on_message(command(["vsong", f"vsong@{bn}"]) & filters.group & ~filters.edited)
 async def vsong(client, message):
     ydl_opts = {
         'format':'best',
