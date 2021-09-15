@@ -256,6 +256,7 @@ async def cbfun(_, query: CallbackQuery):
 /asupan - check it by yourself
 /truth - check it by yourself
 /dare - check it by yourself
+/tts (text) - text to speech
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
