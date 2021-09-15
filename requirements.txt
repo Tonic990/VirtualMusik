@@ -19,3 +19,4 @@ motor
 dnspython
 bs4
 pyaml
+yt_dlp
