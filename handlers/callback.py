@@ -1,4 +1,4 @@
-# (C) supun-maduraga my best friend for his project on call-music-plus
+# (C) 2021 VeezMusic-Project
 
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, Chat, CallbackQuery
@@ -148,6 +148,7 @@ async def cbadvanced(_, query: CallbackQuery):
 /cache - refresh the admin cache
 /ping - check the bot ping status
 /uptime - check the bot uptime status
+/id - show the group/user id & other
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
