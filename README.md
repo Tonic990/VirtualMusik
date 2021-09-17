@@ -97,20 +97,22 @@ The easy way to host this bot, deploy to Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/levina-lab/veezmusic)
 
-## Deploy On VPS 💜
+## VPS Deployment 📡
 
-- `sudo apt update && apt upgrade -y`
-- `sudo apt install git curl python3-pip ffmpeg -y`
-- `pip3 install -U pip`
-- `curl -sL https://deb.nodesource.com/setup_16.x | bash -`
-- `sudo apt-get install -y nodejs`
-- `npm i -g npm`
-- `git clone https://github.com/levina-lab/VeezMusic` # Clone your repo.
-- `cd VeezMusic`
-- `pip3 install -U -r requirements.txt`
-- `cp example.env .env` #Use vim to edit ENVs
-- `vim .env` #Fill up your ENVs ( Steps press `i` to enter in insert mode then edit the file. Press `Esc` to exit the editing mode then type `:wq!` and press `Enter` key to save the file.)
-- `python3 main.py` # Run the bot
+```sh
+sudo apt update && apt upgrade -y
+sudo apt install git curl python3-pip ffmpeg -y
+pip3 install -U pip
+curl -sL https://deb.nodesource.com/setup_16.x | bash -
+sudo apt-get install -y nodejs
+npm i -g npm
+git clone https://github.com/levina-lab/VeezMusic # Clone your repo.
+cd VeezMusic
+pip3 install -U -r requirements.txt
+cp example.env .env #Use vim to edit ENVs
+vim .env #Fill up your ENVs ( Steps press i to enter in insert mode then edit the file. Press Esc to exit the editing mode then type :wq! and press Enter key to save the file.)
+python3 main.py # Run the bot
+```
 
 ### Special Credits 💖
 - [Levina](https://github.com/levina-lab): Dev
