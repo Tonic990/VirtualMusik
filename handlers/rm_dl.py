@@ -20,16 +20,3 @@ async def clear_downloads(_, message: Message):
         await message.reply_text("✅ **Deleted all downloaded files**")
     else:
         await message.reply_text("❌ **No files downloaded**")
-        
-@Client.on_message(command(["clean", "wipe", "rmr"]) & ~filters.edited)
-@errors
-@sudo_users_only
-async def clear_raw(_, message: Message):
-    ls_dir = os.listdir(raw)
-    if ls_dir:
-        for file in os.listdir(raw):
-            os.remove(os.path.join(raw, file))
-        await message.reply_text("✅ **Deleted all raw files**")
-    else:
-        await message.reply_text("❌ **No raw files**")
-        
