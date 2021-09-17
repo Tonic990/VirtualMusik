@@ -25,7 +25,7 @@ from helpers.filters import command, other_filters
 from helpers.gets import get_url, get_file_name
 
 
-@Client.on_message(command(["stream", f"stream"@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(command(["stream", f"stream@{BOT_USERNAME}"]) & other_filters)
 async def stream(_, message: Message):
 
     lel = await message.reply("🔁 **processing** sound...")
