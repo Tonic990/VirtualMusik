@@ -576,6 +576,7 @@ async def play(_, message: Message):
           await lel.edit("😕 **song name not detected**\n\n» **please provide the name of the song you want to play**")
         # veez project
         try:
+            toxxt = "\n"
             j = 0
             useer=user_name
             emojilist = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣"]
