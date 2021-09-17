@@ -27,7 +27,7 @@ async def _(bot: Client, cmd: Message):
     await handle_user_status(bot, cmd)
 
 # Back Button
-BACK_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("🏠 go back", callback_data="cbback")]])
+BACK_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("🏡 Go Back", callback_data="cbback")]])
 
 @Client.on_message(filters.text & ~filters.private)
 async def delcmd(_, message: Message):
@@ -100,10 +100,10 @@ async def pause(_, message: Message):
     if (chat_id not in callsmusic.pytgcalls.active_calls) or (
         callsmusic.pytgcalls.active_calls[chat_id] == "paused"
     ):
-        await message.reply_text("❗ nothing in streaming!")
+        await message.reply_text("❗ nothing in streaming")
     else:
         callsmusic.pytgcalls.pause_stream(chat_id)
-        await message.reply_text("▶️ music paused!")
+        await message.reply_text("▶️ music paused !")
 
 
 @Client.on_message(command("resume") & other_filters)
@@ -114,10 +114,10 @@ async def resume(_, message: Message):
     if (chat_id not in callsmusic.pytgcalls.active_calls) or (
         callsmusic.pytgcalls.active_calls[chat_id] == "playing"
     ):
-        await message.reply_text("❗ nothing is paused!")
+        await message.reply_text("❗ nothing is paused")
     else:
         callsmusic.pytgcalls.resume_stream(chat_id)
-        await message.reply_text("⏸ music resumed!")
+        await message.reply_text("⏸ music resumed !")
 
 
 @Client.on_message(command("end") & other_filters)
@@ -126,7 +126,7 @@ async def resume(_, message: Message):
 async def stop(_, message: Message):
     chat_id = get_chat_id(message.chat)
     if chat_id not in callsmusic.pytgcalls.active_calls:
-        await message.reply_text("❗ nothing in streaming!")
+        await message.reply_text("❗ nothing in streaming")
     else:
         try:
             queues.clear(chat_id)
@@ -134,7 +134,7 @@ async def stop(_, message: Message):
             pass
 
         callsmusic.pytgcalls.leave_group_call(chat_id)
-        await message.reply_text("⏹ streaming ended!")
+        await message.reply_text("⏹ streaming ended !")
 
 
 @Client.on_message(command("skip") & other_filters)
