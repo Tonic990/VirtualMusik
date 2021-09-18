@@ -59,9 +59,9 @@ async def stream(_, message: Message):
             if not path.isfile(path.join("downloads", file_name)) else file_name
         )
     elif url:
-        return
+        return await lel.edit("❗ **reply to a telegram audio file.**")
     else:
-        return await lel.edit("❗ you did not give me audio file or yt link to stream !")
+        return await lel.edit("❗ **reply to a telegram audio file.**")
 
     if message.chat.id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(message.chat.id, file=file_path)
