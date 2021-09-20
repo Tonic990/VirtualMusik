@@ -1,6 +1,7 @@
 import os
 from os import getenv
 from dotenv import load_dotenv
+from helpers.uptools import fetch_heroku_git_url
 
 if os.path.exists("local.env"):
     load_dotenv("local.env")
@@ -31,3 +32,9 @@ DURATION_LIMIT = int(getenv("DURATION_LIMIT", "60"))
 COMMAND_PREFIXES = list(getenv("COMMAND_PREFIXES", "/ ! .").split())
 SUDO_USERS = list(map(int, getenv("SUDO_USERS").split()))
 LANG = getenv("LANG", "id")
+# UPDATER CONFIG
+U_BRANCH = "main"
+HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
+HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
+UPSTREAM_REPO = os.environ.get("UPSTREAM_REPO", "https://github.com/levina-lab/VeezMusic")
+HEROKU_URL = fetch_heroku_git_url(HEROKU_API_KEY, HEROKU_APP_NAME)
