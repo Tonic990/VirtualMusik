@@ -86,7 +86,7 @@ async def cbhelp(_, query: CallbackQuery):
                 ],
                 [
                     InlineKeyboardButton(
-                        "🏡 BACK TO HELP", callback_data="cbguide"
+                        "🏡 Back to Help", callback_data="cbguide"
                     )
                 ]
             ]
@@ -127,7 +127,7 @@ async def cbbasic(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "🏡 BACK", callback_data="cbhelp"
+                        "🏡 Go Back", callback_data="cbhelp"
                     )
                 ]
             ]
@@ -152,7 +152,7 @@ async def cbadvanced(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "🏡 BACK", callback_data="cbhelp"
+                        "🏡 Go Back", callback_data="cbhelp"
                     )
                 ]
             ]
@@ -186,7 +186,7 @@ async def cbadmin(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "🏡 BACK", callback_data="cbhelp"
+                        "🏡 Go Back", callback_data="cbhelp"
                     )
                 ]
             ]
@@ -203,14 +203,13 @@ async def cbsudo(_, query: CallbackQuery):
 /gcast - send a broadcast message trought the assistant
 /stats - show the bot statistic
 /rmd - remove all downloaded files
-/clean - Remove all raw files
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "🏡 BACK", callback_data="cbhelp"
+                        "🏡 Go Back", callback_data="cbhelp"
                     )
                 ]
             ]
@@ -236,7 +235,7 @@ async def cbowner(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "🏡 BACK", callback_data="cbhelp"
+                        "🏡 Go Back", callback_data="cbhelp"
                     )
                 ]
             ]
@@ -261,7 +260,7 @@ async def cbfun(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "🏡 BACK", callback_data="cbhelp"
+                        "🏡 Go Back", callback_data="cbhelp"
                     )
                 ]
             ]
@@ -375,7 +374,7 @@ and you can also set a time for the ban and mute penalties for members in your g
             [
                 [
                     InlineKeyboardButton(
-                        "🏡 GO BACK", callback_data="cbback"
+                        "🏡 Go Back", callback_data="cbback"
                     )
                 ]
             ]
@@ -405,7 +404,7 @@ async def cbdelcmds(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "🏡 GO BACK", callback_data="cbback"
+                        "🏡 Go Back", callback_data="cbback"
                     )
                 ]
             ]
@@ -451,7 +450,7 @@ async def cbhelps(_, query: CallbackQuery):
                 ],
                 [
                     InlineKeyboardButton(
-                        "🏡 BACK TO HOME", callback_data="cbstart"
+                        "🏡 Go Back", callback_data="cbstart"
                     )
                 ]
             ]
@@ -474,7 +473,7 @@ async def cbguides(_, query: CallbackQuery):
             [
                 [
                     InlineKeyboardButton(
-                        "🏡 BACK TO HOME", callback_data="cbstart"
+                        "🏡 Go Back", callback_data="cbstart"
                     )
                 ]
             ]
