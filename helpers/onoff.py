@@ -1,7 +1,7 @@
 from helpers.database import db
 from typing import Dict, List, Union
 
-onoffdb = db.onoffper
+# onoffdb = db.onoffper
 
 async def is_on_off(on_off: int) -> bool:
     onoff = await onoffdb.find_one({"on_off": on_off})
