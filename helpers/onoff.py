@@ -1,4 +1,4 @@
-from .database import db
+from helpers.database import db
 from typing import Dict, List, Union
 
 onoffdb = db.onoffper
