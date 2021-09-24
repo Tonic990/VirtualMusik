@@ -583,7 +583,7 @@ async def play(_, message: Message):
             while j < 5:
                 toxxt += f"{emojilist[j]} [{results[j]['title'][:25]}](https://youtube.com{results[j]['url_suffix']})\n"
                 toxxt += f" ├ 💡 **Duration** - {results[j]['duration']}\n"
-                toxxt += f" └ ⚡ __Powered by {BOT_NAME} A.I__\n\n"
+                toxxt += f" └ ⚡ __Powered by {BOT_NAME} AI__\n\n"
                 j += 1            
             keyboard = InlineKeyboardMarkup(
                 [
@@ -695,7 +695,7 @@ async def lol_cb(b, cb):
         return
     useer_id = int(useer_id)
     if cb.from_user.id != useer_id:
-        await cb.answer("💡 this is not for you !", show_alert=True)
+        await cb.answer("💡 sorry, this is not for you !", show_alert=True)
         return
     #await cb.message.edit("🔁 **processing...**")
     x=int(x)
@@ -791,7 +791,7 @@ async def ytplay(_, message: Message):
     global que
     if message.chat.id in DISABLED_GROUPS:
         return
-    lel = await message.reply("🔄 **processing...**")
+    lel = await message.reply("🔎 **Searching...**")
     administrators = await get_administrators(message.chat)
     chid = message.chat.id
 
