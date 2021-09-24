@@ -5,6 +5,7 @@ python-dotenv
 youtube_dl
 youtube_search_python==1.4.6
 googletrans==4.0.0rc1
+speedtest-cli
 gTTS
 requests
 aiohttp
