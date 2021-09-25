@@ -683,7 +683,7 @@ async def play(_, message: Message):
 
 
 @Client.on_callback_query(filters.regex(pattern=r"plll"))
-async def lol_cb(b, cb):
+async def lol_cb(b, cb, message):
     global que
     cbd = cb.data.strip()
     chat_id = cb.message.chat.id
