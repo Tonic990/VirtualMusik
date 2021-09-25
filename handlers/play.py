@@ -81,7 +81,7 @@ def changeImageSize(maxWidth, maxHeight, image):
     return newImage
 
 
-async def generate_cover(title, thumbnail):
+async def generate_cover(title, thumbnail, message):
     async with aiohttp.ClientSession() as session:
         async with session.get(thumbnail) as resp:
             if resp.status == 200:
@@ -98,8 +98,8 @@ async def generate_cover(title, thumbnail):
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("etc/font.otf", 60)
-    draw.text((40, 550), "Playing here...", (0, 0, 0), font=font)
-    draw.text((40, 630), f"{title}", (0, 0, 0), font=font)
+    draw.text((40, 550), "Playing on {}".format(message.chat.title), (0, 0, 0), font=font)
+    draw.text((40, 630), f"{title}...", (0, 0, 0), font=font)
     img.save("final.png")
     os.remove("temp.png")
     os.remove("background.png")
@@ -192,7 +192,7 @@ async def settings(client, message):
     command(["musicplayer", f"musicplayer@{BOT_USERNAME}"]) & ~filters.edited & ~filters.bot & ~filters.private
 )
 @authorized_users_only
-async def hfmm(_, message):
+async def music_onoff(_, message):
     global DISABLED_GROUPS
     try:
         user_id = message.from_user.id
@@ -410,7 +410,7 @@ async def m_cb(b, cb):
                 pass
 
             callsmusic.pytgcalls.leave_group_call(chet_id)
-            await cb.message.edit("✅ music has stopped")
+            await cb.message.edit("✅ music playback has ended")
         else:
             await cb.answer("assistant is not connected to voice chat !", show_alert=True)
 
@@ -534,7 +534,7 @@ async def play(_, message: Message):
             results = YoutubeSearch(query, max_results=1).to_dict()
             url = f"https://youtube.com{results[0]['url_suffix']}"
             # print(results)
-            title = results[0]["title"][:35]
+            title = results[0]["title"][:25]
             thumbnail = results[0]["thumbnails"][0]
             thumb_name = f"thumb-{title}-veezmusic.jpg"
             thumb = requests.get(thumbnail, allow_redirects=True)
@@ -581,7 +581,7 @@ async def play(_, message: Message):
             useer=user_name
             emojilist = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣"]
             while j < 5:
-                toxxt += f"{emojilist[j]} [{results[j]['title'][:25]}](https://youtube.com{results[j]['url_suffix']})\n"
+                toxxt += f"{emojilist[j]} [{results[j]['title'][:20]}...](https://youtube.com{results[j]['url_suffix']})\n"
                 toxxt += f" ├ 💡 **Duration** - {results[j]['duration']}\n"
                 toxxt += f" └ ⚡ __Powered by {BOT_NAME} AI__\n\n"
                 j += 1            
@@ -615,7 +615,7 @@ async def play(_, message: Message):
             # print(results)
             try:
                 url = f"https://youtube.com{results[0]['url_suffix']}"
-                title = results[0]["title"][:35]
+                title = results[0]["title"][:25]
                 thumbnail = results[0]["thumbnails"][0]
                 thumb_name = f"thumb-{title}-veezmusic.jpg"
                 thumb = requests.get(thumbnail, allow_redirects=True)
@@ -655,7 +655,7 @@ async def play(_, message: Message):
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:50]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
+            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard
         )
     else:
@@ -674,7 +674,7 @@ async def play(_, message: Message):
             return
         await message.reply_photo(
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:50]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
+            caption=f"🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
                    +f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard
         )
@@ -705,7 +705,7 @@ async def lol_cb(b, cb):
         useer_name = cb.message.from_user.first_name
     results = YoutubeSearch(query, max_results=5).to_dict()
     resultss=results[x]["url_suffix"]
-    title=results[x]["title"][:35]
+    title=results[x]["title"][:25]
     thumbnail=results[x]["thumbnails"][0]
     duration=results[x]["duration"]
     views=results[x]["views"]
@@ -757,7 +757,7 @@ async def lol_cb(b, cb):
         await b.send_photo(
         chat_id,
         photo="final.png",
-        caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:50]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {r_by.mention}",
+        caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {r_by.mention}",
         reply_markup=keyboard,
         )
         if path.exists("final.png"):
@@ -778,7 +778,7 @@ async def lol_cb(b, cb):
         await b.send_photo(
         chat_id,
         photo="final.png",
-        caption=f"🏷 **Name:** [{title[:50]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
+        caption=f"🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
                +f"🎧 **Request by:** {r_by.mention}",
         reply_markup=keyboard,
         )
@@ -860,7 +860,7 @@ async def ytplay(_, message: Message):
         results = YoutubeSearch(query, max_results=1).to_dict()
         url = f"https://youtube.com{results[0]['url_suffix']}"
         # print(results)
-        title = results[0]["title"][:35]
+        title = results[0]["title"][:25]
         thumbnail = results[0]["thumbnails"][0]
         thumb_name = f"thumb{title}.jpg"
         thumb = requests.get(thumbnail, allow_redirects=True)
@@ -902,7 +902,7 @@ async def ytplay(_, message: Message):
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption = f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:50]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
+            caption = f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
         os.remove("final.png")
@@ -923,7 +923,7 @@ async def ytplay(_, message: Message):
             return
         await message.reply_photo(
             photo="final.png",
-            caption = f"🏷 **Name:** [{title[:50]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
+            caption = f"🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
                     + f"🎧 **Request by:** {message.from_user.mention}",
                    reply_markup=keyboard,)
         os.remove("final.png")
