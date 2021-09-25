@@ -17,7 +17,7 @@ async def handle_user_status(bot, cmd):
         await db.add_user(chat_id)
         await bot.send_message(
             LOG_CHANNEL,
-            f"**📣 Notification** \n\n#NEW_USER **start use your bot!** \n\nFirst name: `{cmd.from_user.first_name}` \nUser id: `{cmd.from_user.id}` \nProfile link: [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})"
+            f"**📣 bot notification.** \n\n#NEW_USER **start use your bot!** \n\n🏷 name: `{cmd.from_user.first_name}` \n📮 user id: `{cmd.from_user.id}` \n🧝🏻‍♂️ profile: [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})"
         )
 
     ban_status = await db.get_ban_status(chat_id)
@@ -66,7 +66,7 @@ async def main_broadcast_handler(m, db):
         if not broadcast_ids.get(broadcast_id):
             break
     out = await m.reply_text(
-        text=f"**💡 broadcast started...**\n\n**when it's done, you'll be notified**"
+        text=f"**💡 broadcast started...**\n\n**» when it's done, you'll be notified here !**"
     )
     start_time = time.time()
     total_users = await db.total_users_count()
