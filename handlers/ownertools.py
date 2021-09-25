@@ -85,7 +85,7 @@ async def ban(c: Client, m: Message):
 
 
 # Unblock User
-@Client.on_message(filters.private & filters.command("unblock") & filters.user(BOT_OWNER))
+@Client.on_message(filters.private & filters.command("unblock") & filters.user(OWNER_ID))
 async def unban(c: Client, m: Message):
     if len(m.command) == 1:
         await m.reply_text(
@@ -120,7 +120,7 @@ async def unban(c: Client, m: Message):
 
 
 # Blocked User List
-@Client.on_message(filters.private & filters.command("blocklist") & filters.user(BOT_OWNER))
+@Client.on_message(filters.private & filters.command("blocklist") & filters.user(OWNER_ID))
 async def _banned_usrs(_, m: Message):
     all_banned_users = await db.get_all_banned_users()
     banned_usr_count = 0
