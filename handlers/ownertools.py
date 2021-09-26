@@ -48,7 +48,8 @@ async def broadcast_handler_open(_, m: Message):
     await main_broadcast_handler(m, db)
 
 
-@Client.on_message(filters.private & filters.command("block") & filters.user(OWNER_ID))
+@Client.on_message(filters.private & filters.command("block"))
+@sudo_users_only
 async def ban(c: Client, m: Message):
     if len(m.command) == 1:
         await m.reply_text(
@@ -58,7 +59,7 @@ async def ban(c: Client, m: Message):
         return
     try:
         user_id = int(m.command[1])
-        ban_duration = int(m.command[2])
+        ban_duration = m.command[2]
         ban_reason = ' '.join(m.command[3:])
         ban_log_text = f"🔁 banning user... \n\nuser id: `{user_id}` \nduration: `{ban_duration}` \nreason: `{ban_reason}`"
         try:
