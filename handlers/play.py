@@ -533,7 +533,7 @@ async def play(_, message: Message):
             results = YoutubeSearch(query, max_results=1).to_dict()
             url = f"https://youtube.com{results[0]['url_suffix']}"
             # print(results)
-            title = results[0]["title"][:50]
+            title = results[0]["title"][:60]
             thumbnail = results[0]["thumbnails"][0]
             thumb_name = f"thumb-{title}-veezmusic.jpg"
             thumb = requests.get(thumbnail, allow_redirects=True)
@@ -614,7 +614,7 @@ async def play(_, message: Message):
             # print(results)
             try:
                 url = f"https://youtube.com{results[0]['url_suffix']}"
-                title = results[0]["title"][:50]
+                title = results[0]["title"][:60]
                 thumbnail = results[0]["thumbnails"][0]
                 thumb_name = f"thumb-{title}-veezmusic.jpg"
                 thumb = requests.get(thumbnail, allow_redirects=True)
@@ -704,7 +704,7 @@ async def lol_cb(b, cb):
         useer_name = cb.message.from_user.first_name
     results = YoutubeSearch(query, max_results=5).to_dict()
     resultss = results[x]["url_suffix"]
-    title = results[x]["title"][:50]
+    title = results[x]["title"][:60]
     thumbnail = results[x]["thumbnails"][0]
     duration = results[x]["duration"]
     views = results[x]["views"]
@@ -720,7 +720,7 @@ async def lol_cb(b, cb):
     except:
         pass
     try:
-        thumb_name = f"thumb-{title}veezmusic.jpg"
+        thumb_name = f"thumb-{title}-veezmusic.jpg"
         thumb = requests.get(thumbnail, allow_redirects=True)
         open(thumb_name, "wb").write(thumb.content)
     except Exception as e:
@@ -841,7 +841,7 @@ async def ytplay(client, message: Message):
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
         url = f"https://www.youtube.com{results[0]['url_suffix']}"
-        title = results[0]["title"][:50]       
+        title = results[0]["title"][:60]       
         thumbnail = results[0]["thumbnails"][0]
         thumb_name = f"thumb-{title}-veezmusic.jpg"
         thumb = requests.get(thumbnail, allow_redirects=True)
