@@ -25,7 +25,7 @@ from helpers.decorators import humanbytes
 from config import DURATION_LIMIT, BOT_USERNAME as bn
 
 
-@Client.on_message(command(["song", f"song@{bn}"]) & ~filters.channel)
+@Client.on_message(command(["song", f"song@{bn}"]) & ~filters.edited)
 def song(_, message):
     query = " ".join(message.command[1:])
     m = message.reply("🔎 finding song...")
@@ -79,12 +79,12 @@ def get_text(message: Message) -> [None, str]:
     text_to_return = message.text
     if message.text is None:
         return None
-    if " " in text_to_return:
-        try:
-            return message.text.split(None, 1)[1]
-        except IndexError:
-            return None
-    else:
+    if " " not in text_to_return:
+        return None
+
+    try:
+        return message.text.split(None, 1)[1]
+    except IndexError:
         return None
 
 
@@ -100,10 +100,11 @@ async def progress(current, total, message, start, type_of_ps, file_name=None):
         time_to_completion = round((total - current) / speed) * 1000
         estimated_total_time = elapsed_time + time_to_completion
         progress_str = "{0}{1} {2}%\n".format(
-            "".join(["🔴" for _ in range(math.floor(percentage / 10))]),
-            "".join(["🔘" for _ in range(10 - math.floor(percentage / 10))]),
+            "".join("🔴" for _ in range(math.floor(percentage / 10))),
+            "".join("🔘" for _ in range(10 - math.floor(percentage / 10))),
             round(percentage, 2),
         )
+
         tmp = progress_str + "{0} of {1}\nETA: {2}".format(
             humanbytes(current), humanbytes(total), time_formatter(estimated_total_time)
         )
@@ -126,15 +127,12 @@ async def progress(current, total, message, start, type_of_ps, file_name=None):
 
 
 def get_user(message: Message, text: str) -> [int, str, None]:
-    if text is None:
-        asplit = None
-    else:
-        asplit = text.split(" ", 1)
+    asplit = None if text is None else text.split(" ", 1)
     user_s = None
     reason_ = None
     if message.reply_to_message:
         user_s = message.reply_to_message.from_user.id
-        reason_ = text if text else None
+        reason_ = text or None
     elif asplit is None:
         return None, None
     elif len(asplit[0]) > 0:
@@ -152,10 +150,7 @@ def get_readable_time(seconds: int) -> str:
 
     while count < 4:
         count += 1
-        if count < 3:
-            remainder, result = divmod(seconds, 60)
-        else:
-            remainder, result = divmod(seconds, 24)
+        remainder, result = divmod(seconds, 60) if count < 3 else divmod(seconds, 24)
         if seconds == 0 and remainder == 0:
             break
         time_list.append(int(result))
@@ -225,7 +220,7 @@ def time_to_seconds(times):
     return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
 
 
-@Client.on_message(command(["vsong", f"vsong@{bn}", "video", f"video@{bn}"]) & filters.group & ~filters.edited)
+@Client.on_message(command(["vsong", f"vsong@{bn}", "video", f"video@{bn}"]) & ~filters.edited)
 async def vsong(client, message):
     ydl_opts = {
         'format':'best',
@@ -256,7 +251,7 @@ async def vsong(client, message):
             ytdl_data = ytdl.extract_info(link, download=True)
             file_name = ytdl.prepare_filename(ytdl_data)
     except Exception as e:
-        return await msg.edit(f"🚫 **error:** {str(e)}")
+        return await msg.edit(f"🚫 **error:** {e}")
     preview = wget.download(thumbnail)
     await msg.edit("📤 **uploading video...**")
     await message.reply_video(
