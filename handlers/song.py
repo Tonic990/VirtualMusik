@@ -35,13 +35,13 @@ def song(_, message):
         link = f"https://youtube.com{results[0]['url_suffix']}"
         title = results[0]["title"][:40]
         thumbnail = results[0]["thumbnails"][0]
-        thumb_name = f"thumb{title}.jpg"
+        thumb_name = f"thumb-{title}.jpg"
         thumb = requests.get(thumbnail, allow_redirects=True)
         open(thumb_name, "wb").write(thumb.content)
         duration = results[0]["duration"]
 
     except Exception as e:
-        m.edit("❌ song not found.\n\nplease give a valid song name.")
+        m.edit("❌ **song not found.**\n\n» **please give a valid song name.**")
         print(str(e))
         return
     m.edit("📥 downloading...")
@@ -65,7 +65,7 @@ def song(_, message):
         )
         m.delete()
     except Exception as e:
-        m.edit("❌ error, wait for dev to fix")
+        m.edit("❌ error, wait for bot owner to fix")
         print(e)
 
     try:
@@ -225,7 +225,7 @@ def time_to_seconds(times):
     return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
 
 
-@Client.on_message(command(["vsong", f"vsong@{bn}"]) & filters.group & ~filters.edited)
+@Client.on_message(command(["vsong", f"vsong@{bn}", "video", f"video@{bn}"]) & filters.group & ~filters.edited)
 async def vsong(client, message):
     ydl_opts = {
         'format':'best',
