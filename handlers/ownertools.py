@@ -52,7 +52,7 @@ async def broadcast_handler_open(_, m: Message):
 async def ban(c: Client, m: Message):
     if len(m.command) == 1:
         await m.reply_text(
-            f"» this command for ban user from using your bot, read /help for more info !",
+            "» this command for ban user from using your bot, read /help for more info !",
             quote=True
         )
         return
@@ -89,7 +89,7 @@ async def ban(c: Client, m: Message):
 async def unban(c: Client, m: Message):
     if len(m.command) == 1:
         await m.reply_text(
-            f"» this command for unban user, read /help for more info !",
+            "» this command for unban user, read /help for more info !",
             quote=True
         )
         return
@@ -97,10 +97,7 @@ async def unban(c: Client, m: Message):
         user_id = int(m.command[1])
         unban_log_text = f"🔁 unbanning user... \n\n**user id:**{user_id}"
         try:
-            await c.send_message(
-                user_id,
-                f"🎊 congratulations, you was unbanned!"
-            )
+            await c.send_message(user_id, "🎊 congratulations, you was unbanned!")
             unban_log_text += '\n\n✅ this notification was sent to that user'
         except:
             traceback.print_exc()
@@ -217,23 +214,21 @@ async def edit_or_send_as_file(
     if not text:
         await message.edit("`there is something other than text, aborting...`")
         return
-    if len(text) > 1024:
-        await message.edit("`output is too large, sending as file!`")
-        file_names = f"{file_name}.text"
-        open(file_names, "w").write(text)
-        await client.send_document(message.chat.id, file_names, caption=caption)
-        await message.delete()
-        if os.path.exists(file_names):
-            os.remove(file_names)
-        return
-    else:
+    if len(text) <= 1024:
         return await message.edit(text, parse_mode=parse_mode)
 
+    await message.edit("`output is too large, sending as file!`")
+    file_names = f"{file_name}.text"
+    open(file_names, "w").write(text)
+    await client.send_document(message.chat.id, file_names, caption=caption)
+    await message.delete()
+    if os.path.exists(file_names):
+        os.remove(file_names)
+    return
 
 
-heroku_client = None
-if HEROKU_API_KEY:
-    heroku_client = heroku3.from_key(HEROKU_API_KEY)
+
+heroku_client = heroku3.from_key(HEROKU_API_KEY) if HEROKU_API_KEY else None
 
 def _check_heroku(func):
     @wraps(func)
@@ -286,7 +281,7 @@ async def setvar(client: Client, message: Message, app_):
     if not _var:
         await msg.edit("**usage:** `/setvar (var) (value)`")
         return
-    if not " " in _var:
+    if " " not in _var:
         await msg.edit("**usage:** `/setvar (var) (value)`")
         return
     var_ = _var.split(" ", 1)
@@ -308,7 +303,7 @@ async def delvar(client: Client, message: Message, app_):
     if not _var:
         await msg.edit("`give a var name to delete!`")
         return
-    if not _var in heroku_var:
+    if _var not in heroku_var:
         await msg.edit("`this var doesn't exists!`")
         return
     await msg.edit(f"sucessfully deleted var `{_var}`")
