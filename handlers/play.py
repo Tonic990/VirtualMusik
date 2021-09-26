@@ -784,7 +784,7 @@ async def lol_cb(b, cb):
 
 
 @Client.on_message(command(["ytp", f"ytp@{BOT_USERNAME}"]) & other_filters)
-async def play(client, message: Message):
+async def ytplay(client, message: Message):
     global que
     lel = await message.reply("🔎 **Searching...**")
     administrators = await get_administrators(message.chat)
