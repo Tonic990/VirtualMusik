@@ -40,9 +40,8 @@ def cb_admin_check(func: Callable) -> Callable:
         admemes = a.get(cb.message.chat.id)
         if cb.from_user.id in admemes:
             return await func(client, cb)
-        else:
-            await cb.answer("💡 only admin can tap this button !", show_alert=True)
-            return
+        await cb.answer("💡 only admin can tap this button !", show_alert=True)
+        return
     return decorator                                                                       
                                           
                                                                                     
@@ -687,9 +686,9 @@ async def lol_cb(b, cb):
     global que
     cbd = cb.data.strip()
     chat_id = cb.message.chat.id
-    typed_=cbd.split(None, 1)[1]
+    typed_ = cbd.split(None, 1)[1]
     try:
-        x,query,useer_id = typed_.split("|")      
+        x, query, useer_id = typed_.split("|")      
     except:
         await cb.message.edit("😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**")
         return
@@ -698,17 +697,17 @@ async def lol_cb(b, cb):
         await cb.answer("💡 sorry, this is not for you !", show_alert=True)
         return
     #await cb.message.edit("🔁 **processing...**")
-    x=int(x)
+    x = int(x)
     try:
         useer_name = cb.message.reply_to_message.from_user.first_name
     except:
         useer_name = cb.message.from_user.first_name
     results = YoutubeSearch(query, max_results=5).to_dict()
-    resultss=results[x]["url_suffix"]
-    title=results[x]["title"][:40]
-    thumbnail=results[x]["thumbnails"][0]
-    duration=results[x]["duration"]
-    views=results[x]["views"]
+    resultss = results[x]["url_suffix"]
+    title = results[x]["title"][:40]
+    thumbnail = results[x]["thumbnails"][0]
+    duration = results[x]["duration"]
+    views = results[x]["views"]
     url = f"https://www.youtube.com{resultss}"
     try:    
         secmul, dur, dur_arr = 1, 0, duration.split(":")
@@ -727,8 +726,8 @@ async def lol_cb(b, cb):
     except Exception as e:
         print(e)
         return
-    dlurl=url
-    dlurl=dlurl.replace("youtube", "youtubepp")
+    dlurl = url
+    dlurl = dlurl.replace("youtube", "youtubepp")
     keyboard = InlineKeyboardMarkup(
             [
                 [
@@ -741,7 +740,7 @@ async def lol_cb(b, cb):
     )
     requested_by = useer_name
     await generate_cover(title, thumbnail)
-    file_path = await converter.convert(youtube.download(url))  
+    file_path = await converter.convert(youtube.download(url))
     if chat_id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(chat_id, file=file_path)
         qeue = que.get(chat_id)
@@ -760,8 +759,6 @@ async def lol_cb(b, cb):
         caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {r_by.mention}",
         reply_markup=keyboard,
         )
-        if path.exists("final.png"):
-            os.remove("final.png")
     else:
         que[chat_id] = []
         qeue = que.get(chat_id)
@@ -782,8 +779,8 @@ async def lol_cb(b, cb):
                +f"🎧 **Request by:** {r_by.mention}",
         reply_markup=keyboard,
         )
-        if path.exists("final.png"):
-            os.remove("final.png")
+    if path.exists("final.png"):
+        os.remove("final.png")
 
 
 @Client.on_message(command(["ytp", f"ytp@{BOT_USERNAME}"]) & other_filters)
