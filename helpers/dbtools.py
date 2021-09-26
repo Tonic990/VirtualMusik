@@ -46,7 +46,7 @@ async def send_msg(user_id, message):
             await message.copy(chat_id=user_id)
         return 200, None
     except FloodWait as e:
-        await asyncio.sleep(e.x)
+        await asyncio.sleep(int(e.x))
         return send_msg(user_id, message)
     except InputUserDeactivated:
         return 400, f"{user_id} : deactivated\n"
@@ -62,12 +62,13 @@ async def main_broadcast_handler(m, db):
     all_users = await db.get_all_users()
     broadcast_msg = m.reply_to_message
     while True:
-        broadcast_id = ''.join([random.choice(string.ascii_letters) for i in range(3)])
+        broadcast_id = ''.join(random.choice(string.ascii_letters) for i in range(3))
         if not broadcast_ids.get(broadcast_id):
             break
     out = await m.reply_text(
-        text=f"**💡 broadcast started...**\n\n**» when it's done, you'll be notified here !**"
+        text="**💡 broadcast started...**\n\n**» when it's done, you'll be notified here !**"
     )
+
     start_time = time.time()
     total_users = await db.total_users_count()
     done = 0
@@ -130,9 +131,7 @@ delcmdmdb = dcmdb.admins
 
 async def delcmd_is_on(chat_id: int) -> bool:
     chat = await delcmdmdb.find_one({"chat_id": chat_id})
-    if not chat:
-        return True
-    return False
+    return not chat
 
 
 async def delcmd_on(chat_id: int):
