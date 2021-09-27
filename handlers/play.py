@@ -784,11 +784,14 @@ async def lol_cb(b, cb):
 
 
 @Client.on_message(command(["ytp", f"ytp@{BOT_USERNAME}"]) & other_filters)
-async def ytplay(client, message: Message):
+async def ytplay(_, message: Message):
     global que
+    if message.chat.id in DISABLED_GROUPS:
+        return
     lel = await message.reply("🔎 **Searching...**")
     administrators = await get_administrators(message.chat)
     chid = message.chat.id
+
     try:
         user = await USER.get_me()
     except:
@@ -796,76 +799,88 @@ async def ytplay(client, message: Message):
     usar = user
     wew = usar.id
     try:
-        lmoa = await client.get_chat_member(chid, wew)
+        # chatdetails = await USER.get_chat(chid)
+        await _.get_chat_member(chid, wew)
     except:
         for administrator in administrators:
-            if administrator == message.from_user.id:  
+            if administrator == message.from_user.id:
+                if message.chat.title.startswith("Channel Music: "):
+                    await lel.edit(
+                        f"💡 **please add {user.first_name} to your channel first**",
+                    )
                 try:
-                    invitelink = await client.export_chat_invite_link(chid)
+                    invitelink = await _.export_chat_invite_link(chid)
                 except:
                     await lel.edit(
-                        f"<b>please add {user.first_name} to your channel first</b>",
+                        "💡 **To use me, I need to be an Administrator with the permissions:\n\n» ❌ __Delete messages__\n» ❌ __Ban users__\n» ❌ __Add users__\n» ❌ __Manage voice chat__\n\n**Then type /reload**",
                     )
                     return
 
                 try:
                     await USER.join_chat(invitelink)
-                    await USER.send_message(message.chat.id, "🤖: i'm joined to this group for playing music in voice chat")
+                    await USER.send_message(
+                        message.chat.id, "🤖: i'm joined to this group for playing music in voice chat"
+                    )
                     await lel.edit(
-                        f"<b>💡 {user.first_name} userbot succesfully joined your chat</b>",
+                        f"💡 **{user.first_name} userbot succesfully joined this group**",
                     )
 
                 except UserAlreadyParticipant:
                     pass
-                except Exception as e:
+                except Exception:
+                    # print(e)
                     await lel.edit(
-                        f"<b>🔴 Flood Wait Error 🔴 \n\n{user.first_name} can't join this group due to many join requests for userbot."
-                        f"\n\nor add @{ASSISTANT_NAME} to this group manually then try again.</b>",
+                        f"🔴 **Flood Wait Error** 🔴 \n\n**{user.first_name} can't join this group due to many join requests for userbot.**"
+                        f"\n\n**or add @{ASSISTANT_NAME} to this group manually then try again.**",
                     )
     try:
-        chatdetails = await USER.get_chat(chid)
+        await USER.get_chat(chid)
     except:
         await lel.edit(
-            f"<i>{user.first_name} was banned in this group, ask admin to unban @{ASSISTANT_NAME} and add to this group manually.</i>"
+            f"💡 **{user.first_name} was banned in this group !** \n\n**ask admin to unban @{ASSISTANT_NAME} and add to this group manually.**"
         )
         return
+    
+    message.from_user.id
+    message.from_user.first_name
 
-    user_id = message.from_user.id
-    user_name = message.from_user.first_name
-    rpk = "["+user_name+"](tg://user?id="+str(user_id)+")"
-
-    query = "".join(" " + str(i) for i in message.command[1:])
+    query = ""
+    for i in message.command[1:]:
+        query += " " + str(i)
     print(query)
-    await lel.edit("🔄 **connecting to vc...**")
+    await lel.edit("🔄 **connecting to vcg...**")
     ydl_opts = {"format": "bestaudio/best"}
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
-        url = f"https://www.youtube.com{results[0]['url_suffix']}"
-        title = results[0]["title"][:60]       
+        url = f"https://youtube.com{results[0]['url_suffix']}"
+        # print(results)
+        title = results[0]["title"][:60]
         thumbnail = results[0]["thumbnails"][0]
         thumb_name = f"thumb-{title}-veezmusic.jpg"
         thumb = requests.get(thumbnail, allow_redirects=True)
         open(thumb_name, "wb").write(thumb.content)
         duration = results[0]["duration"]
-        url_suffix = results[0]["url_suffix"]
+        results[0]["url_suffix"]
         views = results[0]["views"]
 
     except Exception as e:
         await lel.edit("😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**")
         print(str(e))
         return
-    try:    
+    try:
         secmul, dur, dur_arr = 1, 0, duration.split(":")
-        for i in range(len(dur_arr)-1, -1, -1):
-            dur += (int(dur_arr[i]) * secmul)
+        for i in range(len(dur_arr) - 1, -1, -1):
+            dur += int(dur_arr[i]) * secmul
             secmul *= 60
         if (dur / 60) > DURATION_LIMIT:
-             await lel.edit(f"❌ **music with duration more than** `{DURATION_LIMIT}` **minutes, can't play !**")
-             return
+            await lel.edit(
+                f"❌ **music with duration more than** `{DURATION_LIMIT}` **minutes, can't play !**"
+            )
+            return
     except:
         pass
-    durl = url
-    durl = durl.replace("youtube", "youtubepp")
+    dlurl = url
+    dlurl = dlurl.replace("youtube", "youtubepp")
     keyboard = InlineKeyboardMarkup(
             [   
                 [
@@ -881,36 +896,39 @@ async def ytplay(client, message: Message):
         )
     requested_by = message.from_user.first_name
     await generate_cover(requested_by, title, views, duration, thumbnail)
-    file_path = await converter.convert(youtube.download(url))
-
-    if message.chat.id in callsmusic.pytgcalls.active_calls:
-        position = await queues.put(message.chat.id, file=file_path)
-        qeue = que.get(message.chat.id)
+    file = await convert(youtube.download(url))
+    chat_id = get_chat_id(message.chat)
+    if chat_id in callsmusic.active_chats:
+        position = await queues.put(chat_id, file=file)
+        qeue = que.get(chat_id)
         s_name = title
         r_by = message.from_user
-        loc = file_path
+        loc = file
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         await message.reply_photo(
-        photo = "final.png", 
-        caption = f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
-        reply_markup = keyboard
+            photo="final.png",
+            caption = f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
+            reply_markup = keyboard
         )
     else:
-        chat_id = message.chat.id
+        chat_id = get_chat_id(message.chat)
         que[chat_id] = []
-        qeue = que.get(message.chat.id)
+        qeue = que.get(chat_id)
         s_name = title
         r_by = message.from_user
-        loc = file_path
+        loc = file
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
-        callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
+        try:
+            await callsmusic.set_stream(chat_id, file)
+        except:
+            message.reply("😕 **voice chat not found**\n\n» please turn on the voice chat first")
+            return
         await message.reply_photo(
-        photo = "final.png",
-        caption = f"🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
-                + f"🎧 **Request by:** {message.from_user.mention}",
-        reply_markup = keyboard
-        )
-    os.remove("final.png")
-    return await lel.delete()
+            photo="final.png",
+            caption = f"🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
+                    + f"🎧 **Request by:** {message.from_user.mention}",
+                   reply_markup=keyboard,)
+        os.remove("final.png")
+        return await lel.delete()
