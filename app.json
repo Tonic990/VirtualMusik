@@ -1,7 +1,7 @@
 {
     "name": "Veez Music Bot",
-    "logo": "https://i.postimg.cc/SQBqsJjN/logo8-11-232731.png",
-    "description": "Veez Music project allow you to stream music trought the telegram voice chat feature.",
+    "logo": "https://telegra.ph/file/9dd9b20abcda2d7bb6725.png",
+    "description": "veez music allow you to stream music trought the telegram voice chat feature.",
     "keywords": ["music", "voice chat", "telegram"],
     "repository": "https://github.com/levina-lab/veezmusic",
     "stack": "container",
@@ -11,11 +11,11 @@
             "required": true
         },
         "BOT_TOKEN": {
-            "description": "your bot token from @BotFather",
+            "description": "fill with your bot token from @BotFather",
             "required": true
         },
         "BOT_NAME": {
-            "description": "your music bot name.",
+            "description": "fill with your music bot name.",
             "required": true,
             "value": ""
         },
@@ -25,7 +25,7 @@
             "value": ""
         },
         "DATABASE_URL": {
-            "description": "fill with the mongodb url get from cloud.mongodb.com",
+            "description": "fill with the mongodb url you get from cloud.mongodb.com",
             "required": true,
             "value": ""
         },
@@ -55,11 +55,11 @@
             "value": "dlwrml"
         },
         "API_ID": {
-            "description": "your App ID from my.telegram.org/apps",
+            "description": "your Api ID from my.telegram.org/apps",
             "required": true
         },
         "API_HASH": {
-            "description": "your Api hash from my.telegram.org/apps",
+            "description": "your Api Hash from my.telegram.org/apps",
             "required": true
         },
         "SUDO_USERS": {
@@ -67,9 +67,9 @@
             "required": true
         },
         "DURATION_LIMIT": {
-            "description": "max duration for video to download (in minutes).",
+            "description": "max duration for music to download (in minutes).",
             "required": true,
-            "value": "60"
+            "value": "40"
         },
         "UPDATES_CHANNEL": {
             "description": "if you have channel fill the channel username here without @",
