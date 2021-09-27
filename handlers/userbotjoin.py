@@ -62,8 +62,8 @@ async def bye(client, message):
     if message.from_user.id not in SUDO_USERS:
         return
 
-    left=0
-    failed=0
+    left = 0
+    failed = 0
     lol = await message.reply("Assistant Leaving all chats")
     async for dialog in USER.iter_dialogs():
         try:

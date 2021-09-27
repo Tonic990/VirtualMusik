@@ -183,7 +183,7 @@ async def updatebot(_, message: Message):
         await msg.edit("**update finished, restarting now...**")
         args = [sys.executable, "main.py"]
         execle(sys.executable, *args, environ)
-        exit()
+        sys.exit()
         return
     else:
         await msg.edit("`heroku detected!`")

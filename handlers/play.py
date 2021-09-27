@@ -471,7 +471,7 @@ async def play(_, message: Message):
             f"<i>{user.first_name} was banned in this group, ask admin to unban @{ASSISTANT_NAME} manually.</i>"
         )
         return
-    text_links=None
+    text_links = None
     if message.reply_to_message:
         if message.reply_to_message.audio or message.reply_to_message.voice:
             pass
@@ -486,7 +486,7 @@ async def play(_, message: Message):
             entity for entity in entities if entity.type == 'text_link'
         ]
     else:
-        urls=None
+        urls = None
     if text_links:
         urls = True
     user_id = message.from_user.id
@@ -547,8 +547,13 @@ async def play(_, message: Message):
             )
             print(str(e))
             return
+        patch-8
         dlurl=url
         dlurl = dlurl.replace("youtube","youtubepp")
+
+        dlurl = url
+        dlurl=dlurl.replace("youtube","youtubepp")
+        main
         keyboard = InlineKeyboardMarkup(
             [
                 [
