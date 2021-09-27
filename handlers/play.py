@@ -547,8 +547,13 @@ async def play(_, message: Message):
             )
             print(str(e))
             return
+        patch-8
+        dlurl=url
+        dlurl = dlurl.replace("youtube","youtubepp")
+
         dlurl = url
         dlurl=dlurl.replace("youtube","youtubepp")
+        main
         keyboard = InlineKeyboardMarkup(
             [
                 [
