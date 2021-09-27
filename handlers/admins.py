@@ -29,12 +29,13 @@ async def _(bot: Client, cmd: Message):
 # Back Button
 BACK_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("🏡 Go Back", callback_data="cbback")]])
 
-@Client.on_message(filters.text & ~filters.private)
-async def delcmd(_, message: Message):
-    if await delcmd_is_on(message.chat.id) and message.text.startswith("/") or message.text.startswith("!") or message.text.startswith("."):
-        await message.delete()
-    await message.continue_propagation()
+# @Client.on_message(filters.text & ~filters.private)
+# async def delcmd(_, message: Message):
+#    if await delcmd_is_on(message.chat.id) and message.text.startswith("/") or message.text.startswith("!") or message.text.startswith("."):
+#        await message.delete()
+#    await message.continue_propagation()
 
+# remove the ( # ) if you want the auto del cmd feature is on
 
 @Client.on_message(command(["reload", f"reload@{BOT_USERNAME}"]) & other_filters)
 async def update_admin(client, message):
