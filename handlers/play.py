@@ -471,7 +471,7 @@ async def play(_, message: Message):
             f"<i>{user.first_name} was banned in this group, ask admin to unban @{ASSISTANT_NAME} manually.</i>"
         )
         return
-    text_links=None
+    text_links = None
     if message.reply_to_message:
         if message.reply_to_message.audio or message.reply_to_message.voice:
             pass
