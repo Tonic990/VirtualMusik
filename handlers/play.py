@@ -548,7 +548,7 @@ async def play(_, message: Message):
             print(str(e))
             return
         dlurl=url
-        dlurl=dlurl.replace("youtube","youtubepp")
+        dlurl = dlurl.replace("youtube","youtubepp")
         keyboard = InlineKeyboardMarkup(
             [
                 [
