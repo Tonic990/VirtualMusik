@@ -48,10 +48,11 @@ async def addchannel(client, message):
 @authorized_users_only
 async def rem(client, message):
     try:
+        await USER.send_message(message.chat.id, "✅ userbot successfully left chat")
         await USER.leave_chat(message.chat.id)
     except:
         await message.reply_text(
-            "<b>User couldn't leave your group! May be floodwaits.\n\nOr manually kick me from to your Group</b>"
+            "<b>user couldn't leave your group, may be floodwaits.\n\nor manually kick me from your group</b>"
         )
 
         return
@@ -69,7 +70,7 @@ async def bye(client, message):
         try:
             await USER.leave_chat(dialog.chat.id)
             left += 1
-            await lol.edit(f"Assistant leaving... Left: {left} chats. Failed: {failed} chats.")
+            await lol.edit(f"Assistant leaving all group... \n\nLeft: {left} chats. Failed: {failed} chats.")
         except:
             failed += 1
             await lol.edit(f"Assistant leaving... Left: {left} chats. Failed: {failed} chats.")
