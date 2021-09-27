@@ -486,7 +486,7 @@ async def play(_, message: Message):
             entity for entity in entities if entity.type == 'text_link'
         ]
     else:
-        urls=None
+        urls = None
     if text_links:
         urls = True
     user_id = message.from_user.id
