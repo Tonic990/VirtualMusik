@@ -159,7 +159,7 @@ def r_ply(type_):
                 InlineKeyboardButton("⏭", "skip")
             ],
             [
-                InlineKeyboardButton("📖 Playlist", "playlist"),
+                InlineKeyboardButton("📖 PLAY-LIST", "playlist"),
             ],
             [       
                 InlineKeyboardButton("🗑 Close", "cls")
@@ -369,7 +369,7 @@ async def m_cb(b, cb):
                 
                 ],
                 [
-                    InlineKeyboardButton("📖 Playlist", "playlist"),
+                    InlineKeyboardButton("📖 PLAY-LIST", "playlist"),
                 
                 ],
                 [       
@@ -426,7 +426,7 @@ async def play(_, message: Message):
     try:
         user = await USER.get_me()
     except:
-        user.first_name = "helper"
+        user.first_name = "music assistant"
     usar = user
     wew = usar.id
     try:
@@ -437,14 +437,14 @@ async def play(_, message: Message):
             if administrator == message.from_user.id:
                 if message.chat.title.startswith("Channel Music: "):
                     await lel.edit(
-                        f"<b>please add {user.first_name} to your channel first.</b>",
+                        f"<b>💡 please add {user.first_name} to your channel first.</b>",
                     )
                     pass
                 try:
                     invitelink = await _.export_chat_invite_link(chid)
                 except:
                     await lel.edit(
-                        "<b>💡 **To use me, I need to be an Administrator with the permissions:\n\n» ❌ __Delete messages__\n» ❌ __Ban users__\n» ❌ __Add users__\n» ❌ __Manage voice chat__\n\n**Then type /reload**</b>",
+                        "<b>💡 To use me, I need to be an Administrator with the permissions:\n\n» ❌ __Delete messages__\n» ❌ __Ban users__\n» ❌ __Add users__\n» ❌ __Manage voice chat__\n\n**Then type /reload</b>",
                     )
                     return
                 try:
@@ -453,7 +453,7 @@ async def play(_, message: Message):
                         message.chat.id, "🤖: i'm joined to this group for playing music on voice chat"
                     )
                     await lel.edit(
-                        "<b>💡 helper userbot joined your chat</b>",
+                        f"✅ **{user.first_name} successfully joined this group**",
                     )
                 except UserAlreadyParticipant:
                     pass
@@ -465,10 +465,9 @@ async def play(_, message: Message):
                     )
     try:
         await USER.get_chat(chid)
-        # lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            f"<i>{user.first_name} was banned in this group, ask admin to unban @{ASSISTANT_NAME} manually.</i>"
+            f"» **{user.first_name} was banned in this group !**\n\n**ask admin to unban @{ASSISTANT_NAME} and added again to this group manually.\n\n💡 **tips: type /ub @{ASSISTANT_NAME}, then type /userbotjoin in group !**"
         )
         return
     text_links = None
