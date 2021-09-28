@@ -137,10 +137,10 @@ def updated_stats(chat, queue, vol=100):
         stats = "⚙ settings for **{}**".format(chat.title)
         if len(que) > 0:
             stats += "\n\n"
-            stats += "Volume: {}%\n".format(vol)
-            stats += "Song played: `{}`\n".format(len(que))
-            stats += "Now playing: **{}**\n".format(queue[0][0])
-            stats += "Requested by: {}".format(queue[0][1].mention)
+            stats += "🎚 volume: {}%\n".format(vol)
+            stats += "🎵 song played: `{}`\n".format(len(que))
+            stats += "💡 now playing: **{}**\n".format(queue[0][0])
+            stats += "🎧 request by: {}".format(queue[0][1].mention)
     else:
         stats = None
     return stats
@@ -899,7 +899,7 @@ async def ytplay(_, message: Message):
             ]
         )
     requested_by = message.from_user.first_name
-    await generate_cover(requested_by, title, views, duration, thumbnail)
+    await generate_cover(title, thumbnail)
     file = await convert(youtube.download(url))
     chat_id = get_chat_id(message.chat)
     if chat_id in callsmusic.active_chats:
