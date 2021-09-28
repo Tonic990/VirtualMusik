@@ -900,14 +900,14 @@ async def ytplay(_, message: Message):
         )
     requested_by = message.from_user.first_name
     await generate_cover(title, thumbnail)
-    file = await converter.convert(youtube.download(url))
+    file_path = await converter.convert(youtube.download(url))
     chat_id = get_chat_id(message.chat)
     if chat_id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(chat_id, file=file_path)
         qeue = que.get(chat_id)
         s_name = title
         r_by = message.from_user
-        loc = file
+        loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         await message.reply_photo(
@@ -921,7 +921,7 @@ async def ytplay(_, message: Message):
         qeue = que.get(chat_id)
         s_name = title
         r_by = message.from_user
-        loc = file
+        loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         try:
