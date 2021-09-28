@@ -16,31 +16,31 @@ async def addchannel(client, message):
         invitelink = await client.export_chat_invite_link(chid)
     except:
         await message.reply_text(
-            "<b>make me as admin first !</b>",
+            "<b>promote me as admin first !</b>",
         )
         return
 
     try:
         user = await USER.get_me()
     except:
-        user.first_name = "helper"
+        user.first_name = "music assistant"
 
     try:
         await USER.join_chat(invitelink)
         await USER.send_message(message.chat.id, "🤖: i'm joined here for playing music on voice chat")
     except UserAlreadyParticipant:
         await message.reply_text(
-            "<b>helper already in your chat</b>",
+            f"<b>✅ {user.first_name} already joined this group.</b>",
         )
     except Exception as e:
         print(e)
         await message.reply_text(
-            f"<b>🛑 Flood Wait Error 🛑 \n User {user.first_name} couldn't join your group due to heavy join requests for userbot! Make sure user is not banned in group."
+            f"<b>🛑 Flood Wait Error 🛑 \n\n User {user.first_name} couldn't join your group due to heavy join requests for userbot! Make sure user is not banned in group."
             "\n\nOr manually add Asisstant to your Group and try again</b>",
         )
         return
     await message.reply_text(
-        "<b>helper userbot joined your chat</b>",
+        f"<b>✅ {user.first_name} successfully joined this group.</b>",
     )
 
 
@@ -114,7 +114,7 @@ async def addcchannel(client, message):
     except Exception as e:
         print(e)
         await message.reply_text(
-            f"<b>🛑 Flood Wait Error 🛑 \n User {user.first_name} couldn't join your channel due to heavy join requests for userbot! Make sure user is not banned in channel."
+            f"<b>🛑 Flood Wait Error 🛑 \n\n User {user.first_name} couldn't join your channel due to heavy join requests for userbot! Make sure user is not banned in channel."
             f"\n\nOr manually add @{ASSISTANT_NAME} to your Group and try again</b>",
         )
         return
