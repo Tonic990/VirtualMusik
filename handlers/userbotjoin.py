@@ -30,17 +30,17 @@ async def addchannel(client, message):
         await USER.send_message(message.chat.id, "🤖: i'm joined here for playing music on voice chat")
     except UserAlreadyParticipant:
         await message.reply_text(
-            f"<b>✅ {user.first_name} already joined this group.</b>",
+            f"<b>✅ userbot already joined this group.</b>",
         )
     except Exception as e:
         print(e)
         await message.reply_text(
-            f"<b>🛑 Flood Wait Error 🛑 \n\n User {user.first_name} couldn't join your group due to heavy join requests for userbot! Make sure user is not banned in group."
-            "\n\nOr manually add Asisstant to your Group and try again</b>",
+            f"<b>🛑 Flood Wait Error 🛑 \n\n User {user.first_name} couldn't join your group due to heavy join requests for userbot."
+            "\n\nor manually add assistant to your Group and try again</b>",
         )
         return
     await message.reply_text(
-        f"<b>✅ {user.first_name} successfully joined this group.</b>",
+        f"<b>✅ userbot successfully joined this group.</b>",
     )
 
 
@@ -48,7 +48,7 @@ async def addchannel(client, message):
 @authorized_users_only
 async def rem(client, message):
     try:
-        await USER.send_message(message.chat.id, "✅ userbot successfully left chat")
+        await USER.send_message(message.chat.id, "✅ userbot successfully left group")
         await USER.leave_chat(message.chat.id)
     except:
         await message.reply_text(
