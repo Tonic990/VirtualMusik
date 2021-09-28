@@ -437,7 +437,7 @@ async def play(_, message: Message):
             if administrator == message.from_user.id:
                 if message.chat.title.startswith("Channel Music: "):
                     await lel.edit(
-                        f"<b>💡 please add {user.first_name} to your channel first.</b>",
+                        f"<b>💡 please add the userbot to your channel first.</b>",
                     )
                     pass
                 try:
@@ -453,21 +453,21 @@ async def play(_, message: Message):
                         message.chat.id, "🤖: i'm joined to this group for playing music on voice chat"
                     )
                     await lel.edit(
-                        f"✅ **{user.first_name} successfully joined this group**",
+                        f"✅ **userbot successfully joined this group**",
                     )
                 except UserAlreadyParticipant:
                     pass
                 except Exception:
                     # print(e)
                     await lel.edit(
-                        f"<b>🔴 Flood Wait Error 🔴 \n\n{user.first_name} can't join this group due to many join requests for userbot."
+                        f"<b>🔴 Flood Wait Error 🔴 \n\nassistant can't join this group due to many join requests for userbot."
                         f"\n\nor add @{ASSISTANT_NAME} to this group manually then try again.</b>",
                     )
     try:
         await USER.get_chat(chid)
     except:
         await lel.edit(
-            f"» **{user.first_name} was banned in this group !**\n\n**ask admin to unban @{ASSISTANT_NAME} and added again to this group manually.\n\n💡 **tips: type /ub @{ASSISTANT_NAME}, then type /userbotjoin in group !**"
+            f"» **userbot was banned in this group !**\n\n**ask admin to unban @{ASSISTANT_NAME} and added again to this group manually."
         )
         return
     text_links = None
@@ -810,7 +810,7 @@ async def ytplay(_, message: Message):
             if administrator == message.from_user.id:
                 if message.chat.title.startswith("Channel Music: "):
                     await lel.edit(
-                        f"💡 **please add {user.first_name} to your channel first**",
+                        f"💡 **please add the userbot to your channel first**",
                     )
                 try:
                     invitelink = await _.export_chat_invite_link(chid)
@@ -826,7 +826,7 @@ async def ytplay(_, message: Message):
                         message.chat.id, "🤖: i'm joined to this group for playing music in voice chat"
                     )
                     await lel.edit(
-                        f"💡 **{user.first_name} userbot succesfully joined this group**",
+                        f"✅ **userbot succesfully joined this group.**",
                     )
 
                 except UserAlreadyParticipant:
@@ -841,7 +841,7 @@ async def ytplay(_, message: Message):
         await USER.get_chat(chid)
     except:
         await lel.edit(
-            f"💡 **{user.first_name} was banned in this group !** \n\n**ask admin to unban @{ASSISTANT_NAME} and add to this group manually.**"
+            f"💡 **userbot was banned in this group !** \n\n**ask admin to unban @{ASSISTANT_NAME} and add to this group again manually.**"
         )
         return
     
