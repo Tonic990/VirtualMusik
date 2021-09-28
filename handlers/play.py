@@ -927,7 +927,7 @@ async def ytplay(_, message: Message):
         try:
             await callsmusic.set_stream(chat_id, file)
         except:
-            message.reply("😕 **voice chat not found**\n\n» please turn on the voice chat first")
+            await message.reply("😕 **voice chat not found**\n\n» please turn on the voice chat first")
             return
         await message.reply_photo(
             photo="final.png",
