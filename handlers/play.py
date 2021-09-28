@@ -902,7 +902,7 @@ async def ytplay(_, message: Message):
     await generate_cover(title, thumbnail)
     file = await convert(youtube.download(url))
     chat_id = get_chat_id(message.chat)
-    if chat_id in callsmusic.active_chats:
+    if chat_id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(chat_id, file=file)
         qeue = que.get(chat_id)
         s_name = title
