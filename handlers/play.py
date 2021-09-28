@@ -673,7 +673,7 @@ async def play(_, message: Message):
         try:
             callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         except:
-            message.reply("😕 **voice chat not found**\n\n» please turn on the voice chat first")
+            await lel.edit("😕 **voice chat not found**\n\n» please turn on the voice chat first")
             return
         await message.reply_photo(
             photo="final.png",
@@ -900,10 +900,10 @@ async def ytplay(_, message: Message):
         )
     requested_by = message.from_user.first_name
     await generate_cover(title, thumbnail)
-    file = await convert(youtube.download(url))
+    file_path = await converter.convert(youtube.download(url))
     chat_id = get_chat_id(message.chat)
     if chat_id in callsmusic.pytgcalls.active_calls:
-        position = await queues.put(chat_id, file=file)
+        position = await queues.put(chat_id, file=file_path)
         qeue = que.get(chat_id)
         s_name = title
         r_by = message.from_user
@@ -912,8 +912,8 @@ async def ytplay(_, message: Message):
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption = f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
-            reply_markup = keyboard
+            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
+            reply_markup=keyboard
         )
     else:
         chat_id = get_chat_id(message.chat)
@@ -925,14 +925,15 @@ async def ytplay(_, message: Message):
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         try:
-            await callsmusic.set_stream(chat_id, file)
+            callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         except:
-            await message.reply("😕 **voice chat not found**\n\n» please turn on the voice chat first")
+            await lel.edit("😕 **voice chat not found**\n\n» please turn on the voice chat first")
             return
         await message.reply_photo(
             photo="final.png",
-            caption = f"🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
-                    + f"🎧 **Request by:** {message.from_user.mention}",
-                   reply_markup=keyboard,)
+            caption=f"🏷 **Name:** [{title[:80]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n" \
+                   +f"🎧 **Request by:** {message.from_user.mention}",
+            reply_markup=keyboard,
+        )
         os.remove("final.png")
         return await lel.delete()
