@@ -1,13 +1,19 @@
 import asyncio
+
 from pyrogram import Client, filters
 from pyrogram.errors import UserAlreadyParticipant
-from helpers.filters import command
-from helpers.decorators import authorized_users_only, errors
+
 from callsmusic.callsmusic import client as USER
 from config import BOT_USERNAME, SUDO_USERS
+from helpers.decorators import authorized_users_only, errors
+from helpers.filters import command
 
 
-@Client.on_message(command(["userbotjoin", f"userbotjoin@{BOT_USERNAME}"]) & ~filters.private & ~filters.bot)
+@Client.on_message(
+    command(["userbotjoin", f"userbotjoin@{BOT_USERNAME}"])
+    & ~filters.private
+    & ~filters.bot
+)
 @authorized_users_only
 @errors
 async def addchannel(client, message):
@@ -27,7 +33,9 @@ async def addchannel(client, message):
 
     try:
         await USER.join_chat(invitelink)
-        await USER.send_message(message.chat.id, "🤖: i'm joined here for playing music on voice chat")
+        await USER.send_message(
+            message.chat.id, "🤖: i'm joined here for playing music on voice chat"
+        )
     except UserAlreadyParticipant:
         await message.reply_text(
             f"<b>✅ userbot already joined this group.</b>",
@@ -44,7 +52,11 @@ async def addchannel(client, message):
     )
 
 
-@Client.on_message(command(["userbotleave", f"userbotleave@{BOT_USERNAME}"]) & filters.group & ~filters.edited)
+@Client.on_message(
+    command(["userbotleave", f"userbotleave@{BOT_USERNAME}"])
+    & filters.group
+    & ~filters.edited
+)
 @authorized_users_only
 async def rem(client, message):
     try:
@@ -70,26 +82,33 @@ async def bye(client, message):
         try:
             await USER.leave_chat(dialog.chat.id)
             left += 1
-            await lol.edit(f"Assistant leaving all group... \n\nLeft: {left} chats. Failed: {failed} chats.")
+            await lol.edit(
+                f"Assistant leaving all group... \n\nLeft: {left} chats. Failed: {failed} chats."
+            )
         except:
             failed += 1
-            await lol.edit(f"Assistant leaving... Left: {left} chats. Failed: {failed} chats.")
+            await lol.edit(
+                f"Assistant leaving... Left: {left} chats. Failed: {failed} chats."
+            )
         await asyncio.sleep(0.7)
-    await client.send_message(message.chat.id, f"Left {left} chats. Failed {failed} chats.")
+    await client.send_message(
+        message.chat.id, f"Left {left} chats. Failed {failed} chats."
+    )
 
 
-@Client.on_message(command(["userbotjoinchannel", "ubjoinc"]) & ~filters.private & ~filters.bot)
+@Client.on_message(
+    command(["userbotjoinchannel", "ubjoinc"]) & ~filters.private & ~filters.bot
+)
 @authorized_users_only
 @errors
 async def addcchannel(client, message):
     try:
-      conchat = await client.get_chat(message.chat.id)
-      conid = conchat.linked_chat.id
-      chid = conid
+        conchat = await client.get_chat(message.chat.id)
+        conid = conchat.linked_chat.id
+        chid = conid
     except:
-      await message.reply("is the chat even linked ?")
-      return    
-    chat_id = chid
+        await message.reply("is the chat even linked ?")
+        return
     try:
         invitelink = await client.export_chat_invite_link(chid)
     except:

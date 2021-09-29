@@ -1,13 +1,16 @@
 # function to remove the downloaded files
 
 import os
+
 from pyrogram import Client, filters
 from pyrogram.types import Message
+
+from helpers.decorators import errors, sudo_users_only
 from helpers.filters import command
-from helpers.decorators import sudo_users_only, errors
 
 downloads = os.path.realpath("downloads")
 raw = os.path.realpath("raw_files")
+
 
 @Client.on_message(command(["rmd", "rmdownloads", "cleardownloads"]) & ~filters.edited)
 @errors

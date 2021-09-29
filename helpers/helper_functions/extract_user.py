@@ -11,10 +11,7 @@ def extract_user(message: Message) -> (int, str):
         user_first_name = message.reply_to_message.from_user.first_name
 
     elif len(message.command) > 1:
-        if (
-            len(message.entities) > 1 and
-            message.entities[1].type == "text_mention"
-        ):
+        if len(message.entities) > 1 and message.entities[1].type == "text_mention":
             # 0: is the command used
             # 1: should be the user specified
             required_entity = message.entities[1]
