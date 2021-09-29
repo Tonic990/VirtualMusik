@@ -1,6 +1,7 @@
 import os
 import shutil
 import sys
+import heroku3
 import traceback
 from functools import wraps
 from os import environ, execle
