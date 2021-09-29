@@ -3,6 +3,7 @@ from asyncio.queues import QueueEmpty
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
+from config import que
 from cache.admins import set
 from callsmusic import callsmusic
 from helpers.decorators import authorized_users_only, errors
