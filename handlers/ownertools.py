@@ -23,13 +23,14 @@ from config import (
     UPSTREAM_REPO,
 )
 from handlers.song import get_text, humanbytes
+from helpers.filters import command
 from helpers.database import db
 from helpers.dbtools import main_broadcast_handler
 from helpers.decorators import sudo_users_only
 
 
 # Stats Of Your Bot
-@Client.on_message(filters.command("stats"))
+@Client.on_message(command("stats"))
 @sudo_users_only
 async def botstats(_, message: Message):
     total, used, free = shutil.disk_usage(".")
@@ -152,7 +153,7 @@ REPO_ = UPSTREAM_REPO
 BRANCH_ = U_BRANCH
 
 
-@Client.on_message(filters.command("update") & filters.user(OWNER_ID))
+@Client.on_message(command("update") & filters.user(OWNER_ID))
 async def updatebot(_, message: Message):
     msg = await message.reply_text("**updating bot, please wait for a while...**")
     try:
@@ -264,7 +265,7 @@ def _check_heroku(func):
     return heroku_cli
 
 
-@Client.on_message(filters.command("logs") & filters.user(OWNER_ID))
+@Client.on_message(command("logs") & filters.user(OWNER_ID))
 @_check_heroku
 async def logswen(client: Client, message: Message, happ):
     msg = await message.reply_text("`please wait for a moment!`")
@@ -274,7 +275,7 @@ async def logswen(client: Client, message: Message, happ):
 
 
 # Restart Bot
-@Client.on_message(filters.command("restart") & filters.user(OWNER_ID))
+@Client.on_message(command("restart") & filters.user(OWNER_ID))
 @_check_heroku
 async def restart(client: Client, message: Message, hap):
     await message.reply_text("`restarting now, please wait...`")
@@ -282,7 +283,7 @@ async def restart(client: Client, message: Message, hap):
 
 
 # Set Heroku Var
-@Client.on_message(filters.command("setvar") & filters.user(OWNER_ID))
+@Client.on_message(command("setvar") & filters.user(OWNER_ID))
 @_check_heroku
 async def setvar(client: Client, message: Message, app_):
     msg = await message.reply_text(message, "`please wait...`")
@@ -304,7 +305,7 @@ async def setvar(client: Client, message: Message, app_):
 
 
 # Delete Heroku Var
-@Client.on_message(filters.command("delvar") & filters.user(OWNER_ID))
+@Client.on_message(command("delvar") & filters.user(OWNER_ID))
 @_check_heroku
 async def delvar(client: Client, message: Message, app_):
     msg = await message.reply_text(message, "`please wait...!`")
