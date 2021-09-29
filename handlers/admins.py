@@ -13,7 +13,7 @@ from pyrogram.types import (
 
 from callsmusic import callsmusic
 from callsmusic.queues import queues
-from config import BOT_USERNAME, COMMAND_PREFIXES
+from config import BOT_USERNAME, COMMAND_PREFIXES, que
 from cache.admins import admins
 from handlers.play import cb_admin_check
 from helpers.channelmusic import get_chat_id
