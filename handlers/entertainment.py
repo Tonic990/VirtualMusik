@@ -4,8 +4,10 @@
 
 import requests
 from pyrogram import Client
+
 from config import BOT_USERNAME
 from helpers.filters import command
+
 
 @Client.on_message(command(["asupan", f"asupan@{BOT_USERNAME}"]))
 async def asupan(client, message):
@@ -65,7 +67,9 @@ async def lirik(_, message):
             return
         query = message.text.split(None, 1)[1]
         rep = await message.reply_text("🔎 **searching lyrics...**")
-        resp = requests.get(f"https://api-tede.herokuapp.com/api/lirik?l={query}").json()
+        resp = requests.get(
+            f"https://api-tede.herokuapp.com/api/lirik?l={query}"
+        ).json()
         result = f"{resp['data']}"
         await rep.edit(result)
     except Exception:

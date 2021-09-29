@@ -1,15 +1,22 @@
-import os
-import time
-import string
-import random
-import datetime
-import aiofiles
 import asyncio
+import datetime
+import os
+import random
+import string
+import time
 import traceback
-from pyrogram.errors import FloodWait, InputUserDeactivated, UserIsBlocked, PeerIdInvalid
 
-from helpers.database import db, Database, dcmdb
-from config import LOG_CHANNEL, BROADCAST_AS_COPY, GROUP_SUPPORT
+import aiofiles
+from pyrogram.errors import (
+    FloodWait,
+    InputUserDeactivated,
+    PeerIdInvalid,
+    UserIsBlocked,
+)
+
+from config import BROADCAST_AS_COPY, GROUP_SUPPORT, LOG_CHANNEL
+from helpers.database import db, dcmdb
+
 
 async def handle_user_status(bot, cmd):
     chat_id = cmd.chat.id
@@ -17,22 +24,24 @@ async def handle_user_status(bot, cmd):
         await db.add_user(chat_id)
         await bot.send_message(
             LOG_CHANNEL,
-            f"**📣 bot notification.** \n\n#NEW_USER **start use your bot!** \n\n🏷 name: `{cmd.from_user.first_name}` \n📮 user id: `{cmd.from_user.id}` \n🧝🏻‍♂️ profile: [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})"
+            f"**📣 bot notification.** \n\n#NEW_USER **start use your bot!** \n\n🏷 name: `{cmd.from_user.first_name}` \n📮 user id: `{cmd.from_user.id}` \n🧝🏻‍♂️ profile: [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})",
         )
 
     ban_status = await db.get_ban_status(chat_id)
     if ban_status["is_banned"]:
         if (
-                datetime.date.today() - datetime.date.fromisoformat(ban_status["banned_on"])
+            datetime.date.today() - datetime.date.fromisoformat(ban_status["banned_on"])
         ).days > ban_status["ban_duration"]:
             await db.remove_ban(chat_id)
         else:
-            await cmd.reply_text(f"sorry, you're banned, ask in @{GROUP_SUPPORT} if you think this was an mistake.", quote=True)
+            await cmd.reply_text(
+                f"sorry, you're banned, ask in @{GROUP_SUPPORT} if you think this was an mistake.",
+                quote=True,
+            )
             return
     await cmd.continue_propagation()
-    
-    
-    
+
+
 # Broadcast Tools
 
 broadcast_ids = {}
@@ -54,7 +63,7 @@ async def send_msg(user_id, message):
         return 400, f"{user_id} : blocked the bot\n"
     except PeerIdInvalid:
         return 400, f"{user_id} : user id invalid\n"
-    except Exception as e:
+    except Exception:
         return 500, f"{user_id} : {traceback.format_exc()}\n"
 
 
@@ -62,7 +71,7 @@ async def main_broadcast_handler(m, db):
     all_users = await db.get_all_users()
     broadcast_msg = m.reply_to_message
     while True:
-        broadcast_id = ''.join(random.choice(string.ascii_letters) for i in range(3))
+        broadcast_id = "".join(random.choice(string.ascii_letters) for i in range(3))
         if not broadcast_ids.get(broadcast_id):
             break
     out = await m.reply_text(
@@ -75,17 +84,11 @@ async def main_broadcast_handler(m, db):
     failed = 0
     success = 0
     broadcast_ids[broadcast_id] = dict(
-        total=total_users,
-        current=done,
-        failed=failed,
-        success=success
+        total=total_users, current=done, failed=failed, success=success
     )
-    async with aiofiles.open('broadcast-logs.txt', 'w') as broadcast_log_file:
+    async with aiofiles.open("broadcast-logs.txt", "w") as broadcast_log_file:
         async for user in all_users:
-            sts, msg = await send_msg(
-                user_id=int(user['id']),
-                message=broadcast_msg
-            )
+            sts, msg = await send_msg(user_id=int(user["id"]), message=broadcast_msg)
             if msg is not None:
                 await broadcast_log_file.write(msg)
             if sts == 200:
@@ -93,17 +96,13 @@ async def main_broadcast_handler(m, db):
             else:
                 failed += 1
             if sts == 400:
-                await db.delete_user(user['id'])
+                await db.delete_user(user["id"])
             done += 1
             if broadcast_ids.get(broadcast_id) is None:
                 break
             else:
                 broadcast_ids[broadcast_id].update(
-                    dict(
-                        current=done,
-                        failed=failed,
-                        success=success
-                    )
+                    dict(current=done, failed=failed, success=success)
                 )
     if broadcast_ids.get(broadcast_id):
         broadcast_ids.pop(broadcast_id)
@@ -113,21 +112,21 @@ async def main_broadcast_handler(m, db):
     if failed == 0:
         await m.reply_text(
             text=f"✅ Broadcasting completed! \n**Completed in:** `{completed_in}` \n\n**Total users:** `{total_users}` \n**Total done:** `{done}` \n**Total success:** `{success}` \n**Total failed:** `{failed}`",
-            quote=True
+            quote=True,
         )
     else:
         await m.reply_document(
-            document='broadcast-logs.txt',
+            document="broadcast-logs.txt",
             caption=f"✅ Broadcasting completed! \n**Completed in:** `{completed_in}`\n\n**Total users:** `{total_users}` \n**Total done:** `{done}` \n**Total success:** `{success}` \n**Total failed:** `{failed}`",
-            quote=True
+            quote=True,
         )
-    os.remove('broadcast-logs.txt')
-
+    os.remove("broadcast-logs.txt")
 
 
 # Anti Command Feature
 
 delcmdmdb = dcmdb.admins
+
 
 async def delcmd_is_on(chat_id: int) -> bool:
     chat = await delcmdmdb.find_one({"chat_id": chat_id})

@@ -6,16 +6,16 @@
 import asyncio
 
 from pyrogram import Client, filters
-from pyrogram.types import Dialog, Chat, Message
-from pyrogram.errors import UserAlreadyParticipant
+from pyrogram.types import Message
 
 from callsmusic.callsmusic import client as veez
 from config import SUDO_USERS
 
+
 @Client.on_message(filters.command(["gcast"]))
 async def broadcast(_, message: Message):
-    sent=0
-    failed=0
+    sent = 0
+    failed = 0
     if message.from_user.id not in SUDO_USERS:
         return
     else:
@@ -27,9 +27,13 @@ async def broadcast(_, message: Message):
         async for dialog in veez.iter_dialogs():
             try:
                 await veez.send_message(dialog.chat.id, lmao)
-                sent = sent+1
-                await wtf.edit(f"`broadcasting...` \n\n**sent to:** `{sent}` chats \n**failed in:** {failed} chats")
+                sent = sent + 1
+                await wtf.edit(
+                    f"`broadcasting...` \n\n**sent to:** `{sent}` chats \n**failed in:** {failed} chats"
+                )
                 await asyncio.sleep(3)
             except:
-                failed=failed+1
-        await message.reply_text(f"`gcast succesfully` \n\n**sent to:** `{sent}` chats \n**failed in:** {failed} chats")
+                failed = failed + 1
+        await message.reply_text(
+            f"`gcast succesfully` \n\n**sent to:** `{sent}` chats \n**failed in:** {failed} chats"
+        )

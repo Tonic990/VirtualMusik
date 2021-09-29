@@ -1,4 +1,5 @@
 from typing import Union
+
 from pyrogram.types import Audio, Message, Voice
 
 
@@ -43,30 +44,32 @@ async def convert_count(count):
     elif int(count) == 4:
         x = "Fourth"
     elif int(count) == 5:
-        x = "Fifth"    
+        x = "Fifth"
     elif int(count) == 6:
-        x = "Sixth"    
+        x = "Sixth"
     elif int(count) == 7:
-        x = "Seventh"    
+        x = "Seventh"
     elif int(count) == 8:
-        x = "Eighth"    
+        x = "Eighth"
     elif int(count) == 9:
         x = "Ninth"
     elif int(count) == 10:
-        x = "Tenth"    
+        x = "Tenth"
     elif int(count) == 11:
         x = "Eleventh"
     elif int(count) == 12:
-        x = "Twelfth"    
+        x = "Twelfth"
     elif int(count) == 13:
-        x = "Thirteenth"     
+        x = "Thirteenth"
     elif int(count) == 14:
-        x = "Fourteenth"    
+        x = "Fourteenth"
     elif int(count) == 15:
-        x = "Fifteenth" 
+        x = "Fifteenth"
     elif str(count) == "all":
         x = "all"
     return x
+
+
 def get_url(message_1: Message) -> Union[str, None]:
     messages = [message_1]
     if message_1.reply_to_message:
@@ -85,10 +88,13 @@ def get_url(message_1: Message) -> Union[str, None]:
                     break
     if offset in (None,):
         return None
-    return text[offset:offset + length]
+    return text[offset : offset + length]
+
+
 random_assistant = ["5", "1", "2", "3", "4"]
 
 themes = ["Black", "Grey", "Green", "Purple", "Red", "Lightred", "Blue", "Lightblue"]
+
 
 def bytes(size: float) -> str:
     """humanize size"""

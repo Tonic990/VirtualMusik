@@ -3,11 +3,12 @@ Get id of the replied user
 Syntax: /id
 """
 
-from pyrogram import Client, filters
+from pyrogram import Client
 from pyrogram.types import Message
+
 from config import BOT_USERNAME
-from helpers.get_file_id import get_file_id
 from helpers.filters import command
+from helpers.get_file_id import get_file_id
 
 
 @Client.on_message(command(["id", f"id@{BOT_USERNAME}"]))
@@ -20,10 +21,7 @@ async def showid(_, message: Message):
 
     elif chat_type in ["group", "supergroup"]:
         _id = ""
-        _id += (
-            "<b>Chat ID</b>: "
-            f"<code>{message.chat.id}</code>\n"
-        )
+        _id += "<b>Chat ID</b>: " f"<code>{message.chat.id}</code>\n"
         if message.reply_to_message:
             _id += (
                 "<b>Replied User ID</b>: "
@@ -31,10 +29,7 @@ async def showid(_, message: Message):
             )
             file_info = get_file_id(message.reply_to_message)
         else:
-            _id += (
-                "<b>User ID</b>: "
-                f"<code>{message.from_user.id}</code>\n"
-            )
+            _id += "<b>User ID</b>: " f"<code>{message.from_user.id}</code>\n"
             file_info = get_file_id(message)
         if file_info:
             _id += (

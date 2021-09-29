@@ -1,5 +1,4 @@
 from pyrogram.types import Message
-from pyrogram.types.messages_and_media import message
 
 
 def get_file_id(msg: Message):
@@ -17,7 +16,7 @@ def get_file_id(msg: Message):
             # "poll",
             # "location",
             # "venue",
-            "sticker"
+            "sticker",
         ):
             obj = getattr(msg, message_type)
             if obj:

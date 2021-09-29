@@ -1,7 +1,8 @@
 from pyrogram import Client
 from pytgcalls import PyTgCalls
 
-from config import SESSION_NAME, API_ID, API_HASH
+from config import API_HASH, API_ID, SESSION_NAME
+
 from . import queues
 
 client = Client(SESSION_NAME, API_ID, API_HASH)
@@ -15,9 +16,7 @@ def on_stream_end(chat_id: int) -> None:
     if queues.is_empty(chat_id):
         pytgcalls.leave_group_call(chat_id)
     else:
-        pytgcalls.change_stream(
-            chat_id, queues.get(chat_id)["file"]
-        )
+        pytgcalls.change_stream(chat_id, queues.get(chat_id)["file"])
 
 
 run = pytgcalls.run

@@ -6,23 +6,23 @@ import asyncio
 import math
 import os
 import time
-import wget
 from random import randint
 from urllib.parse import urlparse
 
 import aiofiles
 import aiohttp
 import requests
+import wget
 import youtube_dl
-from yt_dlp import YoutubeDL
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait, MessageNotModified
 from pyrogram.types import Message
 from youtube_search import YoutubeSearch
+from yt_dlp import YoutubeDL
 
-from helpers.filters import command
+from config import BOT_USERNAME as bn
 from helpers.decorators import humanbytes
-from config import DURATION_LIMIT, BOT_USERNAME as bn
+from helpers.filters import command
 
 
 @Client.on_message(command(["song", f"song@{bn}"]) & ~filters.edited)
@@ -173,11 +173,11 @@ def time_formatter(milliseconds: int) -> str:
     hours, minutes = divmod(minutes, 60)
     days, hours = divmod(hours, 24)
     tmp = (
-            ((str(days) + " day(s), ") if days else "")
-            + ((str(hours) + " hour(s), ") if hours else "")
-            + ((str(minutes) + " minute(s), ") if minutes else "")
-            + ((str(seconds) + " second(s), ") if seconds else "")
-            + ((str(milliseconds) + " millisecond(s), ") if milliseconds else "")
+        ((str(days) + " day(s), ") if days else "")
+        + ((str(hours) + " hour(s), ") if hours else "")
+        + ((str(minutes) + " minute(s), ") if minutes else "")
+        + ((str(seconds) + " second(s), ") if seconds else "")
+        + ((str(milliseconds) + " millisecond(s), ") if milliseconds else "")
     )
     return tmp[:-2]
 
@@ -220,15 +220,17 @@ def time_to_seconds(times):
     return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
 
 
-@Client.on_message(command(["vsong", f"vsong@{bn}", "video", f"video@{bn}"]) & ~filters.edited)
+@Client.on_message(
+    command(["vsong", f"vsong@{bn}", "video", f"video@{bn}"]) & ~filters.edited
+)
 async def vsong(client, message):
     ydl_opts = {
-        'format':'best',
-        'keepvideo':True,
-        'prefer_ffmpeg':False,
-        'geo_bypass':True,
-        'outtmpl':'%(title)s.%(ext)s',
-        'quite':True
+        "format": "best",
+        "keepvideo": True,
+        "prefer_ffmpeg": False,
+        "geo_bypass": True,
+        "outtmpl": "%(title)s.%(ext)s",
+        "quite": True,
     }
     query = " ".join(message.command[1:])
     try:
@@ -239,10 +241,10 @@ async def vsong(client, message):
         thumb_name = f"thumb{title}.jpg"
         thumb = requests.get(thumbnail, allow_redirects=True)
         open(thumb_name, "wb").write(thumb.content)
-        duration = results[0]["duration"]
+        results[0]["duration"]
         results[0]["url_suffix"]
         results[0]["views"]
-        rby = message.from_user.mention
+        message.from_user.mention
     except Exception as e:
         print(e)
     try:
@@ -258,7 +260,8 @@ async def vsong(client, message):
         file_name,
         duration=int(ytdl_data["duration"]),
         thumb=preview,
-        caption=ytdl_data['title'])
+        caption=ytdl_data["title"],
+    )
     try:
         os.remove(file_name)
         await msg.delete()
