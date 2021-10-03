@@ -38,7 +38,7 @@ async def addchannel(client, message):
         )
     except UserAlreadyParticipant:
         await message.reply_text(
-            f"<b>✅ userbot already joined this group.</b>",
+            f"<b>✅ userbot already joined group.</b>",
         )
     except Exception as e:
         print(e)
@@ -48,7 +48,7 @@ async def addchannel(client, message):
         )
         return
     await message.reply_text(
-        f"<b>✅ userbot successfully joined this group.</b>",
+        f"<b>✅ userbot successfully joined group.</b>",
     )
 
 
