@@ -148,7 +148,7 @@ def updated_stats(chat, queue, vol=100):
             stats += "🎚 volume: {}%\n".format(vol)
             stats += "🎵 song played: `{}`\n".format(len(que))
             stats += "💡 now playing: **{}**\n".format(queue[0][0])
-            stats += "🎧 request by: {}".format(queue[0][1].mention)
+            stats += "🎧 request by: {}".format(queue[0][1].mention(style="md"))
     else:
         stats = None
     return stats
@@ -181,6 +181,7 @@ def r_ply(type_):
 )
 @authorized_users_only
 async def settings(client, message):
+    global que
     playing = None
     if message.chat.id in callsmusic.pytgcalls.active_calls:
         playing = True
@@ -564,13 +565,6 @@ async def play(_, message: Message):
             )
             print(str(e))
             return
-        patch - 8
-        dlurl = url
-        dlurl = dlurl.replace("youtube", "youtubepp")
-
-        dlurl = url
-        dlurl = dlurl.replace("youtube", "youtubepp")
-        main
         keyboard = InlineKeyboardMarkup(
             [
                 [
@@ -663,8 +657,6 @@ async def play(_, message: Message):
                 )
                 print(str(e))
                 return
-            dlurl = url
-            dlurl = dlurl.replace("youtube", "youtubepp")
             keyboard = InlineKeyboardMarkup(
                 [
                     [
@@ -770,8 +762,6 @@ async def lol_cb(b, cb):
     except Exception as e:
         print(e)
         return
-    dlurl = url
-    dlurl = dlurl.replace("youtube", "youtubepp")
     keyboard = InlineKeyboardMarkup(
         [
             [
@@ -924,8 +914,6 @@ async def ytplay(_, message: Message):
             return
     except:
         pass
-    dlurl = url
-    dlurl = dlurl.replace("youtube", "youtubepp")
     keyboard = InlineKeyboardMarkup(
         [
             [
