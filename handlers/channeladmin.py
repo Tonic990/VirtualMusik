@@ -3,10 +3,26 @@ from asyncio.queues import QueueEmpty
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from config import que
+from config import que, BOT_USERNAME
+from cache.admins import admins
 from cache.admins import set
 from callsmusic import callsmusic
+from callsmusic.queues import queues
+from helpers.channelmusic import get_chat_id
 from helpers.decorators import authorized_users_only, errors
+
+
+@Client.on_message(command(["refresh", f"refresh@{BOT_USERNAME}"]) & other_filters)
+async def update_admin(client, message):
+    global admins
+    new_admins = []
+    new_ads = await client.get_chat_members(message.chat.id, filter="administrators")
+    for u in new_ads:
+        new_admins.append(u.user.id)
+    admins[message.chat.id] = new_admins
+    await message.reply_text(
+        "✅ Bot **reloaded correctly !**\n✅ **Admin list** has been **updated !**"
+    )
 
 
 @Client.on_message(
@@ -20,16 +36,16 @@ async def pause(_, message: Message):
         conid = conchat.linked_chat.id
         chid = conid
     except:
-        await message.reply("is your chat already connected ?")
+        await message.reply("❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**")
         return
     chat_id = chid
     if (chat_id not in callsmusic.pytgcalls.active_calls) or (
         callsmusic.pytgcalls.active_calls[chat_id] == "paused"
     ):
-        await message.reply_text("❗ nothing is playing !")
+        await message.reply_text("❌ **no music is currently playing**")
     else:
         callsmusic.pytgcalls.pause_stream(chat_id)
-        await message.reply_text("▶️ music paused!")
+        await message.reply_text("▶ **Track paused.**\n\n• **To resume the playback, use the** » `/cresume` command.")
 
 
 @Client.on_message(
@@ -43,16 +59,16 @@ async def resume(_, message: Message):
         conid = conchat.linked_chat.id
         chid = conid
     except:
-        await message.reply("is your chat already connected ?")
+        await message.reply("❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**")
         return
     chat_id = chid
     if (chat_id not in callsmusic.pytgcalls.active_calls) or (
         callsmusic.pytgcalls.active_calls[chat_id] == "playing"
     ):
-        await message.reply_text("❗ nothing is paused!")
+        await message.reply_text("❌ **no music is currently playing**")
     else:
         callsmusic.pytgcalls.resume_stream(chat_id)
-        await message.reply_text("⏸ music resumed!")
+        await message.reply_text("⏸ **Track resumed.**\n\n• **To pause the playback, use the** » `/cpause` command.")
 
 
 @Client.on_message(
@@ -66,11 +82,11 @@ async def stop(_, message: Message):
         conid = conchat.linked_chat.id
         chid = conid
     except:
-        await message.reply("is your chat already connected ?")
+        await message.reply("❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**")
         return
     chat_id = chid
     if chat_id not in callsmusic.pytgcalls.active_calls:
-        await message.reply_text("❗ nothing in streaming!")
+        await message.reply_text("❌ **no music is currently playing**")
     else:
         try:
             callsmusic.queues.clear(chat_id)
@@ -78,7 +94,7 @@ async def stop(_, message: Message):
             pass
 
         callsmusic.pytgcalls.leave_group_call(chat_id)
-        await message.reply_text("⏹ streaming ended!")
+        await message.reply_text("✅ **music playback has ended**")
 
 
 @Client.on_message(
@@ -93,11 +109,11 @@ async def skip(_, message: Message):
         conid = conchat.linked_chat.id
         chid = conid
     except:
-        await message.reply("is the chat already connected ?")
+        await message.reply("❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**")
         return
     chat_id = chid
     if chat_id not in callsmusic.pytgcalls.active_calls:
-        await message.reply_text("❗ nothing to skip!")
+        await message.reply_text("❌ **no music is currently playing**")
     else:
         callsmusic.queues.task_done(chat_id)
 
@@ -113,24 +129,4 @@ async def skip(_, message: Message):
         skip = qeue.pop(0)
     if not qeue:
         return
-    await message.reply_text(f"- Skipped **{skip[0]}**\n- Now playing **{qeue[0][0]}**")
-
-
-@Client.on_message(filters.command("admincache"))
-@errors
-async def admincache(client, message: Message):
-    try:
-        conchat = await client.get_chat(message.chat.id)
-        conid = conchat.linked_chat.id
-        chid = conid
-    except:
-        await message.reply("is the chat already connected ?")
-        return
-    set(
-        chid,
-        [
-            member.user
-            for member in await conchat.linked_chat.get_members(filter="administrators")
-        ],
-    )
-    await message.reply_text("✅ admin cache refreshed!")
+    await message.reply_text("⏭ **You've skipped to the next song.**")
