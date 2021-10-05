@@ -8,7 +8,7 @@ from cache.admins import admins
 from cache.admins import set
 from callsmusic import callsmusic
 from callsmusic.queues import queues
-from helpers.filter import command
+from helpers.filters import command
 from helpers.channelmusic import get_chat_id
 from helpers.decorators import authorized_users_only, errors
 
