@@ -414,7 +414,7 @@ async def m_cb(b, cb):
                 await cb.answer("skipped")
                 await cb.message.edit((m_chat, qeue), reply_markup=r_ply(the_data))
                 await cb.message.reply_text(
-                    f"⫸ skipped track\n⫸ now playing : **{qeue[0][0]}**"
+                    "⏭ **You've skipped to the next song.**"
                 )
 
     elif type_ == "leave":
