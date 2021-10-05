@@ -556,7 +556,6 @@ async def play(_, message: Message):
         callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         await message.reply_photo(
             photo="final.png",
-            reply_markup=keyboard,
             caption=f"🏷 **Name:** [{title[:60]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
             + f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard,
