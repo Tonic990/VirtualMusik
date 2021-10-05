@@ -101,9 +101,9 @@ async def generate_cover(title, thumbnail):
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("etc/Roboto-Medium.ttf", 60)
-    font2 = ImageFont.truetype("etc/finalfont.ttf", 70)
-    draw.text((25, 545), "Playing here...", (0, 0, 0), font=font)
-    draw.text((25, 630), f"{title[:25]}...", (0, 0, 0), font=font2)
+    font2 = ImageFont.truetype("etc/finalfont.ttf", 75)
+    draw.text((25, 535), "Playing here...", (0, 0, 0), font=font)
+    draw.text((25, 635), f"{title[:25]}...", (0, 0, 0), font=font2)
     img.save("final.png")
     os.remove("temp.png")
     os.remove("background.png")
@@ -485,7 +485,7 @@ async def play(_, message: Message):
         await USER.get_chat(chid)
     except:
         await lel.edit(
-            f"» **userbot was banned in this group !**\n\n**ask admin to unban @{ASSISTANT_NAME} and added again to this group manually."
+            f"» **userbot was banned in this group !**\n\n**unban @{ASSISTANT_NAME} and added again to this group manually."
         )
         return
     text_links = None
@@ -873,14 +873,14 @@ async def ytplay(_, message: Message):
                 except Exception:
                     # print(e)
                     await lel.edit(
-                        f"🔴 **Flood Wait Error** 🔴 \n\n**{user.first_name} can't join this group due to many join requests for userbot.**"
+                        f"🔴 **Flood Wait Error** 🔴 \n\n**userbot can't join this group due to many join requests for userbot.**"
                         f"\n\n**or add @{ASSISTANT_NAME} to this group manually then try again.**",
                     )
     try:
         await USER.get_chat(chid)
     except:
         await lel.edit(
-            f"💡 **userbot was banned in this group !** \n\n**ask admin to unban @{ASSISTANT_NAME} and add to this group again manually.**"
+            f"💡 **userbot was banned in this group !** \n\n**unban @{ASSISTANT_NAME} and add to this group again manually.**"
         )
         return
 
