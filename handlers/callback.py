@@ -108,7 +108,7 @@ async def cbbasic(_, query: CallbackQuery):
 /cresume - resume the streaming was paused
 /cskip - skip streaming to the next song
 /cend - end the streaming music
-/admincache - refresh the admin cache
+/refresh - refresh the admin cache
 /ubjoinc - invite the assistant for join to your channel
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
