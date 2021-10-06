@@ -314,7 +314,7 @@ async def ban_user(_, message):
     else:
         if str(user_id).lower().startswith("@"):
             await message.reply_text(
-                "✅ successfully banned f"{user_first_name}" from this group !"
+                f"✅ successfully banned {user_first_name} from this group !"
             )
         else:
             await message.reply_text(
