@@ -855,7 +855,7 @@ async def ytplay(_, message: Message):
                         "🤖: i'm joined to this group for playing music in voice chat",
                     )
                     await lel.edit(
-                        f"✅ **userbot succesfully joined chat.**",
+                        f"✅ **userbot succesfully joined chat**",
                     )
 
                 except UserAlreadyParticipant:
@@ -881,7 +881,7 @@ async def ytplay(_, message: Message):
     for i in message.command[1:]:
         query += " " + str(i)
     print(query)
-    await lel.edit("🔄 **connecting to vcg...**")
+    await lel.edit("🔎 **Searching...**")
     ydl_opts = {"format": "bestaudio/best"}
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
