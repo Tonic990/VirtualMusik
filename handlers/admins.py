@@ -90,11 +90,11 @@ async def pause(_, message: Message):
     if (chat_id not in callsmusic.pytgcalls.active_calls) or (
         callsmusic.pytgcalls.active_calls[chat_id] == "paused"
     ):
-        await message.reply_text("❌ no music is playing.")
+        await message.reply_text("❌ **no music is currently playing**")
     else:
         callsmusic.pytgcalls.pause_stream(chat_id)
         await message.reply_text(
-            "⏸ **Track paused.**\n\n• **To resume the playback, use the** » `/resume` command."
+            "⏸ **Track paused.**\n\n• **To resume the playback, use the**\n» `/resume` command."
         )
 
 
@@ -106,11 +106,11 @@ async def resume(_, message: Message):
     if (chat_id not in callsmusic.pytgcalls.active_calls) or (
         callsmusic.pytgcalls.active_calls[chat_id] == "playing"
     ):
-        await message.reply_text("❌ no music is paused.")
+        await message.reply_text("❌ **no music is paused**")
     else:
         callsmusic.pytgcalls.resume_stream(chat_id)
         await message.reply_text(
-            "▶️ **Track resumed.**\n\n• **To pause the playback, use the** » `/pause` command."
+            "▶️ **Track resumed.**\n\n• **To pause the playback, use the**\n» `/pause` command."
         )
 
 
@@ -120,7 +120,7 @@ async def resume(_, message: Message):
 async def stop(_, message: Message):
     chat_id = get_chat_id(message.chat)
     if chat_id not in callsmusic.pytgcalls.active_calls:
-        await message.reply_text("❌ no music is playing.")
+        await message.reply_text("❌ **no music is currently playing**")
     else:
         try:
             queues.clear(chat_id)
@@ -138,7 +138,7 @@ async def skip(_, message: Message):
     global que
     chat_id = get_chat_id(message.chat)
     if chat_id not in callsmusic.pytgcalls.active_calls:
-        await message.reply_text("❌ no music is playing.")
+        await message.reply_text("❌ **no music is currently playing**")
     else:
         queues.task_done(chat_id)
 
@@ -224,7 +224,7 @@ async def cbpause(_, query: CallbackQuery):
     if (query.message.chat.id not in callsmusic.pytgcalls.active_calls) or (
         callsmusic.pytgcalls.active_calls[query.message.chat.id] == "paused"
     ):
-        await query.edit_message_text("❌ no music is playing", reply_markup=BACK_BUTTON)
+        await query.edit_message_text("❌ **no music is currently playing**", reply_markup=BACK_BUTTON)
     else:
         callsmusic.pytgcalls.pause_stream(query.message.chat.id)
         await query.edit_message_text(
@@ -239,7 +239,7 @@ async def cbresume(_, query: CallbackQuery):
     if (query.message.chat.id not in callsmusic.pytgcalls.active_calls) or (
         callsmusic.pytgcalls.active_calls[query.message.chat.id] == "resumed"
     ):
-        await query.edit_message_text("❌ no music is paused", reply_markup=BACK_BUTTON)
+        await query.edit_message_text("❌ **no music is paused**", reply_markup=BACK_BUTTON)
     else:
         callsmusic.pytgcalls.resume_stream(query.message.chat.id)
         await query.edit_message_text(
@@ -252,7 +252,7 @@ async def cbresume(_, query: CallbackQuery):
 async def cbend(_, query: CallbackQuery):
     get_chat_id(query.message.chat)
     if query.message.chat.id not in callsmusic.pytgcalls.active_calls:
-        await query.edit_message_text("❌ no music is playing", reply_markup=BACK_BUTTON)
+        await query.edit_message_text("❌ **no music is currently playing**", reply_markup=BACK_BUTTON)
     else:
         try:
             queues.clear(query.message.chat.id)
@@ -272,7 +272,7 @@ async def cbskip(_, query: CallbackQuery):
     global que
     chat_id = get_chat_id(query.message.chat)
     if query.message.chat.id not in callsmusic.pytgcalls.active_calls:
-        await query.edit_message_text("❌ no music is playing", reply_markup=BACK_BUTTON)
+        await query.edit_message_text("❌ **no music is currently playing**", reply_markup=BACK_BUTTON)
     else:
         queues.task_done(query.message.chat.id)
 
@@ -289,7 +289,7 @@ async def cbskip(_, query: CallbackQuery):
     if not qeue:
         return
     await query.edit_message_text(
-        "⏭ **you've skipped to the next song**", reply_markup=BACK_BUTTON
+        "⏭ **You've skipped to the next song**", reply_markup=BACK_BUTTON
     )
 
 
@@ -314,7 +314,7 @@ async def ban_user(_, message):
     else:
         if str(user_id).lower().startswith("@"):
             await message.reply_text(
-                "✅ successfully banned " f"{user_first_name}" " from this group !"
+                "✅ successfully banned f"{user_first_name}" from this group !"
             )
         else:
             await message.reply_text(
