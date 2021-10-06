@@ -1,3 +1,5 @@
+# Copyright (C) 2021 Veez Music-Project
+
 from asyncio.queues import QueueEmpty
 
 from pyrogram import Client, filters
