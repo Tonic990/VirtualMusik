@@ -820,7 +820,7 @@ async def ytplay(_, message: Message):
     global que
     if message.chat.id in DISABLED_GROUPS:
         return
-    lel = await message.reply("🔎 **Searching...**")
+    lel = await message.reply("🔎 **searching...**")
     administrators = await get_administrators(message.chat)
     chid = message.chat.id
 
@@ -881,7 +881,7 @@ async def ytplay(_, message: Message):
     for i in message.command[1:]:
         query += " " + str(i)
     print(query)
-    await lel.edit("🔎 **Searching...**")
+    await lel.edit("🔄 **connecting to vc...**")
     ydl_opts = {"format": "bestaudio/best"}
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
