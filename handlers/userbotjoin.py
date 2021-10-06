@@ -38,7 +38,7 @@ async def addchannel(client, message):
         )
     except UserAlreadyParticipant:
         await message.reply_text(
-            f"<b>✅ userbot already joined group.</b>",
+            f"<b>✅ userbot already joined chat</b>",
         )
     except Exception as e:
         print(e)
@@ -48,7 +48,7 @@ async def addchannel(client, message):
         )
         return
     await message.reply_text(
-        f"<b>✅ userbot successfully joined group.</b>",
+        f"<b>✅ userbot successfully joined chat</b>",
     )
 
 
@@ -107,13 +107,13 @@ async def addcchannel(client, message):
         conid = conchat.linked_chat.id
         chid = conid
     except:
-        await message.reply("is the chat even linked ?")
+        await message.reply("❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**")
         return
     try:
         invitelink = await client.export_chat_invite_link(chid)
     except:
         await message.reply_text(
-            "<b>promote me as group admin first !</b>",
+            "<b>promote me as admin first !</b>",
         )
         return
 
@@ -124,10 +124,10 @@ async def addcchannel(client, message):
 
     try:
         await USER.join_chat(invitelink)
-        await USER.send_message(message.chat.id, "🤖: i joined here as you requested")
+        await USER.send_message(message.chat.id, "🤖: i'm joined here for playing music on vc")
     except UserAlreadyParticipant:
         await message.reply_text(
-            "<b>helper already in your channel</b>",
+            "<b>✅ userbot already joined channel</b>",
         )
         return
     except Exception as e:
@@ -138,5 +138,5 @@ async def addcchannel(client, message):
         )
         return
     await message.reply_text(
-        "<b>helper userbot joined your channel</b>",
+        "<b>✅ userbot successfully joined channel</b>",
     )
