@@ -12,12 +12,11 @@ from youtube_search import YoutubeSearch
 from callsmusic import callsmusic
 from callsmusic.callsmusic import client as USER
 from callsmusic.queues import queues
-from config import DURATION_LIMIT
-from config import UPDATES_CHANNEL as updateschannel
-from config import que
+from config import que, DURATION_LIMIT, BOT_USERNAME, UPDATES_CHANNEL as updateschannel
 from converter.converter import convert
 from downloaders import youtube
 from handlers.play import cb_admin_check, generate_cover
+from helpers.filters import command, other_filters
 from helpers.admins import get_administrators
 from helpers.decorators import authorized_users_only
 from helpers.errors import DurationLimitError
@@ -26,9 +25,7 @@ from helpers.gets import get_file_name
 chat_id = None
 
 
-@Client.on_message(
-    filters.command(["channelplaylist", "cplaylist"]) & filters.group & ~filters.edited
-)
+@Client.on_message(command(["cplaylist", f"cplaylist@{BOT_USERNAME}"]) & other_filters)
 async def playlist(client, message):
     try:
         lel = await client.get_chat(message.chat.id)
@@ -100,9 +97,7 @@ def r_ply(type_):
     return mar
 
 
-@Client.on_message(
-    filters.command(["channelcurrent", "ccurrent"]) & filters.group & ~filters.edited
-)
+@Client.on_message(command(["ccurent", f"ccurent@{BOT_USERNAME}"]) & other_filters)
 async def ee(client, message):
     try:
         lel = await client.get_chat(message.chat.id)
@@ -119,9 +114,7 @@ async def ee(client, message):
         await message.reply("please turn on the voice chat first !")
 
 
-@Client.on_message(
-    filters.command(["channelplayer", "cplayer"]) & filters.group & ~filters.edited
-)
+@Client.on_message(command(["cplayer", f"cplayer@{BOT_USERNAME}"]) & other_filters)
 @authorized_users_only
 async def settings(client, message):
     playing = None
@@ -325,9 +318,7 @@ async def m_cb(b, cb):
             await cb.answer("chat is not connected!", show_alert=True)
 
 
-@Client.on_message(
-    filters.command(["channelplay", "cplay"]) & filters.group & ~filters.edited
-)
+@Client.on_message(command(["cplay", f"cplay@{BOT_USERNAME}"]) & other_filters)
 @authorized_users_only
 async def play(_, message: Message):
     global que
@@ -457,7 +448,7 @@ async def play(_, message: Message):
             # print(results)
             title = results[0]["title"][:60]
             thumbnail = results[0]["thumbnails"][0]
-            thumb_name = f"thumb-{title}-veezmusic.jpg"
+            thumb_name = f"{title}.jpg"
             thumb = requests.get(thumbnail, allow_redirects=True)
             open(thumb_name, "wb").write(thumb.content)
             results[0]["duration"]
@@ -498,7 +489,7 @@ async def play(_, message: Message):
             # print(results)
             title = results[0]["title"][:60]
             thumbnail = results[0]["thumbnails"][0]
-            thumb_name = f"thumb-{title}-veezmusic.jpg"
+            thumb_name = f"{title}.jpg"
             thumb = requests.get(thumbnail, allow_redirects=True)
             open(thumb_name, "wb").write(thumb.content)
             results[0]["duration"]
