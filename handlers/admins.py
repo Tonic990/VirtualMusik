@@ -2,24 +2,22 @@
 
 from asyncio import QueueEmpty
 
-from pyrogram import Client, filters
-from pyrogram.types import (
-    CallbackQuery,
-    ChatPermissions,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Message,
-)
-
 from callsmusic import callsmusic
 from callsmusic.queues import queues
-from config import BOT_USERNAME, COMMAND_PREFIXES, que
+from config import BOT_USERNAME, que
 from cache.admins import admins
 from handlers.play import cb_admin_check
 from helpers.channelmusic import get_chat_id
 from helpers.dbtools import delcmd_is_on, delcmd_off, delcmd_on, handle_user_status
 from helpers.decorators import authorized_users_only, errors
 from helpers.filters import command, other_filters
+from pyrogram import Client, filters
+from pyrogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+)
 
 
 @Client.on_message()
@@ -220,7 +218,9 @@ async def cbpause(_, query: CallbackQuery):
     if (query.message.chat.id not in callsmusic.pytgcalls.active_calls) or (
         callsmusic.pytgcalls.active_calls[query.message.chat.id] == "paused"
     ):
-        await query.edit_message_text("❌ **no music is currently playing**", reply_markup=BACK_BUTTON)
+        await query.edit_message_text(
+            "❌ **no music is currently playing**", reply_markup=BACK_BUTTON
+        )
     else:
         callsmusic.pytgcalls.pause_stream(query.message.chat.id)
         await query.edit_message_text(
@@ -235,7 +235,9 @@ async def cbresume(_, query: CallbackQuery):
     if (query.message.chat.id not in callsmusic.pytgcalls.active_calls) or (
         callsmusic.pytgcalls.active_calls[query.message.chat.id] == "resumed"
     ):
-        await query.edit_message_text("❌ **no music is paused**", reply_markup=BACK_BUTTON)
+        await query.edit_message_text(
+            "❌ **no music is paused**", reply_markup=BACK_BUTTON
+        )
     else:
         callsmusic.pytgcalls.resume_stream(query.message.chat.id)
         await query.edit_message_text(
@@ -248,7 +250,9 @@ async def cbresume(_, query: CallbackQuery):
 async def cbend(_, query: CallbackQuery):
     get_chat_id(query.message.chat)
     if query.message.chat.id not in callsmusic.pytgcalls.active_calls:
-        await query.edit_message_text("❌ **no music is currently playing**", reply_markup=BACK_BUTTON)
+        await query.edit_message_text(
+            "❌ **no music is currently playing**", reply_markup=BACK_BUTTON
+        )
     else:
         try:
             queues.clear(query.message.chat.id)
@@ -268,7 +272,9 @@ async def cbskip(_, query: CallbackQuery):
     global que
     chat_id = get_chat_id(query.message.chat)
     if query.message.chat.id not in callsmusic.pytgcalls.active_calls:
-        await query.edit_message_text("❌ **no music is currently playing**", reply_markup=BACK_BUTTON)
+        await query.edit_message_text(
+            "❌ **no music is currently playing**", reply_markup=BACK_BUTTON
+        )
     else:
         queues.task_done(query.message.chat.id)
 
@@ -285,4 +291,5 @@ async def cbskip(_, query: CallbackQuery):
     if not qeue:
         return
     await query.edit_message_text(
-        "⏭ **You've skipped to the next song**", reply_markup=BACK_BUTTON)
+        "⏭ **You've skipped to the next song**", reply_markup=BACK_BUTTON
+    )
