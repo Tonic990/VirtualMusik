@@ -125,7 +125,6 @@ async def cbadvanced(_, query: CallbackQuery):
 
 /start (in group) - see the bot alive status
 /reload - reload bot and refresh the admin list
-/cache - refresh the admin cache
 /ping - check the bot ping status
 /uptime - check the bot uptime status
 /id - show the group/user id & other
@@ -147,16 +146,13 @@ async def cbadmin(_, query: CallbackQuery):
 /resume - resume the music was paused
 /skip - skip to the next song
 /end - stop music streaming
-/userbotjoin - invite assistant join to your group
+/join - invite userbot join to your group
+/leave - order the userbot to leave your group
 /auth - authorized user for using music bot
 /deauth - unauthorized for using music bot
 /control - open the player settings panel
 /delcmd (on | off) - enable / disable del cmd feature
 /musicplayer (on / off) - disable / enable music player in your group
-/b and /tb (ban / temporary ban) - banned permanently or temporarily banned user in group
-/ub - to unbanned user you're banned from group
-/m and /tm (mute / temporary mute) - mute permanently or temporarily muted user in group
-/um - to unmute user you're muted in group
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
@@ -170,8 +166,7 @@ async def cbsudo(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""<b>🏮 here is the sudo commands</b>
 
-/userbotleaveall - order the assistant to leave from all group
-/gcast - send a broadcast message trought the assistant
+/leaveall - order the assistant to leave from all group
 /stats - show the bot statistic
 /rmd - remove all downloaded files
 
@@ -194,25 +189,6 @@ async def cbowner(_, query: CallbackQuery):
 /blocklist - show you the list of user was blocked for using your bot
 
 📝 note: all commands owned by this bot can be executed by the owner of the bot without any exceptions.
-
-⚡ __Powered by {BOT_NAME} A.I__""",
-        reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🏡 Go Back", callback_data="cbhelp")]]
-        ),
-    )
-
-
-@Client.on_callback_query(filters.regex("cbfun"))
-async def cbfun(_, query: CallbackQuery):
-    await query.edit_message_text(
-        f"""<b>🏮 here is the fun commands</b>
-
-/chika - check it by yourself
-/wibu - check it by yourself
-/asupan - check it by yourself
-/truth - check it by yourself
-/dare - check it by yourself
-/tts (text) - text to speech
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
@@ -262,41 +238,8 @@ async def cbback(_, query: CallbackQuery):
                     InlineKeyboardButton("⏹ end", callback_data="cbend"),
                 ],
                 [InlineKeyboardButton("⛔ anti cmd", callback_data="cbdelcmds")],
-                [InlineKeyboardButton("🛄 group tools", callback_data="cbgtools")],
                 [InlineKeyboardButton("🗑 Close", callback_data="close")],
             ]
-        ),
-    )
-
-
-@Client.on_callback_query(filters.regex("cbgtools"))
-@cb_admin_check
-@authorized_users_only
-async def cbgtools(_, query: CallbackQuery):
-    await query.edit_message_text(
-        f"""<b>this is the feature information :</b>
-
-💡 **Feature:** this feature contains functions that can ban, mute, unban, unmute users in your group.
-
-and you can also set a time for the ban and mute penalties for members in your group so that they can be released from the punishment with the specified time.
-
-❔ **usage:**
-
-1️⃣ ban & temporarily ban user from your group:
-   » type `/b username/reply to message` ban permanently
-   » type `/tb username/reply to message/duration` temporarily ban user
-   » type `/ub username/reply to message` to unban user
-
-2️⃣ mute & temporarily mute user in your group:
-   » type `/m username/reply to message` mute permanently
-   » type `/tm username/reply to message/duration` temporarily mute user
-   » type `/um username/reply to message` to unmute user
-
-📝 note: cmd /b, /tb and /ub is the function to banned/unbanned user from your group, whereas /m, /tm and /um are commands to mute/unmute user in your group.
-
-⚡ __Powered by {BOT_NAME} A.I__""",
-        reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🏡 Go Back", callback_data="cbback")]]
         ),
     )
 
