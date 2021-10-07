@@ -25,6 +25,16 @@ from helpers.decorators import humanbytes
 from helpers.filters import command
 
 
+ydl_opts = {
+        'format':'best',
+        'keepvideo':True,
+        'prefer_ffmpeg':False,
+        'geo_bypass':True,
+        'outtmpl':'%(title)s.%(ext)s',
+        'quite':True
+}
+
+
 @Client.on_message(command(["song", f"song@{bn}"]) & ~filters.edited)
 async def song(client, message):
     input = " ".join(message.command[1:])
@@ -163,19 +173,6 @@ def time_formatter(milliseconds: int) -> str:
         + ((str(milliseconds) + " millisecond(s), ") if milliseconds else "")
     )
     return tmp[:-2]
-
-
-ydl_opts = {
-    "format": "bestaudio[ext=m4a]",
-    "writethumbnail": True,
-    "postprocessors": [
-        {
-            "key": "FFmpegExtractAudio",
-            "preferredcodec": "mp3",
-            "preferredquality": "192",
-        }
-    ],
-}
 
 
 def get_file_extension_from_url(url):
