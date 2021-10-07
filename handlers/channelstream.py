@@ -42,7 +42,7 @@ async def playlist(client, message):
         temp.append(t)
     now_playing = temp[0][0]
     by = temp[0][1].mention(style="md")
-    msg = "**Now Playing** in {}".format(lel.linked_chat.title)
+    msg = "💡 **now playing** on {}".format(lel.linked_chat.title)
     msg += "\n- " + now_playing
     msg += "\n- Req by " + by
     temp.pop(0)
@@ -63,11 +63,11 @@ async def playlist(client, message):
 def updated_stats(chat, queue, vol=100):
     if chat.id in callsmusic.pytgcalls.active_calls:
         # if chat.id in active_chats:
-        stats = "Settings of **{}**".format(chat.title)
+        stats = "⚙️ settings of **{}**".format(chat.title)
         if len(que) > 0:
             stats += "\n\n"
             stats += "Volume : {}%\n".format(vol)
-            stats += "Songs in queue : `{}`\n".format(len(que))
+            stats += "Songs Played : `{}`\n".format(len(que))
             stats += "Now Playing : **{}**\n".format(queue[0][0])
             stats += "Requested by : {}".format(queue[0][1].mention)
     else:
@@ -313,16 +313,16 @@ async def m_cb(b, cb):
                 pass
 
             callsmusic.pytgcalls.leave_group_call(chet_id)
-            await cb.message.edit("music player was disconnected from voice chat!")
+            await cb.message.edit("music player was disconnected from voice chat !")
         else:
-            await cb.answer("chat is not connected!", show_alert=True)
+            await cb.answer("chat is not connected !", show_alert=True)
 
 
 @Client.on_message(command(["cplay", f"cplay@{BOT_USERNAME}"]) & other_filters)
 @authorized_users_only
 async def play(_, message: Message):
     global que
-    lel = await message.reply("🔎 **Searching...**")
+    lel = await message.reply("🔎 **searching...**")
 
     try:
         conchat = await _.get_chat(message.chat.id)
@@ -386,6 +386,7 @@ async def play(_, message: Message):
     message.from_user.id
     text_links = None
     message.from_user.first_name
+    await lel.edit("🎧 **preparing...**")
     message.from_user.id
     user_id = message.from_user.id
     message.from_user.first_name
@@ -441,6 +442,7 @@ async def play(_, message: Message):
         )
     elif urls:
         query = toxt
+        await lel.edit("🎵 **sending audio...**")
         ydl_opts = {"format": "bestaudio/best"}
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
@@ -482,6 +484,7 @@ async def play(_, message: Message):
         for i in message.command[1:]:
             query += " " + str(i)
         print(query)
+        await lel.edit("🎵 **sending audio...**")
         ydl_opts = {"format": "bestaudio/best"}
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
