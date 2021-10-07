@@ -432,7 +432,7 @@ async def play(_, message: Message):
         title = file_name
         thumb_name = "https://telegra.ph/file/f6086f8909fbfeb0844f2.png"
         thumbnail = thumb_name
-        round(audio.duration / 60)
+        duration = round(audio.duration / 60)
         message.from_user.first_name
         await generate_cover(title, thumbnail)
         file_path = await convert(
@@ -453,6 +453,7 @@ async def play(_, message: Message):
             thumb_name = f"{title}.jpg"
             thumb = requests.get(thumbnail, allow_redirects=True)
             open(thumb_name, "wb").write(thumb.content)
+            duration = results[0]["duration"]
             results[0]["duration"]
             results[0]["url_suffix"]
             results[0]["views"]
@@ -495,6 +496,7 @@ async def play(_, message: Message):
             thumb_name = f"{title}.jpg"
             thumb = requests.get(thumbnail, allow_redirects=True)
             open(thumb_name, "wb").write(thumb.content)
+            duration = results[0]["duration"]
             results[0]["duration"]
             results[0]["url_suffix"]
             results[0]["views"]
