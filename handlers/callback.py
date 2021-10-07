@@ -76,7 +76,6 @@ async def cbhelp(_, query: CallbackQuery):
                     InlineKeyboardButton("📗 Sudo Cmd", callback_data="cbsudo"),
                 ],
                 [InlineKeyboardButton("📙 Owner Cmd", callback_data="cbowner")],
-                [InlineKeyboardButton("📔 Fun Cmd", callback_data="cbfun")],
                 [InlineKeyboardButton("🏡 Back to Help", callback_data="cbguide")],
             ]
         ),
@@ -235,7 +234,7 @@ async def cbback(_, query: CallbackQuery):
                 ],
                 [
                     InlineKeyboardButton("⏩ skip", callback_data="cbskip"),
-                    InlineKeyboardButton("⏹ end", callback_data="cbend"),
+                    InlineKeyboardButton("⏹ stop", callback_data="cbend"),
                 ],
                 [InlineKeyboardButton("⛔ anti cmd", callback_data="cbdelcmds")],
                 [InlineKeyboardButton("🗑 Close", callback_data="close")],
@@ -287,7 +286,6 @@ async def cbhelps(_, query: CallbackQuery):
                     InlineKeyboardButton("📗 Sudo Cmd", callback_data="cbsudo"),
                 ],
                 [InlineKeyboardButton("📙 Owner Cmd", callback_data="cbowner")],
-                [InlineKeyboardButton("📔 Fun Cmd", callback_data="cbfun")],
                 [InlineKeyboardButton("🏡 Go Back", callback_data="cbstart")],
             ]
         ),
