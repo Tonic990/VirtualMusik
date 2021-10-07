@@ -114,6 +114,7 @@ python3 main.py # Run the bot
 - [Levina](https://github.com/levina-lab): Dev
 - [Tofik](https://github.com/tofikdn): Dev
 - [Zxce3](https://github.com/Zxce3): Dev
+- [Hyoka-XD](https://github.com/PratheekXD) Contributor
 - [Laky](https://github.com/Laky-64) & [Andrew](https://github.com/AndrewLaneX): PyTgCalls
 - [Original Repo](https://github.com/callsmusic/callsmusic) CallsMusic
 - [Veez Music Bot](https://t.me/veezmusicbot) Our Music Bot
