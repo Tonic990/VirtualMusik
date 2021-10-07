@@ -60,7 +60,7 @@ async def update_admin(client, message):
 @authorized_users_only
 async def controlset(_, message: Message):
     await message.reply_text(
-        "**💡 opened music player control menu!**\n\n**💭 you can control the music player just by pressing one of the buttons below**",
+        "**💭 you can control the music player just by pressing one of the buttons below**",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -69,10 +69,9 @@ async def controlset(_, message: Message):
                 ],
                 [
                     InlineKeyboardButton("⏩ skip", callback_data="cbskip"),
-                    InlineKeyboardButton("⏹ end", callback_data="cbend"),
+                    InlineKeyboardButton("⏹ stop", callback_data="cbend"),
                 ],
                 [InlineKeyboardButton("⛔ anti cmd", callback_data="cbdelcmds")],
-                [InlineKeyboardButton("🛄 group tools", callback_data="cbgtools")],
                 [InlineKeyboardButton("🗑 Close", callback_data="close")],
             ]
         ),
