@@ -100,10 +100,10 @@ async def generate_cover(title, thumbnail):
     Image.alpha_composite(image5, image6).save("temp.png")
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("etc/Roboto-Medium.ttf", 60)
+    font = ImageFont.truetype("etc/Roboto-Medium.ttf", 55)
     font2 = ImageFont.truetype("etc/finalfont.ttf", 75)
-    draw.text((25, 535), "Playing here...", (0, 0, 0), font=font)
-    draw.text((25, 620), f"{title[:25]}...", (0, 0, 0), font=font2)
+    draw.text((25, 530), "Playing here...", (0, 0, 0), font=font)
+    draw.text((25, 615), f"{title[:20]}...", (0, 0, 0), font=font2)
     img.save("final.png")
     os.remove("temp.png")
     os.remove("background.png")
@@ -882,7 +882,7 @@ async def ytplay(_, message: Message):
         query += " " + str(i)
     print(query)
     await lel.edit("🔄 **connecting to vc...**")
-    ydl_opts = {"format": "bestaudio/best"}
+    ydl_opts = {"format": "bestaudio[ext=m4a]"}
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
         url = f"https://youtube.com{results[0]['url_suffix']}"
