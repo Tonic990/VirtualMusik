@@ -1,8 +1,5 @@
 # (C) 2021 VeezMusic-Project
 
-from pyrogram import Client, filters
-from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
-
 from config import (
     ASSISTANT_NAME,
     BOT_NAME,
@@ -13,6 +10,8 @@ from config import (
 )
 from handlers.play import cb_admin_check
 from helpers.decorators import authorized_users_only
+from pyrogram import Client, filters
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 
 
 @Client.on_callback_query(filters.regex("cbstart"))
@@ -94,8 +93,8 @@ async def cbbasic(_, query: CallbackQuery):
 /stream (reply to audio) - play song using audio file
 /playlist - show the list song in queue
 /song (song name) - download song from youtube
-/search (video name) - search video from youtube detailed
-/vsong (video name) - download video from youtube detailed
+/search (video name) - search video from youtube detailed
+/vsong (video name) - download video from youtube detailed
 /lyric - (song name) lyrics scrapper
 /vk (song name) - download song from inline mode
 

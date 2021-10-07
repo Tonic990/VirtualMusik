@@ -1,17 +1,12 @@
 import os
 import shutil
 import sys
-import heroku3
 import traceback
 from functools import wraps
 from os import environ, execle
 
+import heroku3
 import psutil
-from git import Repo
-from git.exc import GitCommandError, InvalidGitRepositoryError
-from pyrogram import Client, filters
-from pyrogram.types import Message
-
 from config import (
     BOT_USERNAME,
     GROUP_SUPPORT,
@@ -22,11 +17,15 @@ from config import (
     U_BRANCH,
     UPSTREAM_REPO,
 )
+from git import Repo
+from git.exc import GitCommandError, InvalidGitRepositoryError
 from handlers.song import get_text, humanbytes
-from helpers.filters import command
 from helpers.database import db
 from helpers.dbtools import main_broadcast_handler
 from helpers.decorators import sudo_users_only
+from helpers.filters import command
+from pyrogram import Client, filters
+from pyrogram.types import Message
 
 
 # Stats Of Your Bot
@@ -93,9 +92,8 @@ async def ban(c: Client, m: Message):
 
 
 # Unblock User
-@Client.on_message(
-    filters.private & filters.command("unblock") & filters.user(OWNER_ID)
-)
+@Client.on_message(filters.private & filters.command("unblock"))
+@sudo_users_only
 async def unban(c: Client, m: Message):
     if len(m.command) == 1:
         await m.reply_text(
@@ -123,9 +121,8 @@ async def unban(c: Client, m: Message):
 
 
 # Blocked User List
-@Client.on_message(
-    filters.private & filters.command("blocklist") & filters.user(OWNER_ID)
-)
+@Client.on_message(filters.private & filters.command("blocklist"))
+@sudo_users_only
 async def _banned_usrs(_, m: Message):
     all_banned_users = await db.get_all_banned_users()
     banned_usr_count = 0
@@ -265,7 +262,8 @@ def _check_heroku(func):
     return heroku_cli
 
 
-@Client.on_message(command("logs") & filters.user(OWNER_ID))
+@Client.on_message(command("logs"))
+@sudo_users_only
 @_check_heroku
 async def logswen(client: Client, message: Message, happ):
     msg = await message.reply_text("`please wait for a moment!`")
