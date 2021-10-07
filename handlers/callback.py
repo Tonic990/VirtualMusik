@@ -62,7 +62,7 @@ async def cbhelp(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""<b>💡 Hello there, welcome to the help menu !</b>
 
-**in this menu you can open several available command menus, in each command menu there is also a brief explanation of each command**
+» **in this menu you can open several available command menus, in each command menu there is also a brief explanation of each command**
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
@@ -272,7 +272,7 @@ async def cbhelps(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""<b>💡 Hello there, welcome to the help menu !</b>
 
-**in this menu you can open several available command menus, in each command menu there is also a brief explanation of each command**
+» **in this menu you can open several available command menus, in each command menu there is also a brief explanation of each command**
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
