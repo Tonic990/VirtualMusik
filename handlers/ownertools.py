@@ -246,10 +246,10 @@ def _check_heroku(func):
     async def heroku_cli(client, message):
         heroku_app = None
         if not heroku_client:
-            await message.reply_text("`Please Add Heroku API Key To Use This Feature!`")
+            await message.reply_text("`please add heroku api key to use this feature!`")
         elif not HEROKU_APP_NAME:
             await edit_or_reply(
-                message, "`Please Add Heroku APP Name To Use This Feature!`"
+                message, "`please add heroku app name to use this feature!`"
             )
         if HEROKU_APP_NAME and heroku_client:
             try:
@@ -257,7 +257,7 @@ def _check_heroku(func):
             except:
                 await message.reply_text(
                     message,
-                    "`Heroku Api Key And App Name Doesn't Match! Check it again`",
+                    "`heroku api key and app name doesn't match, please recheck`",
                 )
             if heroku_app:
                 await func(client, message, heroku_app)
