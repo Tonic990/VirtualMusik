@@ -1,18 +1,15 @@
 import asyncio
 
-from pyrogram import Client, filters
-from pyrogram.errors import UserAlreadyParticipant
-
 from callsmusic.callsmusic import client as USER
 from config import BOT_USERNAME, SUDO_USERS
 from helpers.decorators import authorized_users_only, errors
 from helpers.filters import command
+from pyrogram import Client, filters
+from pyrogram.errors import UserAlreadyParticipant
 
 
 @Client.on_message(
-    command(["join", f"join@{BOT_USERNAME}"])
-    & ~filters.private
-    & ~filters.bot
+    command(["join", f"join@{BOT_USERNAME}"]) & ~filters.private & ~filters.bot
 )
 @authorized_users_only
 @errors
@@ -53,9 +50,7 @@ async def addchannel(client, message):
 
 
 @Client.on_message(
-    command(["leave", f"leave@{BOT_USERNAME}"])
-    & filters.group
-    & ~filters.edited
+    command(["leave", f"leave@{BOT_USERNAME}"]) & filters.group & ~filters.edited
 )
 @authorized_users_only
 async def rem(client, message):
@@ -107,7 +102,9 @@ async def addcchannel(client, message):
         conid = conchat.linked_chat.id
         chid = conid
     except:
-        await message.reply("❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**")
+        await message.reply(
+            "❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**"
+        )
         return
     try:
         invitelink = await client.export_chat_invite_link(chid)
@@ -124,7 +121,9 @@ async def addcchannel(client, message):
 
     try:
         await USER.join_chat(invitelink)
-        await USER.send_message(message.chat.id, "🤖: i'm joined here for playing music on vc")
+        await USER.send_message(
+            message.chat.id, "🤖: i'm joined here for playing music on vc"
+        )
     except UserAlreadyParticipant:
         await message.reply_text(
             "<b>✅ userbot already joined channel</b>",
