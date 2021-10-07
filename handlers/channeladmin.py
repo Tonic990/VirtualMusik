@@ -46,7 +46,7 @@ async def channel_pause(_, message: Message):
         await message.reply_text("❌ **no music is currently playing**")
     else:
         callsmusic.pytgcalls.pause_stream(chat_id)
-        await message.reply_text("▶ **Track paused.**\n\n• **To resume the playback, use the** » `/cresume` command.")
+        await message.reply_text("▶ **Track paused.**\n\n• **To resume the playback, use the**\n» `/cresume` command.")
 
 
 @Client.on_message(command(["cresume", f"cresume@{BOT_USERNAME}"]) & other_filters)
@@ -67,7 +67,7 @@ async def channel_resume(_, message: Message):
         await message.reply_text("❌ **no music is currently playing**")
     else:
         callsmusic.pytgcalls.resume_stream(chat_id)
-        await message.reply_text("⏸ **Track resumed.**\n\n• **To pause the playback, use the** » `/cpause` command.")
+        await message.reply_text("⏸ **Track resumed.**\n\n• **To pause the playback, use the**\n» `/cpause` command.")
 
 
 @Client.on_message(command(["cend", f"cend@{BOT_USERNAME}"]) & other_filters)
