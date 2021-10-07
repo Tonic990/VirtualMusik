@@ -5,15 +5,9 @@ from typing import Callable
 
 import aiofiles
 import aiohttp
+import converter
 import ffmpeg
 import requests
-from PIL import Image, ImageDraw, ImageFont
-from pyrogram import Client, filters
-from pyrogram.errors import UserAlreadyParticipant
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-from youtube_search import YoutubeSearch
-
-import converter
 from cache.admins import admins as a
 from callsmusic import callsmusic
 from callsmusic.callsmusic import client as USER
@@ -34,6 +28,11 @@ from helpers.channelmusic import get_chat_id
 from helpers.decorators import authorized_users_only
 from helpers.filters import command, other_filters
 from helpers.gets import get_file_name
+from PIL import Image, ImageDraw, ImageFont
+from pyrogram import Client, filters
+from pyrogram.errors import UserAlreadyParticipant
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from youtube_search import YoutubeSearch
 
 aiohttpsession = aiohttp.ClientSession()
 chat_id = None
@@ -49,6 +48,7 @@ def cb_admin_check(func: Callable) -> Callable:
         else:
             await cb.answer("💡 only admin can tap this button !", show_alert=True)
             return
+
     return decorator
 
 
@@ -225,9 +225,7 @@ async def music_onoff(_, message):
             await lel.edit("» **music player already turned on.**")
             return
         DISABLED_GROUPS.remove(message.chat.id)
-        await lel.edit(
-            f"✅ **music player turned on**\n\n💬 `{message.chat.id}`"
-        )
+        await lel.edit(f"✅ **music player turned on**\n\n💬 `{message.chat.id}`")
 
     elif status == "OFF" or status == "off" or status == "Off":
         lel = await message.reply("`processing...`")
@@ -236,9 +234,7 @@ async def music_onoff(_, message):
             await lel.edit("» **music player already turned off.**")
             return
         DISABLED_GROUPS.append(message.chat.id)
-        await lel.edit(
-            f"✅ **music player turned off**\n\n💬 `{message.chat.id}`"
-        )
+        await lel.edit(f"✅ **music player turned off**\n\n💬 `{message.chat.id}`")
     else:
         await message.reply_text(
             "**i'm only know** `/musicplayer on` **and** `/musicplayer off`"
@@ -414,9 +410,7 @@ async def m_cb(b, cb):
                 )
                 await cb.answer("skipped")
                 await cb.message.edit((m_chat, qeue), reply_markup=r_ply(the_data))
-                await cb.message.reply_text(
-                    "⏭ **You've skipped to the next song.**"
-                )
+                await cb.message.reply_text("⏭ **You've skipped to the next song.**")
 
     elif type_ == "leave":
         if chet_id in callsmusic.pytgcalls.active_calls:
@@ -922,9 +916,9 @@ async def ytplay(_, message: Message):
             ],
             [
                 InlineKeyboardButton(
-                    "📣 ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}"),
-                InlineKeyboardButton(
-                    "✨ ɢʀᴏᴜᴘ", url=f"https://t.me/{GROUP_SUPPORT}"),
+                    "📣 ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}"
+                ),
+                InlineKeyboardButton("✨ ɢʀᴏᴜᴘ", url=f"https://t.me/{GROUP_SUPPORT}"),
             ],
         ]
     )
