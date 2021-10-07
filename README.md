@@ -45,7 +45,6 @@
 - Unlimited Queue
 - Broadcast Bot
 - Statistic Collector
-- Group Tools (ban/unban/mute/unmute)
 - Block / Unblock (restrict user for using your bot)
 
 ## Commands 🛠
@@ -66,8 +65,8 @@
 - `/end` - stop music play
 - `/musicplayer on` - to disable music player in your group
 - `/musicplayer off` - to enable music player in your group
-- `/userbotjoin` - invite assistant to your chat
-- `/userbotleave` - remove assistant from your chat
+- `/join` - invite assistant to your chat
+- `/leave` - remove assistant from your chat
 - `/reload` - Refresh admin list
 - `/uptime` - check the bot uptime status
 - `/ping` - check the bot ping status
@@ -78,8 +77,7 @@
 ### Sudo User 🧙‍♂️
 - `/stats` - see the bot statistic
 - `/pmpermit on | off` turn on/off the assistant pmpermit
-- `/userbotleaveall` - order the assistant to leave all groups
-- `/gcast` - send a broadcast message from the assistant
+- `/leaveall` - order the assistant to leave all groups
 
 ### Owner Only 👨🏻‍✈️
 - `/broadcast` - send a broadcast message from the bot
@@ -87,14 +85,11 @@
 - `/unblock` - unblock people you blocked for using your bot
 - `/blocklist` - show the list of all people who's blocked for using your bot
 
-### pm-permit 💬
-- `.yes` - approve user for sending message to assistant
-- `.no` - disapprove user for sending message to assistant
-
-## 🔎 Support Inline Search
+## 🔎 Inline Search Support
+- just type the bot username in any chat, example: "`@VeezMusicBot Faded Alan Walker`", then bot will give you a results of the query you search in inline mode.
 
 ## Heroku Deployment 💜
-The easy way to host this bot, deploy to Heroku
+The easy way to host this bot, deploy to Heroku, Change the app country to Europe (it will help to make the bot stable).
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/levina-lab/veezmusic)
 
