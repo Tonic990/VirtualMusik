@@ -60,7 +60,7 @@ async def update_admin(client, message):
 @authorized_users_only
 async def controlset(_, message: Message):
     await message.reply_text(
-        "**💭 you can control the music player just by pressing one of the buttons below**",
+        "💡 **here is the control menu of bot :**",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
