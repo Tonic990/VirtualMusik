@@ -81,9 +81,8 @@ async def start(client: Client, message: Message):
     current_time = datetime.utcnow()
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = await _human_time_duration(int(uptime_sec))
-    await message.reply_text(
-        f"""✅ **bot is running**\n<b>💠 **uptime:**</b> `{uptime}`""",
-        reply_markup=InlineKeyboardMarkup(
+    
+    keyboard=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
@@ -94,7 +93,14 @@ async def start(client: Client, message: Message):
                     ),
                 ]
             ]
-        ),
+        )
+    
+    alive = f"✨ Bot is working normally\n\n✨ Database is running normally\n\n✨ Uptime Status: `{uptime}`"
+    
+    await message.reply_photo(
+        photo="https://telegra.ph/file/5eaf80b230074de46fa09.png",
+        caption=alive,
+        reply_markup=keyboard,
     )
 
 
