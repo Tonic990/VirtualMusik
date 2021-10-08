@@ -50,6 +50,7 @@ async def song(client, message):
         await message.reply("{str(e)}")
     msg = await message.reply("📥 **downloading...**")
     preview = wget.download(thumbnail)
+    veez = f"🎧 **Uploader @{bn}**"
     with YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(link, download=False)
         audio_file = ydl.prepare_filename(info_dict)
@@ -59,7 +60,7 @@ async def song(client, message):
         audio_file,
         duration=int(info_dict["duration"]),
         thumb=preview,
-        caption=info_dict['title'])
+        caption=veez)
     try:
         os.remove(audio_file)
         os.remove(preview)
