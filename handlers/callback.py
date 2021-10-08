@@ -20,7 +20,7 @@ async def cbstart(_, query: CallbackQuery):
         f"""<b>✨ **Welcome , i'm {query.message.from_user.mention} !** \n
 💭 **[{BOT_NAME}](https://t.me/{BOT_USERNAME}) allows you to play music on groups through the new Telegram's voice chats!**
 
-💡 **Find out all the Bot's commands and how they work by clicking on the » 📚 Commands button!**
+💡 **Find out all the Bot's commands and how they work by clicking on the\n» 📚 Commands button!**
 
 ❔ **To know how to use this bot, please click on the » ❓ Basic Guide button!**
 </b>""",
