@@ -103,8 +103,9 @@ async def start(client: Client, message: Message):
                         "📣 Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
                     ),
                 ]
-            ]
-        )
+            ],
+        disable_web_page_preview=True,
+    )
     
     alive = f"**Hello {message.from_user.mention}, i'm {BOT_NAME}**\n\n✨ Bot is working normally\n\n✨ My Master: [{ALIVE_NAME}](https://t.me/{OWNER_NAME})\n\n✨ Pyrogram Version: {__pyro_version__}\n\n✨ Python Version: {__python_version__}\n\n✨ Uptime Status: `{uptime}`\n\n**Thanks for Adding me here, for playing music on your Group voice chat** ❤"
     
@@ -112,7 +113,6 @@ async def start(client: Client, message: Message):
         photo="https://telegra.ph/file/5eaf80b230074de46fa09.png",
         caption=alive,
         reply_markup=keyboard,
-        disable_web_page_preview=True,
     )
 
 
