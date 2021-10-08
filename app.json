@@ -54,6 +54,11 @@
             "required": false,
             "value": "dlwrml"
         },
+        "ALIVE_NAME": {
+            "description": "fill with the nickname of your telegram account",
+            "required": false,
+            "value": "Levina"
+        },
         "API_ID": {
             "description": "your Api ID from my.telegram.org/apps",
             "required": true
