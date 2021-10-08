@@ -1,12 +1,23 @@
-from datetime import datetime
+import os
 from time import time
+from sys import version_info
+from datetime import datetime
 
 from pyrogram import Client, filters
+from pyrogram import __version__ as __pyro_version__
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from config import BOT_NAME, BOT_USERNAME, GROUP_SUPPORT, OWNER_NAME, UPDATES_CHANNEL
+from config import BOT_NAME, BOT_USERNAME, GROUP_SUPPORT, OWNER_NAME, UPDATES_CHANNEL, ALIVE_NAME
 from helpers.decorators import sudo_users_only
 from helpers.filters import command
+
+
+__major__ = 0
+__minor__ = 2
+__micro__ = 1
+
+__python_version__ = f"{version_info[0]}.{version_info[1]}.{version_info[2]}"
+
 
 START_TIME = datetime.utcnow()
 START_TIME_ISO = START_TIME.replace(microsecond=0).isoformat()
@@ -38,7 +49,7 @@ async def start_(client: Client, message: Message):
         f"""<b>✨ **Welcome {message.from_user.mention} !** \n
 💭 **[{BOT_NAME}](https://t.me/{BOT_USERNAME}) allows you to play music on groups through the new Telegram's voice chats!**
 
-💡 **Find out all the Bot's commands and how they work by clicking on the » 📚 Commands button!**
+💡 **Find out all the Bot's commands and how they work by clicking on the\n» 📚 Commands button!**
 
 ❔ **To know how to use this bot, please click on the » ❓ Basic Guide button!**
 </b>""",
@@ -95,12 +106,13 @@ async def start(client: Client, message: Message):
             ]
         )
     
-    alive = f"✨ Bot is working normally\n\n✨ Database is running normally\n\n✨ Uptime Status: `{uptime}`"
+    alive = f"**Hello {message.from_user.mention}, i'm {BOT_NAME}**\n\n✨ Bot is working normally\n\n✨ My Master: [{ALIVE_NAME}](https://t.me/{OWNER_NAME})\n\n✨ Pyrogram Version: {__pyro_version__}\n\n✨ Python Version: {__python_version__}\n\n✨ Uptime Status: `{uptime}`\n\n**Thanks for Adding me here, for playing music on your Group voice chat** ❤"
     
     await message.reply_photo(
         photo="https://telegra.ph/file/5eaf80b230074de46fa09.png",
         caption=alive,
         reply_markup=keyboard,
+        disable_web_page_preview=True,
     )
 
 
