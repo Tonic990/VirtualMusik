@@ -7,9 +7,10 @@ from pyrogram import Client, filters
 from pyrogram import __version__ as __pyro_version__
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from config import BOT_NAME, BOT_USERNAME, GROUP_SUPPORT, OWNER_NAME, UPDATES_CHANNEL, ALIVE_NAME
+from config import BOT_NAME, BOT_USERNAME, GROUP_SUPPORT, OWNER_NAME, UPDATES_CHANNEL, ALIVE_NAME, ALIVE_IMG
 from helpers.decorators import sudo_users_only
 from helpers.filters import command
+from handlers import __version__
 
 
 __major__ = 0
@@ -106,10 +107,10 @@ async def start(client: Client, message: Message):
             ]
     )
     
-    alive = f"**Hello {message.from_user.mention}, i'm {BOT_NAME}**\n\n✨ Bot is working normally\n\n✨ My Master: [{ALIVE_NAME}](https://t.me/{OWNER_NAME})\n\n✨ Pyrogram Version: {__pyro_version__}\n\n✨ Python Version: {__python_version__}\n\n✨ Uptime Status: `{uptime}`\n\n**Thanks for Adding me here, for playing music on your Group voice chat** ❤"
+    alive = f"**Hello {message.from_user.mention}, i'm {BOT_NAME}**\n\n✨ Bot is working normally\n✨ My Master: [{ALIVE_NAME}](https://t.me/{OWNER_NAME})\n✨ Bot Version: `{__version__}`\n✨ Pyrogram Version: `{__pyro_version__}`\n✨ Python Version: `{__python_version__}`\n✨ Uptime Status: `{uptime}`\n\n**Thanks for Adding me here, for playing music on your Group voice chat** ❤"
     
     await message.reply_photo(
-        photo="https://telegra.ph/file/5eaf80b230074de46fa09.png",
+        photo=f"{ALIVE_IMG}",
         caption=alive,
         reply_markup=keyboard,
     )
