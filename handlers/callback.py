@@ -202,7 +202,7 @@ async def cbguide(_, query: CallbackQuery):
 
 1.) first, add me to your group.
 2.) then promote me as admin and give all permissions except anonymous admin.
-3.) add @{ASSISTANT_NAME} to your group or type /userbotjoin to invite her.
+3.) add @{ASSISTANT_NAME} to your group or type /join to invite her.
 4.) turn on the voice chat first before start to play music.
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
