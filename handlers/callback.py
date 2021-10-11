@@ -276,14 +276,14 @@ async def cbhelps(_, query: CallbackQuery):
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("📚 Basic Cmd", callback_data="cbbasic2"),
-                    InlineKeyboardButton("📕 Advanced Cmd", callback_data="cbadvanced2"),
+                    InlineKeyboardButton("📚 Basic Cmd", callback_data="cblocal"),
+                    InlineKeyboardButton("📕 Advanced Cmd", callback_data="cbadven"),
                 ],
                 [
-                    InlineKeyboardButton("📘 Admin Cmd", callback_data="cbadmin2"),
-                    InlineKeyboardButton("📗 Sudo Cmd", callback_data="cbsudo2"),
+                    InlineKeyboardButton("📘 Admin Cmd", callback_data="cblamp"),
+                    InlineKeyboardButton("📗 Sudo Cmd", callback_data="cblab"),
                 ],
-                [InlineKeyboardButton("📙 Owner Cmd", callback_data="cbowner2")],
+                [InlineKeyboardButton("📙 Owner Cmd", callback_data="cbmoon")],
                 [InlineKeyboardButton("🔙 Go Back", callback_data="cbstart")],
             ]
         ),
@@ -307,8 +307,8 @@ async def cbguides(_, query: CallbackQuery):
     )
 
 
-@Client.on_callback_query(filters.regex("cbbasic2"))
-async def cbbasics(_, query: CallbackQuery):
+@Client.on_callback_query(filters.regex("cblocal"))
+async def cblocal(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""🏮 **here is the basic commands**
 
@@ -341,8 +341,8 @@ async def cbbasics(_, query: CallbackQuery):
     )
 
 
-@Client.on_callback_query(filters.regex("cbadvanced2"))
-async def cbadvanceds(_, query: CallbackQuery):
+@Client.on_callback_query(filters.regex("cbadven"))
+async def cbadven(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""🏮 **here is the advanced commands**
 
@@ -359,8 +359,8 @@ async def cbadvanceds(_, query: CallbackQuery):
     )
 
 
-@Client.on_callback_query(filters.regex("cbadmin2"))
-async def cbadmins(_, query: CallbackQuery):
+@Client.on_callback_query(filters.regex("cblamp"))
+async def cblamp(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""🏮 **here is the admin commands**
 
@@ -384,8 +384,8 @@ async def cbadmins(_, query: CallbackQuery):
     )
 
 
-@Client.on_callback_query(filters.regex("cbsudo2"))
-async def cbsudos(_, query: CallbackQuery):
+@Client.on_callback_query(filters.regex("cblab"))
+async def cblab(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""🏮 **here is the sudo commands**
 
@@ -400,8 +400,8 @@ async def cbsudos(_, query: CallbackQuery):
     )
 
 
-@Client.on_callback_query(filters.regex("cbowner2"))
-async def cbowners(_, query: CallbackQuery):
+@Client.on_callback_query(filters.regex("cbmoon"))
+async def cbmoon(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""🏮 **here is the owner commands**
 
