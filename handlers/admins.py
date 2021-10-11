@@ -27,7 +27,7 @@ async def _(bot: Client, cmd: Message):
 
 # Back Button
 BACK_BUTTON = InlineKeyboardMarkup(
-    [[InlineKeyboardButton("🏡 Go Back", callback_data="cbback")]]
+    [[InlineKeyboardButton("🔙 Go Back", callback_data="cbback")]]
 )
 
 # @Client.on_message(filters.text & ~filters.private)
