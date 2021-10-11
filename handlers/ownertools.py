@@ -71,11 +71,11 @@ async def ban(c: Client, m: Message):
         user_id = int(m.command[1])
         ban_duration = m.command[2]
         ban_reason = " ".join(m.command[3:])
-        ban_log_text = f"🔁 banning user... \n\nuser id: `{user_id}` \nduration: `{ban_duration}` \nreason: `{ban_reason}`"
+        ban_log_text = f"🚷 **banned user !** \n\nuser id: `{user_id}` \nduration: `{ban_duration}` \nreason: `{ban_reason}`"
         try:
             await c.send_message(
                 user_id,
-                f"sorry, you're banned!** \n\nreason: `{ban_reason}` \nduration: `{ban_duration}` day(s). \n\n**💬 message from owner: ask in @{GROUP_SUPPORT} if you think this was an mistake.",
+                f"😕 sorry, you're banned!** \n\nreason: `{ban_reason}` \nduration: `{ban_duration}` day(s). \n\n**💬 message from owner: ask in @{GROUP_SUPPORT} if you think this was an mistake.",
             )
             ban_log_text += "\n\n✅ this notification was sent to that user"
         except:
@@ -103,7 +103,7 @@ async def unban(c: Client, m: Message):
         return
     try:
         user_id = int(m.command[1])
-        unban_log_text = f"🔁 unbanning user... \n\n**user id:**{user_id}"
+        unban_log_text = f"🆓 **unbanned user !** \n\n**user id:**{user_id}"
         try:
             await c.send_message(user_id, "🎊 congratulations, you was unbanned!")
             unban_log_text += "\n\n✅ this notification was sent to that user"
