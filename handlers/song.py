@@ -45,7 +45,7 @@ def song(_, message):
         link = f"https://youtube.com{results[0]['url_suffix']}"
         title = results[0]["title"][:40]
         thumbnail = results[0]["thumbnails"][0]
-        thumb_name = f"thumb{title}.jpg"
+        thumb_name = f"{title}.jpg"
         thumb = requests.get(thumbnail, allow_redirects=True)
         open(thumb_name, "wb").write(thumb.content)
         duration = results[0]["duration"]
@@ -65,6 +65,7 @@ def song(_, message):
         for i in range(len(dur_arr) - 1, -1, -1):
             dur += int(float(dur_arr[i])) * secmul
             secmul *= 60
+        m.edit("📤 uploading...")
         message.reply_audio(
             audio_file,
             caption=rep,
@@ -207,9 +208,6 @@ async def download_song(url):
                 await f.write(await resp.read())
                 await f.close()
     return song_name
-
-
-is_downloading = False
 
 
 def time_to_seconds(times):
