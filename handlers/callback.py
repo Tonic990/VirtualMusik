@@ -75,7 +75,7 @@ async def cbhelp(_, query: CallbackQuery):
                     InlineKeyboardButton("📗 Sudo Cmd", callback_data="cbsudo"),
                 ],
                 [InlineKeyboardButton("📙 Owner Cmd", callback_data="cbowner")],
-                [InlineKeyboardButton("🏡 Back to Help", callback_data="cbguide")],
+                [InlineKeyboardButton("🔙 Go Back", callback_data="cbguide")],
             ]
         ),
     )
@@ -110,7 +110,7 @@ async def cbbasic(_, query: CallbackQuery):
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🏡 Go Back", callback_data="cbhelp")]]
+            [[InlineKeyboardButton("🔙 Go Back", callback_data="cbhelp")]]
         ),
     )
 
@@ -128,7 +128,7 @@ async def cbadvanced(_, query: CallbackQuery):
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🏡 Go Back", callback_data="cbhelp")]]
+            [[InlineKeyboardButton("🔙 Go Back", callback_data="cbhelp")]]
         ),
     )
 
@@ -153,7 +153,7 @@ async def cbadmin(_, query: CallbackQuery):
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🏡 Go Back", callback_data="cbhelp")]]
+            [[InlineKeyboardButton("🔙 Go Back", callback_data="cbhelp")]]
         ),
     )
 
@@ -169,7 +169,7 @@ async def cbsudo(_, query: CallbackQuery):
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🏡 Go Back", callback_data="cbhelp")]]
+            [[InlineKeyboardButton("🔙 Go Back", callback_data="cbhelp")]]
         ),
     )
 
@@ -189,7 +189,7 @@ async def cbowner(_, query: CallbackQuery):
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🏡 Go Back", callback_data="cbhelp")]]
+            [[InlineKeyboardButton("🔙 Go Back", callback_data="cbhelp")]]
         ),
     )
 
@@ -260,7 +260,7 @@ async def cbdelcmds(_, query: CallbackQuery):
       
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🏡 Go Back", callback_data="cbback")]]
+            [[InlineKeyboardButton("🔙 Go Back", callback_data="cbback")]]
         ),
     )
 
@@ -284,7 +284,7 @@ async def cbhelps(_, query: CallbackQuery):
                     InlineKeyboardButton("📗 Sudo Cmd", callback_data="cbsudo"),
                 ],
                 [InlineKeyboardButton("📙 Owner Cmd", callback_data="cbowner")],
-                [InlineKeyboardButton("🏡 Go Back", callback_data="cbstart")],
+                [InlineKeyboardButton("🔙 Go Back", callback_data="cbstart")],
             ]
         ),
     )
@@ -302,6 +302,6 @@ async def cbguides(_, query: CallbackQuery):
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🏡 Go Back", callback_data="cbstart")]]
+            [[InlineKeyboardButton("🔙 Go Back", callback_data="cbstart")]]
         ),
     )
