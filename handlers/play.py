@@ -151,7 +151,7 @@ async def playlist(client, message):
             usr = song[1].mention(style="md")
             msg += f"\n• {name}"
             msg += f"\n• Req by {usr}\n"
-    await message.reply_text(msg, keyboard)
+    await message.reply_text(msg, reply_markup=keyboard)
 
 
 # ============================= Settings =========================================
@@ -304,7 +304,7 @@ async def p_cb(b, cb):
                 usr = song[1].mention(style="md")
                 msg += f"\n• {name}"
                 msg += f"\n• Req by {usr}\n"
-        await cb.message.edit(msg, keyboard)
+        await cb.message.edit(msg, reply_markup=keyboard)
 
 
 @Client.on_callback_query(
@@ -312,6 +312,25 @@ async def p_cb(b, cb):
 )
 @cb_admin_check
 async def m_cb(b, cb):
+    
+    keyboard=InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "✨ Group", url=f"https://t.me/{GROUP_SUPPORT}"
+                ),
+                InlineKeyboardButton(
+                    "📣 Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "🔙 Go Back", callback_data="menu"
+                )
+            ],
+        ]
+    )
+    
     global que
     if (
         cb.message.chat.title.startswith("Channel Music: ")
@@ -376,7 +395,7 @@ async def m_cb(b, cb):
                 usr = song[1].mention(style="md")
                 msg += f"\n• {name}"
                 msg += f"\n• Req by {usr}\n"
-        await cb.message.edit(msg)
+        await cb.message.edit(msg, reply_markup=keyboard)
 
     elif type_ == "resume":
         if (chet_id not in callsmusic.pytgcalls.active_calls) or (
@@ -789,7 +808,7 @@ async def lol_cb(b, cb):
         pass
     try:
         thumb_name = f"{title}.jpg"
-        ctitle = message.chat.title
+        ctitle = cb.message.chat.title
         ctitle = await CHAT_TITLE(ctitle)
         thumb = requests.get(thumbnail, allow_redirects=True)
         open(thumb_name, "wb").write(thumb.content)
