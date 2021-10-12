@@ -789,6 +789,8 @@ async def lol_cb(b, cb):
         pass
     try:
         thumb_name = f"{title}.jpg"
+        ctitle = message.chat.title
+        ctitle = await CHAT_TITLE(ctitle)
         thumb = requests.get(thumbnail, allow_redirects=True)
         open(thumb_name, "wb").write(thumb.content)
     except Exception as e:
