@@ -113,6 +113,20 @@ async def generate_cover(title, thumbnail):
     command(["playlist", f"playlist@{BOT_USERNAME}"]) & filters.group & ~filters.edited
 )
 async def playlist(client, message):
+    
+    keyboard=InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "✨ Group", url=f"https://t.me/{GROUP_SUPPORT}"
+                ),
+                InlineKeyboardButton(
+                    "📣 Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
+                ),
+            ]
+        ]
+    )
+    
     global que
     if message.chat.id in DISABLED_GROUPS:
         return
@@ -136,7 +150,7 @@ async def playlist(client, message):
             usr = song[1].mention(style="md")
             msg += f"\n• {name}"
             msg += f"\n• Req by {usr}\n"
-    await message.reply_text(msg)
+    await message.reply_text(msg, keyboard)
 
 
 # ============================= Settings =========================================
@@ -243,6 +257,25 @@ async def music_onoff(_, message):
 
 @Client.on_callback_query(filters.regex(pattern=r"^(playlist)$"))
 async def p_cb(b, cb):
+    
+    keyboard=InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "✨ Group", url=f"https://t.me/{GROUP_SUPPORT}"
+                ),
+                InlineKeyboardButton(
+                    "📣 Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
+                )
+            ],
+            [
+                InlineKeyboardButton(
+                    "🔙 Go Back", callback_data="menu"
+                )
+            ],
+        ]
+    )
+    
     global que
     que.get(cb.message.chat.id)
     type_ = cb.matches[0].group(1)
@@ -270,7 +303,7 @@ async def p_cb(b, cb):
                 usr = song[1].mention(style="md")
                 msg += f"\n• {name}"
                 msg += f"\n• Req by {usr}\n"
-        await cb.message.edit(msg)
+        await cb.message.edit(msg, keyboard)
 
 
 @Client.on_callback_query(
