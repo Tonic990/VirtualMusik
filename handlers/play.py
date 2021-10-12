@@ -30,9 +30,10 @@ from helpers.filters import command, other_filters
 from helpers.gets import get_file_name
 from PIL import Image, ImageDraw, ImageFont
 from pyrogram import Client, filters
+from youtube_search import YoutubeSearch
+from helpers.chattitle import CHAT_TITLE
 from pyrogram.errors import UserAlreadyParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-from youtube_search import YoutubeSearch
 
 aiohttpsession = aiohttp.ClientSession()
 chat_id = None
@@ -84,7 +85,7 @@ def changeImageSize(maxWidth, maxHeight, image):
     return newImage
 
 
-async def generate_cover(title, thumbnail):
+async def generate_cover(title, thumbnail, ctitle):
     async with aiohttp.ClientSession() as session:
         async with session.get(thumbnail) as resp:
             if resp.status == 200:
@@ -101,9 +102,9 @@ async def generate_cover(title, thumbnail):
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("etc/Roboto-Medium.ttf", 55)
-    font2 = ImageFont.truetype("etc/finalfont.ttf", 75)
-    draw.text((25, 528), "Playing here...", (0, 0, 0), font=font)
-    draw.text((25, 610), f"{title[:20]}...", (0, 0, 0), font=font2)
+    font2 = ImageFont.truetype("etc/finalfont.ttf", 80)
+    draw.text((20, 528), f"Playing on {ctitle[:10]}", (0, 0, 0), font=font)
+    draw.text((20, 610), f"{title[:20]}...", (0, 0, 0), font=font2)
     img.save("final.png")
     os.remove("temp.png")
     os.remove("background.png")
@@ -581,6 +582,8 @@ async def play(_, message: Message):
             title = results[0]["title"][:60]
             thumbnail = results[0]["thumbnails"][0]
             thumb_name = f"{title}.jpg"
+            ctitle = message.chat.title
+            ctitle = await CHAT_TITLE(ctitle)
             thumb = requests.get(thumbnail, allow_redirects=True)
             open(thumb_name, "wb").write(thumb.content)
             duration = results[0]["duration"]
@@ -606,7 +609,7 @@ async def play(_, message: Message):
             ]
         )
         message.from_user.first_name
-        await generate_cover(title, thumbnail)
+        await generate_cover(title, thumbnail, ctitle)
         file_path = await converter.convert(youtube.download(url))
     else:
         query = ""
@@ -673,6 +676,8 @@ async def play(_, message: Message):
                 title = results[0]["title"][:60]
                 thumbnail = results[0]["thumbnails"][0]
                 thumb_name = f"{title}.jpg"
+                ctitle = message.chat.title
+                ctitle = await CHAT_TITLE(ctitle)
                 thumb = requests.get(thumbnail, allow_redirects=True)
                 open(thumb_name, "wb").write(thumb.content)
                 duration = results[0]["duration"]
@@ -698,7 +703,7 @@ async def play(_, message: Message):
                 ]
             )
             message.from_user.first_name
-            await generate_cover(title, thumbnail)
+            await generate_cover(title, thumbnail, ctitle)
             file_path = await converter.convert(youtube.download(url))
     chat_id = get_chat_id(message.chat)
     if chat_id in callsmusic.pytgcalls.active_calls:
@@ -917,6 +922,8 @@ async def ytplay(_, message: Message):
         title = results[0]["title"][:60]
         thumbnail = results[0]["thumbnails"][0]
         thumb_name = f"{title}.jpg"
+        ctitle = message.chat.title
+        ctitle = await CHAT_TITLE(ctitle)
         thumb = requests.get(thumbnail, allow_redirects=True)
         open(thumb_name, "wb").write(thumb.content)
         duration = results[0]["duration"]
@@ -956,7 +963,7 @@ async def ytplay(_, message: Message):
         ]
     )
     message.from_user.first_name
-    await generate_cover(title, thumbnail)
+    await generate_cover(title, thumbnail, ctitle)
     file_path = await converter.convert(youtube.download(url))
     chat_id = get_chat_id(message.chat)
     if chat_id in callsmusic.pytgcalls.active_calls:
