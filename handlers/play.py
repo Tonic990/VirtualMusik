@@ -407,7 +407,7 @@ async def m_cb(b, cb):
             )
         else:
             callsmusic.pytgcalls.resume_stream(chet_id)
-            await cb.answer(psn, reply_markup=keyboard)
+            await cb.message.edit(psn, reply_markup=keyboard)
 
     elif type_ == "puse":
         spn = "⏸ music playback has paused"
@@ -420,7 +420,7 @@ async def m_cb(b, cb):
         else:
             callsmusic.pytgcalls.pause_stream(chet_id)
 
-            await cb.answer(spn, reply_markup=keyboard)
+            await cb.message.edit(spn, reply_markup=keyboard)
 
     elif type_ == "cls":
         await cb.answer("menu closed")
