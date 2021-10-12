@@ -598,7 +598,7 @@ async def play(_, message: Message):
         )
     elif urls:
         query = toxt
-        await lel.edit("🔎 **Searching...**")
+        await lel.edit("🔎 **searching...**")
         ydl_opts = {"format": "bestaudio[ext=m4a]"}
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
@@ -839,15 +839,15 @@ async def lol_cb(b, cb):
         try:
             r_by = cb.message.reply_to_message.from_user
         except:
-            p_by = cb.message.from_user.mention
+            m_by = cb.message.from_user.mention
         loc = file_path
-        appendable = [s_name, r_by, p_by, loc]
+        appendable = [s_name, r_by, m_by, loc]
         qeue.append(appendable)
         await cb.message.delete()
         await b.send_photo(
             chat_id,
             photo="final.png",
-            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {p_by}",
+            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {m_by}",
             reply_markup=keyboard,
         )
     else:
@@ -857,9 +857,9 @@ async def lol_cb(b, cb):
         try:
             r_by = cb.message.reply_to_message.from_user
         except:
-            p_by = cb.message.from_user.mention
+            m_by = cb.message.from_user.mention
         loc = file_path
-        appendable = [s_name, r_by, p_by, loc]
+        appendable = [s_name, r_by, m_by, loc]
         qeue.append(appendable)
         callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         await cb.message.delete()
@@ -867,7 +867,7 @@ async def lol_cb(b, cb):
             chat_id,
             photo="final.png",
             caption=f"🏷 **Name:** [{title[:60]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
-            + f"🎧 **Request by:** {p_by}",
+            + f"🎧 **Request by:** {m_by}",
             reply_markup=keyboard,
         )
     if path.exists("final.png"):
