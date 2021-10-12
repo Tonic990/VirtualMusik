@@ -134,8 +134,8 @@ async def _banned_usrs(_, m: Message):
         banned_on = banned_user["ban_status"]["banned_on"]
         ban_reason = banned_user["ban_status"]["ban_reason"]
         banned_usr_count += 1
-        text += f"⫸ **user id**: `{user_id}`\n⫸ **duration**: `{ban_duration}`\n⫸ **banned date**: `{banned_on}`\n⫸ **reason**: `{ban_reason}`\n\n"
-    reply_text = f"⫸ **total banned:** `{banned_usr_count}`\n\n{text}"
+        text += f"🆔 **user id**: `{user_id}`\n⏱ **duration**: `{ban_duration}`\n🗓 **banned date**: `{banned_on}`\n💬 **reason**: `{ban_reason}`\n\n"
+    reply_text = f"🚷 **total banned:** `{banned_usr_count}`\n\n{text}"
     if len(reply_text) > 4096:
         with open("banned-user-list.txt", "w") as f:
             f.write(reply_text)
