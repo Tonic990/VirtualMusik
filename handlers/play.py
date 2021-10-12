@@ -313,6 +313,9 @@ async def p_cb(b, cb):
 @cb_admin_check
 async def m_cb(b, cb):
     
+    back_btn=InlineKeyboardMarkup(
+    [[InlineKeyboardButton("🔙 Go Back", callback_data="menu")]])
+    
     keyboard=InlineKeyboardMarkup(
         [
             [
@@ -355,7 +358,7 @@ async def m_cb(b, cb):
         else:
             callsmusic.pytgcalls.pause_stream(chet_id)
 
-            await cb.answer("music paused!")
+            await cb.answer("music paused")
             await cb.message.edit(
                 updated_stats(m_chat, qeue), reply_markup=r_ply("play")
             )
@@ -369,7 +372,7 @@ async def m_cb(b, cb):
             )
         else:
             callsmusic.pytgcalls.resume_stream(chet_id)
-            await cb.answer("music resumed!")
+            await cb.answer("music resumed")
             await cb.message.edit(
                 updated_stats(m_chat, qeue), reply_markup=r_ply("pause")
             )
@@ -398,6 +401,7 @@ async def m_cb(b, cb):
         await cb.message.edit(msg, reply_markup=keyboard)
 
     elif type_ == "resume":
+        psn = "▶ music playback is resumed"
         if (chet_id not in callsmusic.pytgcalls.active_calls) or (
             callsmusic.pytgcalls.active_calls[chet_id] == "playing"
         ):
@@ -406,9 +410,10 @@ async def m_cb(b, cb):
             )
         else:
             callsmusic.pytgcalls.resume_stream(chet_id)
-            await cb.answer("music resumed!")
+            await cb.message.edit(psn, reply_markup=back_btn)
 
     elif type_ == "puse":
+        spn = "⏸ music playback is paused"
         if (chet_id not in callsmusic.pytgcalls.active_calls) or (
             callsmusic.pytgcalls.active_calls[chet_id] == "paused"
         ):
@@ -418,10 +423,10 @@ async def m_cb(b, cb):
         else:
             callsmusic.pytgcalls.pause_stream(chet_id)
 
-            await cb.answer("music paused!")
+            await cb.answer(spn, reply_markup=back_btn)
 
     elif type_ == "cls":
-        await cb.answer("closed menu")
+        await cb.answer("menu closed")
         await cb.message.delete()
 
     elif type_ == "menu":
@@ -444,6 +449,7 @@ async def m_cb(b, cb):
         await cb.message.edit(stats, reply_markup=marr)
 
     elif type_ == "skip":
+        nmq = "❌ no more music in __Queues__\n\n» **userbot leaving** voice chat"
         if qeue:
             qeue.pop(0)
         if chet_id not in callsmusic.pytgcalls.active_calls:
@@ -456,12 +462,12 @@ async def m_cb(b, cb):
             if callsmusic.queues.is_empty(chet_id):
                 callsmusic.pytgcalls.leave_group_call(chet_id)
 
-                await cb.message.edit("• no more playlist\n• leaving voice chat")
+                await cb.message.edit(nmq, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🗑 Close", callback_data="cls")]]))
             else:
                 callsmusic.pytgcalls.change_stream(
                     chet_id, callsmusic.queues.get(chet_id)["file"]
                 )
-                await cb.answer("skipped")
+                await cb.answer("skipped music")
                 await cb.message.edit((m_chat, qeue), reply_markup=r_ply(the_data))
                 await cb.message.reply_text("⏭ **You've skipped to the next song.**")
 
