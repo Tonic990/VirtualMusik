@@ -312,10 +312,7 @@ async def p_cb(b, cb):
 )
 @cb_admin_check
 async def m_cb(b, cb):
-    
-    back_btn=InlineKeyboardMarkup(
-    [[InlineKeyboardButton("🔙 Go Back", callback_data="menu")]])
-    
+
     keyboard=InlineKeyboardMarkup(
         [
             [
@@ -401,7 +398,7 @@ async def m_cb(b, cb):
         await cb.message.edit(msg, reply_markup=keyboard)
 
     elif type_ == "resume":
-        psn = "▶ music playback is resumed"
+        psn = "▶ music playback has resumed"
         if (chet_id not in callsmusic.pytgcalls.active_calls) or (
             callsmusic.pytgcalls.active_calls[chet_id] == "playing"
         ):
@@ -410,10 +407,10 @@ async def m_cb(b, cb):
             )
         else:
             callsmusic.pytgcalls.resume_stream(chet_id)
-            await cb.message.edit(psn, reply_markup=back_btn)
+            await cb.message.edit(psn, reply_markup=keyboard)
 
     elif type_ == "puse":
-        spn = "⏸ music playback is paused"
+        spn = "⏸ music playback has paused"
         if (chet_id not in callsmusic.pytgcalls.active_calls) or (
             callsmusic.pytgcalls.active_calls[chet_id] == "paused"
         ):
@@ -423,7 +420,7 @@ async def m_cb(b, cb):
         else:
             callsmusic.pytgcalls.pause_stream(chet_id)
 
-            await cb.answer(spn, reply_markup=back_btn)
+            await cb.answer(spn, reply_markup=keyboard)
 
     elif type_ == "cls":
         await cb.answer("menu closed")
@@ -839,7 +836,7 @@ async def lol_cb(b, cb):
         try:
             r_by = cb.message.reply_to_message.from_user
         except:
-            r_by = cb.message.from_user.mention
+            r_by = cb.message.from_user
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
@@ -847,7 +844,7 @@ async def lol_cb(b, cb):
         await b.send_photo(
             chat_id,
             photo="final.png",
-            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {cb.message.from_user.mention}",
+            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {r_by.mention}",
             reply_markup=keyboard,
         )
     else:
@@ -857,7 +854,7 @@ async def lol_cb(b, cb):
         try:
             r_by = cb.message.reply_to_message.from_user
         except:
-            r_by = cb.message.from_user.mention
+            r_by = cb.message.from_user
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
@@ -867,7 +864,7 @@ async def lol_cb(b, cb):
             chat_id,
             photo="final.png",
             caption=f"🏷 **Name:** [{title[:60]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
-            + f"🎧 **Request by:** {cb.message.from_user.mention}",
+            + f"🎧 **Request by:** {r_by.mention}",
             reply_markup=keyboard,
         )
     if path.exists("final.png"):
