@@ -13,8 +13,9 @@ from pyrogram.errors import (
     PeerIdInvalid,
     UserIsBlocked,
 )
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from config import BROADCAST_AS_COPY, GROUP_SUPPORT, LOG_CHANNEL
+from config import BROADCAST_AS_COPY, GROUP_SUPPORT, UPDATES_CHANNEL, LOG_CHANNEL
 from helpers.database import db, dcmdb
 
 
@@ -68,6 +69,20 @@ async def send_msg(user_id, message):
 
 
 async def main_broadcast_handler(m, db):
+    
+    keyboard=InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "✨ Group", url=f"https://t.me/{GROUP_SUPPORT}"
+                ),
+                InlineKeyboardButton(
+                    "📣 Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
+                ),
+            ]
+        ]
+    )
+    
     all_users = await db.get_all_users()
     broadcast_msg = m.reply_to_message
     while True:
@@ -88,7 +103,7 @@ async def main_broadcast_handler(m, db):
     )
     async with aiofiles.open("broadcast-logs.txt", "w") as broadcast_log_file:
         async for user in all_users:
-            sts, msg = await send_msg(user_id=int(user["id"]), message=broadcast_msg)
+            sts, msg = await send_msg(user_id=int(user["id"]), message=broadcast_msg, reply_markup=keyboard)
             if msg is not None:
                 await broadcast_log_file.write(msg)
             if sts == 200:
