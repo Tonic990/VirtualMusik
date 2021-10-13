@@ -25,15 +25,15 @@ from config import (
 from downloaders import youtube
 from helpers.admins import get_administrators
 from helpers.channelmusic import get_chat_id
+from helpers.chattitle import CHAT_TITLE
 from helpers.decorators import authorized_users_only
 from helpers.filters import command, other_filters
 from helpers.gets import get_file_name
 from PIL import Image, ImageDraw, ImageFont
 from pyrogram import Client, filters
-from youtube_search import YoutubeSearch
-from helpers.chattitle import CHAT_TITLE
 from pyrogram.errors import UserAlreadyParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from youtube_search import YoutubeSearch
 
 aiohttpsession = aiohttp.ClientSession()
 chat_id = None
@@ -114,20 +114,18 @@ async def generate_cover(title, thumbnail, ctitle):
     command(["playlist", f"playlist@{BOT_USERNAME}"]) & filters.group & ~filters.edited
 )
 async def playlist(client, message):
-    
-    keyboard=InlineKeyboardMarkup(
+
+    keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton(
-                    "✨ Group", url=f"https://t.me/{GROUP_SUPPORT}"
-                ),
+                InlineKeyboardButton("✨ Group", url=f"https://t.me/{GROUP_SUPPORT}"),
                 InlineKeyboardButton(
                     "📣 Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
                 ),
             ]
         ]
     )
-    
+
     global que
     if message.chat.id in DISABLED_GROUPS:
         return
@@ -258,25 +256,19 @@ async def music_onoff(_, message):
 
 @Client.on_callback_query(filters.regex(pattern=r"^(playlist)$"))
 async def p_cb(b, cb):
-    
-    keyboard=InlineKeyboardMarkup(
+
+    keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton(
-                    "✨ Group", url=f"https://t.me/{GROUP_SUPPORT}"
-                ),
+                InlineKeyboardButton("✨ Group", url=f"https://t.me/{GROUP_SUPPORT}"),
                 InlineKeyboardButton(
                     "📣 Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
-                )
+                ),
             ],
-            [
-                InlineKeyboardButton(
-                    "🔙 Go Back", callback_data="menu"
-                )
-            ],
+            [InlineKeyboardButton("🔙 Go Back", callback_data="menu")],
         ]
     )
-    
+
     global que
     que.get(cb.message.chat.id)
     type_ = cb.matches[0].group(1)
@@ -313,24 +305,18 @@ async def p_cb(b, cb):
 @cb_admin_check
 async def m_cb(b, cb):
 
-    keyboard=InlineKeyboardMarkup(
+    keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton(
-                    "✨ Group", url=f"https://t.me/{GROUP_SUPPORT}"
-                ),
+                InlineKeyboardButton("✨ Group", url=f"https://t.me/{GROUP_SUPPORT}"),
                 InlineKeyboardButton(
                     "📣 Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
-                )
+                ),
             ],
-            [
-                InlineKeyboardButton(
-                    "🔙 Go Back", callback_data="menu"
-                )
-            ],
+            [InlineKeyboardButton("🔙 Go Back", callback_data="menu")],
         ]
     )
-    
+
     global que
     if (
         cb.message.chat.title.startswith("Channel Music: ")
@@ -459,7 +445,12 @@ async def m_cb(b, cb):
             if callsmusic.queues.is_empty(chet_id):
                 callsmusic.pytgcalls.leave_group_call(chet_id)
 
-                await cb.message.edit(nmq, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🗑 Close", callback_data="cls")]]))
+                await cb.message.edit(
+                    nmq,
+                    reply_markup=InlineKeyboardMarkup(
+                        [[InlineKeyboardButton("🗑 Close", callback_data="cls")]]
+                    ),
+                )
             else:
                 callsmusic.pytgcalls.change_stream(
                     chet_id, callsmusic.queues.get(chet_id)["file"]
