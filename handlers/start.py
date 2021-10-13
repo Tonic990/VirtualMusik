@@ -52,29 +52,41 @@ async def _human_time_duration(seconds):
 )
 async def start_(client: Client, message: Message):
     await message.reply_text(
-        f"""<b>👋 𝙃𝙀𝙇𝙇𝙊 𝙏𝙃𝙀𝙍𝙀 {message.from_user.mention}</b> ❗ 𝙒𝙀𝙇𝘾𝙊𝙈𝙀 𝙏𝙊 𝙈𝙔 𝘽𝙊𝙏💞
-𝙏𝙃𝙄𝙎 𝙄𝙎 𝘼 𝘽𝙊𝙏 𝘿𝙀𝙎𝙄𝙂𝙉𝙀𝘿 𝙏𝙊 𝙋𝙇𝘼𝙔 𝙈𝙐𝙎𝙄𝘾 𝙄𝙉 𝙔𝙊𝙐𝙍 𝙂𝙍𝙊𝙐𝙋𝙎!
-𝙏𝙃𝙄𝙎 𝙄𝙎 𝘼 𝙋𝙍𝙄𝙑𝘼𝙏𝙀 𝙋𝙍𝙊𝙅𝙀𝘾𝙏 𝙊𝙁 [𝙋𝙍𝘼𝙏𝙃𝙀𝙀𝙆](https://t.me/pratheek06)....𝙈𝘼𝘿𝙀 𝙒𝙄𝙏𝙃 ❤️
-𝙃𝙀𝙍𝙀 𝘼𝙍𝙀 𝙎𝙊𝙈𝙀 𝘾𝙈𝘿𝙎 𝙏𝙊 𝙐𝙎𝙀 𝙏𝙃𝙄𝙎 𝘽𝙊𝙏, 𝘾𝙇𝙄𝘾𝙆 » **/help**""",
+        f"""✨ **Welcome {message.from_user.mention} !**\n
+💭 **[{BOT_NAME}](https://t.me/{BOT_USERNAME}) allows you to play music on groups through the new Telegram's voice chats!**
+
+💡 **Find out all the Bot's commands and how they work by clicking on the » 📚 Commands button!**
+
+❔ **To know how to use this bot, please click on the » ❓ Basic Guide button!**""",
         reply_markup=InlineKeyboardMarkup(
-            [ 
+            [
                 [
                     InlineKeyboardButton(
-                        "➕ Sᴜᴍᴍᴏɴ Mᴇ​ ➕", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")
-                ],[
+                        "➕ Add me to your Group ➕",
+                        url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
+                    )
+                ],
+                [InlineKeyboardButton("❓ Basic Guide", callback_data="cbhowtouse")],
+                [
+                    InlineKeyboardButton("📚 Commands", callback_data="cbcmds"),
+                    InlineKeyboardButton("💝 Donate", url=f"https://t.me/{OWNER_NAME}"),
+                ],
+                [
                     InlineKeyboardButton(
-                        "​​Oᴡɴᴇʀ 🥀", url="https://t.me/pratheek06"
+                        "👥 Official Group", url=f"https://t.me/{GROUP_SUPPORT}"
                     ),
                     InlineKeyboardButton(
-                        "Sᴜᴘᴘᴏʀᴛ Cʜᴀᴛ 👥", url=f"https://t.me/{GROUP_SUPPORT}")
-                ],[
+                        "📣 Official Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
+                    ),
+                ],
+                [
                     InlineKeyboardButton(
-                        "❓Hᴏᴡ Tᴏ Usᴇ Mᴇ​ ❓​", callback_data="cbguide"
+                        "🌐 Source Code", url="https://github.com/levina-lab/VeezMusic"
                     )
-                ]
+                ],
             ]
         ),
-     disable_web_page_preview=False
+        disable_web_page_preview=True,
     )
 
 
@@ -97,7 +109,7 @@ async def start(client: Client, message: Message):
         ]
     )
 
-    alive = f"**Hello {message.from_user.mention}, i'm {BOT_NAME}**\n\n✨ Bot is working normally\n🍀 My Master: [Pratheek](https://t.me/pratheek06)\n✨ Bot Version: `v{__version__}`\n🍀 Pyrogram Version: `{pyrover}`\n✨ Python Version: `{__python_version__}`\n🍀 Uptime Status: `{uptime}`\n\n**Thanks for Adding me here, for playing music on your Group voice chat** ❤"
+    alive = f"**Hello {message.from_user.mention}, i'm {BOT_NAME}**\n\n✨ Bot is working normally\n🍀 My Master: [{ALIVE_NAME}](https://t.me/{OWNER_NAME})\n✨ Bot Version: `v{__version__}`\n🍀 Pyrogram Version: `{pyrover}`\n✨ Python Version: `{__python_version__}`\n🍀 Uptime Status: `{uptime}`\n\n**Thanks for Adding me here, for playing music on your Group voice chat** ❤"
 
     await message.reply_photo(
         photo=f"{ALIVE_IMG}",
@@ -111,11 +123,11 @@ async def start(client: Client, message: Message):
 )
 async def help(client: Client, message: Message):
     await message.reply_text(
-        f"""👋 **Hello** {message.from_user.mention()}!
+        f"""✨ **Hello** {message.from_user.mention()}!
 
 » **press the button below to read the explanation and see the list of available commands !**
 
-🥀 __Powered by {BOT_NAME} A.I__""",
+⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
             [[InlineKeyboardButton(text="❔ HOW TO USE ME", callback_data="cbguide")]]
         ),
@@ -127,22 +139,22 @@ async def help(client: Client, message: Message):
 )
 async def help_(client: Client, message: Message):
     await message.reply_text(
-        f"""👋 **Hello {message.from_user.mention}!**
+        f"""✨ **Hello {message.from_user.mention}!**
 
 » **through this menu panel you can press one of the buttons below to read the explanation of each drill command**
 
-🥀 __Powered by {BOT_NAME} A.I__""",
+⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(" Basic Cmd", callback_data="cbbasic"),
-                    InlineKeyboardButton(" Advanced Cmd", callback_data="cbadvanced"),
+                    InlineKeyboardButton("📚 Basic Cmd", callback_data="cbbasic"),
+                    InlineKeyboardButton("📕 Advanced Cmd", callback_data="cbadvanced"),
                 ],
                 [
-                    InlineKeyboardButton(" Admin Cmd", callback_data="cbadmin"),
-                    InlineKeyboardButton(" Sudo Cmd", callback_data="cbsudo"),
+                    InlineKeyboardButton("📘 Admin Cmd", callback_data="cbadmin"),
+                    InlineKeyboardButton("📗 Sudo Cmd", callback_data="cbsudo"),
                 ],
-                [InlineKeyboardButton(" Owner Cmd", callback_data="cbowner")],
+                [InlineKeyboardButton("📙 Owner Cmd", callback_data="cbowner")],
             ]
         ),
     )
