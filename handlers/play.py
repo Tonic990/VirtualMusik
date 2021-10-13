@@ -433,7 +433,7 @@ async def m_cb(b, cb):
 
     elif type_ == "skip":
         nmq = "❌ no more music in __Queues__\n\n» **userbot leaving** voice chat"
-        mmk = "⏭ skipped to the next music"
+        mmk = "⏭ you've skipped to the next music"
         if qeue:
             qeue.pop(0)
         if chet_id not in callsmusic.pytgcalls.active_calls:
@@ -457,7 +457,6 @@ async def m_cb(b, cb):
                     chet_id, callsmusic.queues.get(chet_id)["file"]
                 )
                 await cb.message.edit(mmk, reply_markup=keyboard)
-                await cb.message.reply_text("⏭ **You've skipped to the next song.**")
 
     elif type_ == "leave":
         if chet_id in callsmusic.pytgcalls.active_calls:
@@ -497,20 +496,20 @@ async def play(_, message: Message):
             if administrator == message.from_user.id:
                 if message.chat.title.startswith("Channel Music: "):
                     await lel.edit(
-                        f"<b>💡 please add the userbot to your channel first.</b>",
+                        f"💡 **please add the userbot to your channel first.**",
                     )
                 try:
                     invitelink = await _.export_chat_invite_link(chid)
                 except:
                     await lel.edit(
-                        "<b>💡 To use me, I need to be an Administrator with the permissions:\n\n» ❌ __Delete messages__\n» ❌ __Ban users__\n» ❌ __Add users__\n» ❌ __Manage voice chat__\n\n**Then type /reload</b>",
+                        "💡 **To use me, I need to be an Administrator** with the permissions:\n\n» ❌ __Delete messages__\n» ❌ __Ban users__\n» ❌ __Add users__\n» ❌ __Manage voice chat__\n\n**Then type /reload**",
                     )
                     return
                 try:
                     await USER.join_chat(invitelink)
                     await USER.send_message(
                         message.chat.id,
-                        "🤖: i'm joined to this group for playing music on voice chat",
+                        "🤖: **i'm joined to this group for playing music on voice chat**",
                     )
                     await lel.edit(
                         f"✅ **userbot successfully joined chat**",
@@ -520,8 +519,8 @@ async def play(_, message: Message):
                 except Exception:
                     # print(e)
                     await lel.edit(
-                        f"<b>🔴 Flood Wait Error 🔴 \n\nuserbot can't join this group due to many join requests for userbot."
-                        f"\n\nor add @{ASSISTANT_NAME} to this group manually then try again.</b>",
+                        f"🔴 **Flood Wait Error** 🔴 \n\n**userbot can't join this group due to many join requests for userbot.**"
+                        f"\n\n**or add @{ASSISTANT_NAME} to this group manually then try again.**",
                     )
     try:
         await USER.get_chat(chid)
