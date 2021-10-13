@@ -129,7 +129,7 @@ async def help(client: Client, message: Message):
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton(text="❔ HOW TO USE ME", callback_data="cbguide")]]
+            [[InlineKeyboardButton(text="❓ Basic Guide", callback_data="cbguide")]]
         ),
     )
 
