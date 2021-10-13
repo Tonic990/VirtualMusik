@@ -8,7 +8,7 @@ from io import StringIO
 from time import time
 from inspect import getfullargspec
 from pyrogram import Client, filters
-from pyrogram.types import Message
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from sys import version as pyver
 from helpers.filters import command
 from helpers.decorators import sudo_users_only
