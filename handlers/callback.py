@@ -179,7 +179,7 @@ async def cbowner(_, query: CallbackQuery):
         f"""🏮 **here is the owner commands**
 
 /stats - show the bot statistic
-/broadcast - send a broadcast message from bot
+/broadcast (reply to message) - send a broadcast message from bot
 /block (user id - duration - reason) - block user for using your bot
 /unblock (user id - reason) - unblock user you blocked for using your bot
 /blocklist - show you the list of user was blocked for using your bot
