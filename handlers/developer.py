@@ -12,6 +12,7 @@ from pyrogram.types import Message
 from sys import version as pyver
 from helpers.filters import command
 from helpers.decorators import sudo_users_only
+from config import BOT_USERNAME
 
 
 @Client.on_message(command(["eval", f"eval@{BOT_USERNAME}"]) & ~filters.edited)
