@@ -433,6 +433,7 @@ async def m_cb(b, cb):
 
     elif type_ == "skip":
         nmq = "❌ no more music in __Queues__\n\n» **userbot leaving** voice chat"
+        mmk = "⏭ skipped to the next music"
         if qeue:
             qeue.pop(0)
         if chet_id not in callsmusic.pytgcalls.active_calls:
@@ -455,8 +456,7 @@ async def m_cb(b, cb):
                 callsmusic.pytgcalls.change_stream(
                     chet_id, callsmusic.queues.get(chet_id)["file"]
                 )
-                await cb.answer("skipped music")
-                await cb.message.edit((m_chat, qeue), reply_markup=r_ply(the_data))
+                await cb.message.edit(mmk, reply_markup=keyboard)
                 await cb.message.reply_text("⏭ **You've skipped to the next song.**")
 
     elif type_ == "leave":
