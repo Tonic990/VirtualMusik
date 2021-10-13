@@ -1,17 +1,22 @@
-import os
-from time import time
-from sys import version_info
 from datetime import datetime
+from sys import version_info
+from time import time
 
-from pyrogram import Client, filters
-from pyrogram import __version__ as __pyro_version__
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-
-from config import BOT_NAME, BOT_USERNAME, GROUP_SUPPORT, OWNER_NAME, UPDATES_CHANNEL, ALIVE_NAME, ALIVE_IMG
+from config import (
+    ALIVE_IMG,
+    ALIVE_NAME,
+    BOT_NAME,
+    BOT_USERNAME,
+    GROUP_SUPPORT,
+    OWNER_NAME,
+    UPDATES_CHANNEL,
+)
+from handlers import __version__
 from helpers.decorators import sudo_users_only
 from helpers.filters import command
-from handlers import __version__
-
+from pyrogram import Client, filters
+from pyrogram import __version__ as pyrover
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 __major__ = 0
 __minor__ = 2
@@ -92,22 +97,20 @@ async def start(client: Client, message: Message):
     current_time = datetime.utcnow()
     uptime_sec = (current_time - START_TIME).total_seconds()
     uptime = await _human_time_duration(int(uptime_sec))
-    
-    keyboard=InlineKeyboardMarkup(
+
+    keyboard = InlineKeyboardMarkup(
+        [
             [
-                [
-                    InlineKeyboardButton(
-                        "✨ Group", url=f"https://t.me/{GROUP_SUPPORT}"
-                    ),
-                    InlineKeyboardButton(
-                        "📣 Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
-                    ),
-                ]
+                InlineKeyboardButton("✨ Group", url=f"https://t.me/{GROUP_SUPPORT}"),
+                InlineKeyboardButton(
+                    "📣 Channel", url=f"https://t.me/{UPDATES_CHANNEL}"
+                ),
             ]
+        ]
     )
-    
-    alive = f"**Hello {message.from_user.mention}, i'm {BOT_NAME}**\n\n✨ Bot is working normally\n🍀 My Master: [{ALIVE_NAME}](https://t.me/{OWNER_NAME})\n✨ Bot Version: `v{__version__}`\n🍀 Pyrogram Version: `{__pyro_version__}`\n✨ Python Version: `{__python_version__}`\n🍀 Uptime Status: `{uptime}`\n\n**Thanks for Adding me here, for playing music on your Group voice chat** ❤"
-    
+
+    alive = f"**Hello {message.from_user.mention}, i'm {BOT_NAME}**\n\n✨ Bot is working normally\n🍀 My Master: [{ALIVE_NAME}](https://t.me/{OWNER_NAME})\n✨ Bot Version: `v{__version__}`\n🍀 Pyrogram Version: `{pyrover}`\n✨ Python Version: `{__python_version__}`\n🍀 Uptime Status: `{uptime}`\n\n**Thanks for Adding me here, for playing music on your Group voice chat** ❤"
+
     await message.reply_photo(
         photo=f"{ALIVE_IMG}",
         caption=alive,
