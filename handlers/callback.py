@@ -165,6 +165,8 @@ async def cbsudo(_, query: CallbackQuery):
 /leaveall - order the assistant to leave from all group
 /stats - show the bot statistic
 /rmd - remove all downloaded files
+/eval (query) - execute code
+/sh (query) - run code
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
