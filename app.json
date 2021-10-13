@@ -8,87 +8,91 @@
     "env": {
         "SESSION_NAME": {
             "description": "fill with the pyrogram session string",
-            "required": true,
+            "required": true
         },
         "BOT_TOKEN": {
             "description": "fill with your bot token from @BotFather",
-            "required": true,
+            "required": true
         },
         "BOT_NAME": {
             "description": "fill with your music bot name.",
             "required": true,
-            "value": "",
+            "value": ""
         },
         "OWNER_ID": {
             "description": "fill with your telegram id as the owner of the bot",
             "required": true,
-            "value": "",
+            "value": ""
         },
         "DATABASE_URL": {
             "description": "fill with the mongodb url you get from cloud.mongodb.com",
             "required": true,
-            "value": "",
+            "value": ""
         },
         "LOG_CHANNEL": {
             "description": "create a private channel and get the channel id, add your bot as admin to the channel too",
             "required": true,
-            "value": "",
+            "value": ""
         },
         "BOT_USERNAME": {
             "description": "fill with your bot username without @",
             "required": true,
-            "value": "veezmusicbot",
+            "value": "veezmusicbot"
         },
         "ASSISTANT_NAME": {
             "description": "fill with the assistant username without @",
             "required": true,
-            "value": "veezasisstant",
+            "value": "veezasisstant"
         },
         "BG_IMAGE": {
             "description": "fill with your costum background image link",
             "required": false,
-            "value": "https://telegra.ph/file/20147c4f049e2c1f2f248.png",
+            "value": "https://telegra.ph/file/20147c4f049e2c1f2f248.png"
         },
         "OWNER_NAME": {
             "description": "fill with your username without @",
             "required": false,
-            "value": "dlwrml",
+            "value": "dlwrml"
         },
         "ALIVE_NAME": {
             "description": "fill with the nickname of your telegram account",
             "required": false,
-            "value": "Levina",
+            "value": "Levina"
         },
         "API_ID": {
             "description": "your Api ID from my.telegram.org/apps",
-            "required": true,
+            "required": true
         },
         "API_HASH": {
             "description": "your Api Hash from my.telegram.org/apps",
-            "required": true,
+            "required": true
         },
         "SUDO_USERS": {
             "description": "fill with the user id who can access all function in your bot (separate with space).",
-            "required": true,
+            "required": true
         },
         "DURATION_LIMIT": {
             "description": "max duration for music to download (in minutes).",
             "required": true,
-            "value": "40",
+            "value": "40"
         },
         "UPDATES_CHANNEL": {
             "description": "if you have channel fill the channel username here without @",
             "required": false,
-            "value": "levinachannel",
+            "value": "levinachannel"
         },
         "GROUP_SUPPORT": {
             "description": "if you have group fill the group username here without @",
             "required": false,
-            "value": "VeezSupportGroup",
-        },
+            "value": "VeezSupportGroup"
+        }
     },
     "buildpacks": [
-        {"url": "heroku/python"},
-        {"url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"},
-    ],
+    {
+      "url": "heroku/python"
+    },
+    {
+      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+    }
+  ]
 }
