@@ -294,7 +294,7 @@ async def p_cb(b, cb):
             for song in temp:
                 name = song[0]
                 usr = song[1].mention(style="md")
-                msg += f"\n• {name}"
+                msg += f"\n\n• {name}"
                 msg += f"\n• Req by {usr}\n"
         await cb.message.edit(msg, reply_markup=keyboard)
 
@@ -379,7 +379,7 @@ async def m_cb(b, cb):
             for song in temp:
                 name = song[0]
                 usr = song[1].mention(style="md")
-                msg += f"\n• {name}"
+                msg += f"\n\n• {name}"
                 msg += f"\n• Req by {usr}\n"
         await cb.message.edit(msg, reply_markup=keyboard)
 
@@ -433,7 +433,7 @@ async def m_cb(b, cb):
 
     elif type_ == "skip":
         nmq = "❌ no more music in __Queues__\n\n» **userbot leaving** voice chat"
-        mmk = "⏭ you've skipped to the next music"
+        mmk = "⏭ you skipped to the next music"
         if qeue:
             qeue.pop(0)
         if chet_id not in callsmusic.pytgcalls.active_calls:
