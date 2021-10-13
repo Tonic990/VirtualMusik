@@ -15,6 +15,12 @@ from helpers.decorators import sudo_users_only
 from config import BOT_USERNAME
 
 
+async def edit_or_reply(msg: Message, **kwargs):
+    func = msg.edit_text if msg.from_user.is_self else msg.reply
+    spec = getfullargspec(func.__wrapped__).args
+    await func(**{k: v for k, v in kwargs.items() if k in spec})
+
+
 @Client.on_message(command(["eval", f"eval@{BOT_USERNAME}"]) & ~filters.edited)
 @sudo_users_only
 async def executor(client, message):
