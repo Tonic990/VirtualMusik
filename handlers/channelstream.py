@@ -4,23 +4,24 @@ import os
 from os import path
 
 import requests
+from callsmusic import callsmusic
+from callsmusic.callsmusic import client as USER
+from callsmusic.queues import queues
+from config import BOT_USERNAME, DURATION_LIMIT
+from config import UPDATES_CHANNEL as updateschannel
+from config import que
+from converter.converter import convert
+from downloaders import youtube
+from handlers.play import cb_admin_check, generate_cover
+from helpers.admins import get_administrators
+from helpers.decorators import authorized_users_only
+from helpers.errors import DurationLimitError
+from helpers.filters import command, other_filters
+from helpers.gets import get_file_name
 from pyrogram import Client, filters
 from pyrogram.errors import UserAlreadyParticipant
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtube_search import YoutubeSearch
-
-from callsmusic import callsmusic
-from callsmusic.callsmusic import client as USER
-from callsmusic.queues import queues
-from config import que, DURATION_LIMIT, BOT_USERNAME, UPDATES_CHANNEL as updateschannel
-from converter.converter import convert
-from downloaders import youtube
-from handlers.play import cb_admin_check, generate_cover
-from helpers.filters import command, other_filters
-from helpers.admins import get_administrators
-from helpers.decorators import authorized_users_only
-from helpers.errors import DurationLimitError
-from helpers.gets import get_file_name
 
 chat_id = None
 
@@ -31,7 +32,9 @@ async def playlist(client, message):
         lel = await client.get_chat(message.chat.id)
         lol = lel.linked_chat.id
     except:
-        message.reply("❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**")
+        message.reply(
+            "❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**"
+        )
         return
     global que
     queue = que.get(lol)
@@ -104,7 +107,9 @@ async def ee(client, message):
         lol = lel.linked_chat.id
         conv = lel.linked_chat
     except:
-        await message.reply("❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**")
+        await message.reply(
+            "❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**"
+        )
         return
     queue = que.get(lol)
     stats = updated_stats(conv, queue)
@@ -123,7 +128,9 @@ async def settings(client, message):
         lol = lel.linked_chat.id
         conv = lel.linked_chat
     except:
-        await message.reply("❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**")
+        await message.reply(
+            "❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**"
+        )
         return
     queue = que.get(lol)
     stats = updated_stats(conv, queue)
@@ -296,14 +303,14 @@ async def m_cb(b, cb):
             if queues.is_empty(chet_id):
                 callsmusic.pytgcalls.leave_group_call(chet_id)
 
-                await cb.message.edit("» no more playlist\n» userbot leaving voice chat !")
+                await cb.message.edit(
+                    "» no more playlist\n» userbot leaving voice chat !"
+                )
             else:
                 callsmusic.pytgcalls.change_stream(chet_id, queues.get(chet_id)["file"])
                 await cb.answer("Skipped")
                 await cb.message.edit((m_chat, qeue), reply_markup=r_ply(the_data))
-                await cb.message.reply_text(
-                    "⏭ **You've skipped to the next song.**"
-                )
+                await cb.message.reply_text("⏭ **You've skipped to the next song.**")
 
     else:
         if chet_id in callsmusic.pytgcalls.active_calls:
@@ -330,7 +337,9 @@ async def play(_, message: Message):
         conid = conchat.linked_chat.id
         chid = conid
     except:
-        await message.reply("❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**")
+        await message.reply(
+            "❌ `NOT_LINKED`\n\n• **The userbot could not play music, due to group not linked to channel yet.**"
+        )
         return
     try:
         administrators = await get_administrators(conv)
@@ -459,7 +468,9 @@ async def play(_, message: Message):
             results[0]["views"]
 
         except Exception as e:
-            await lel.edit("😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**")
+            await lel.edit(
+                "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+            )
             print(str(e))
             return
         dlurl = url
@@ -502,7 +513,9 @@ async def play(_, message: Message):
             results[0]["views"]
 
         except Exception as e:
-            await lel.edit("😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**")
+            await lel.edit(
+                "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+            )
             print(str(e))
             return
 
