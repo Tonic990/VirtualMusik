@@ -1,4 +1,4 @@
-import asyncio
+from time import sleep
 from pyrogram import Client
 from pytgcalls import PyTgCalls
 
@@ -16,7 +16,7 @@ def on_stream_end(chat_id: int) -> None:
 
     if queues.is_empty(chat_id):
         pytgcalls.leave_group_call(chat_id)
-        await asyncio.sleep(300)
+        sleep(300)
         client.leave_chat(chat_id)
     else:
         pytgcalls.change_stream(chat_id, queues.get(chat_id)["file"])
