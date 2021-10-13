@@ -91,7 +91,7 @@ async def runtime_func_cq(_, cq):
 
 
 @Client.on_message(command(["sh", f"sh@{BOT_USERNAME}"]) & ~filters.edited)
-@authorized_users_only
+@sudo_users_only
 async def shellrunner(client, message):
     if len(message.command) < 2:
         return await edit_or_reply(message, text="**usage:**\n\n/sh echo oni-chan")
