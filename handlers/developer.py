@@ -85,7 +85,7 @@ async def executor(client, message):
         await edit_or_reply(message, text=final_output, reply_markup=keyboard)
 
 
-@app.on_callback_query(filters.regex(r"runtime"))
+@Client.on_callback_query(filters.regex(r"runtime"))
 async def runtime_func_cq(_, cq):
     runtime = cq.data.split(None, 1)[1]
     await cq.answer(runtime, show_alert=True)
