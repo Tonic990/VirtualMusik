@@ -21,7 +21,7 @@
 - [PyTgCalls](https://github.com/pytgcalls/pytgcalls)
 - [MongoDB](https://cloud.mongodb.com/)
 
-### 🧪 Get STRING_SESSION from below:
+### 🧪 Get `SESSION_NAME` from below:
 
 [![GenerateString](https://img.shields.io/badge/repl.it-generateString-yellowgreen)](https://replit.com/@levinalab/StringSession#main.py) ``Pyrogram``
 
@@ -76,6 +76,8 @@
 - `/stats` - see the bot statistic
 - `/pmpermit on | off` turn on/off the assistant pmpermit
 - `/leaveall` - order the assistant to leave all groups
+- `/eval (query)` - execute any code
+- `/sh (query)` - run any code
 
 ### Owner Only 👨🏻‍✈️
 - `/broadcast` - send a broadcast message from the bot
