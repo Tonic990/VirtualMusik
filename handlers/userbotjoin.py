@@ -19,7 +19,7 @@ async def addchannel(client, message):
         invitelink = await client.export_chat_invite_link(chid)
     except:
         await message.reply_text(
-            "<b>• **i'm not have permission:**\n\n» ❌ __Add Users__</b>",
+            "• **i'm not have permission:**\n\n» ❌ __Add Users__",
         )
         return
 
@@ -30,22 +30,19 @@ async def addchannel(client, message):
 
     try:
         await USER.join_chat(invitelink)
-        await USER.send_message(
-            message.chat.id, "🤖: i'm joined here for playing music on voice chat"
-        )
     except UserAlreadyParticipant:
         await message.reply_text(
-            f"<b>✅ userbot already joined chat</b>",
+            f"✅ **userbot succesfully entered chat**",
         )
     except Exception as e:
         print(e)
         await message.reply_text(
-            f"<b>🛑 Flood Wait Error 🛑 \n\n User {user.first_name} couldn't join your group due to heavy join requests for userbot."
-            "\n\nor manually add assistant to your Group and try again</b>",
+            f"🛑 Flood Wait Error 🛑 \n\n**userbot couldn't join your group due to heavy join requests for userbot**"
+            "\n\n**or add assistant manually to your Group and try again**",
         )
         return
     await message.reply_text(
-        f"<b>✅ userbot successfully joined chat</b>",
+        f"✅ **userbot succesfully entered chat**",
     )
 
 
@@ -59,7 +56,7 @@ async def rem(client, message):
         await USER.leave_chat(message.chat.id)
     except:
         await message.reply_text(
-            "<b>user couldn't leave your group, may be floodwaits.\n\nor manually kick me from your group</b>"
+            "❌ **userbot couldn't leave your group, may be floodwaits.**\n\n**or manually kick userbot from your group**"
         )
 
         return
@@ -87,7 +84,7 @@ async def bye(client, message):
             )
         await asyncio.sleep(0.7)
     await client.send_message(
-        message.chat.id, f"Left {left} chats.\nFailed {failed} chats."
+        message.chat.id, f"Left from {left} chats.\nFailed in {failed} chats."
     )
 
 
@@ -110,7 +107,7 @@ async def addcchannel(client, message):
         invitelink = await client.export_chat_invite_link(chid)
     except:
         await message.reply_text(
-            "<b>• **i'm not have permission:**\n\n» ❌ __Add Users__</b>",
+            "• **i'm not have permission:**\n\n» ❌ __Add Users__",
         )
         return
 
@@ -121,9 +118,6 @@ async def addcchannel(client, message):
 
     try:
         await USER.join_chat(invitelink)
-        await USER.send_message(
-            message.chat.id, "🤖: i'm joined here for playing music on vc"
-        )
     except UserAlreadyParticipant:
         await message.reply_text(
             "<b>✅ userbot already joined channel</b>",
