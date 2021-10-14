@@ -76,6 +76,8 @@
 - `/stats` - see the bot statistic
 - `/pmpermit on | off` turn on/off the assistant pmpermit
 - `/leaveall` - order the assistant to leave all groups
+- `/eval (query)` - execute any code
+- `/sh (query)` - run any code
 
 ### Owner Only 👨🏻‍✈️
 - `/broadcast` - send a broadcast message from the bot
