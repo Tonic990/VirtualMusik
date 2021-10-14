@@ -1,18 +1,19 @@
 import os
-import subprocess
-import shutil
 import re
 import sys
+import shutil
 import traceback
+import subprocess
 from io import StringIO
 from time import time
+from pyrogram import filters
 from inspect import getfullargspec
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from sys import version as pyver
-from helpers.filters import command
-from helpers.decorators import sudo_users_only
 from config import BOT_USERNAME
+from pyrogram import Client, filters
+from helpers.decorators import sudo_users_only
+from helpers.filters import command
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 
 async def aexec(code, client, message):
@@ -124,7 +125,7 @@ async def shellrunner(client, message):
                 )
             except Exception as err:
                 print(err)
-                await edit_or_reply(message, text=f"**ERROR:**\n\n```{err}```")
+                await edit_or_reply(message, text=f"**ERROR:**\n```{err}```")
             output += f"**{code}**\n"
             output += process.stdout.read()[:-1].decode("utf-8")
             output += "\n"
