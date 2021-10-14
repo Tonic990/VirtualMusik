@@ -158,7 +158,7 @@ def updated_stats(chat, queue, vol=100):
         stats = "⚙ settings for **{}**".format(chat.title)
         if len(que) > 0:
             stats += "\n\n"
-            stats += "• volume: {}%\n".format(vol)
+            stats += "• volume: `{}%`\n".format(vol)
             stats += "• song played: `{}`\n".format(len(que))
             stats += "• now playing: **{}**\n".format(queue[0][0])
             stats += "• request by: {}".format(queue[0][1].mention(style="md"))
@@ -213,7 +213,7 @@ async def settings(client, message):
 
 
 @Client.on_message(
-    command(["musicplayer", f"musicplayer@{BOT_USERNAME}"])
+    command(["music", f"music@{BOT_USERNAME}"])
     & ~filters.edited
     & ~filters.bot
     & ~filters.private
@@ -227,7 +227,7 @@ async def music_onoff(_, message):
         return
     if len(message.command) != 2:
         await message.reply_text(
-            "**• usage:**\n\n `/musicplayer on` & `/musicplayer off`"
+            "**• usage:**\n\n `/music on` & `/music off`"
         )
         return
     status = message.text.split(None, 1)[1]
@@ -250,7 +250,7 @@ async def music_onoff(_, message):
         await lel.edit(f"✅ **music player turned off**\n\n💬 `{message.chat.id}`")
     else:
         await message.reply_text(
-            "**• usage:**\n\n `/musicplayer on` & `/musicplayer off`"
+            "**• usage:**\n\n `/music on` & `/music off`"
         )
 
 
@@ -290,7 +290,7 @@ async def p_cb(b, cb):
         temp.pop(0)
         if temp:
             msg += "\n\n"
-            msg += "🔖 **Queued Song**"
+            msg += "🔖 **Queued Song:**"
             for song in temp:
                 name = song[0]
                 usr = song[1].mention(style="md")
@@ -375,7 +375,7 @@ async def m_cb(b, cb):
         temp.pop(0)
         if temp:
             msg += "\n\n"
-            msg += "🔖 **Queued Song**"
+            msg += "🔖 **Queued Song:**"
             for song in temp:
                 name = song[0]
                 usr = song[1].mention(style="md")
@@ -511,12 +511,8 @@ async def play(_, message: Message):
                     return
                 try:
                     await USER.join_chat(invitelink)
-                    await USER.send_message(
-                        message.chat.id,
-                        "🤖: **i'm joined to this group for playing music on voice chat**",
-                    )
                     await lel.edit(
-                        f"✅ **userbot successfully joined chat**",
+                        f"✅ **userbot succesfully entered chat**",
                     )
                 except UserAlreadyParticipant:
                     pass
@@ -900,12 +896,8 @@ async def ytplay(_, message: Message):
 
                 try:
                     await USER.join_chat(invitelink)
-                    await USER.send_message(
-                        message.chat.id,
-                        "🤖: i'm joined to this group for playing music in voice chat",
-                    )
                     await lel.edit(
-                        f"✅ **userbot succesfully joined chat**",
+                        f"✅ **userbot succesfully entered chat**",
                     )
 
                 except UserAlreadyParticipant:
