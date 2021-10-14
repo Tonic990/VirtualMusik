@@ -143,7 +143,7 @@ async def playlist(client, message):
     temp.pop(0)
     if temp:
         msg += "\n"
-        msg += "🔖 **Queued Song**"
+        msg += "🔖 **Queued Song:**"
         for song in temp:
             name = song[0]
             usr = song[1].mention(style="md")
