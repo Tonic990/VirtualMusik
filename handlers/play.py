@@ -142,12 +142,12 @@ async def playlist(client, message):
     temp.pop(0)
     if temp:
         msg += "\n\n"
-        msg += "🔖 **Queued Song:**\n"
+        msg += "🔖 **Queued Song:**"
         for song in temp:
             name = song[0]
             usr = song[1].mention(style="md")
-            msg += f"\n• {name}"
-            msg += f"\n• Req by {usr}\n"
+            msg += f"\n\n• {name}"
+            msg += f"\n• Req by {usr}"
     await message.reply_text(msg, reply_markup=keyboard)
 
 
@@ -289,12 +289,12 @@ async def p_cb(b, cb):
         temp.pop(0)
         if temp:
             msg += "\n\n"
-            msg += "🔖 **Queued Song:\n**"
+            msg += "🔖 **Queued Song:**"
             for song in temp:
                 name = song[0]
                 usr = song[1].mention(style="md")
-                msg += f"\n• {name}"
-                msg += f"\n• Req by {usr}\n"
+                msg += f"\n\n• {name}"
+                msg += f"\n• Req by {usr}"
         await cb.message.edit(msg, reply_markup=keyboard)
 
 
@@ -379,7 +379,7 @@ async def m_cb(b, cb):
                 name = song[0]
                 usr = song[1].mention(style="md")
                 msg += f"\n\n• {name}"
-                msg += f"\n• Req by {usr}\n"
+                msg += f"\n• Req by {usr}"
         await cb.message.edit(msg, reply_markup=keyboard)
 
     elif type_ == "resume":
