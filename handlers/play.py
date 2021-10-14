@@ -142,12 +142,12 @@ async def playlist(client, message):
     msg += "\n• Req By " + by
     temp.pop(0)
     if temp:
-        msg += "\n"
+        msg += "\n\n"
         msg += "🔖 **Queued Song:**"
         for song in temp:
             name = song[0]
             usr = song[1].mention(style="md")
-            msg += f"\n\n• {name}"
+            msg += f"\n• {name}"
             msg += f"\n• Req by {usr}\n"
     await message.reply_text(msg, reply_markup=keyboard)
 
@@ -289,12 +289,12 @@ async def p_cb(b, cb):
         msg += "\n• Req by " + by
         temp.pop(0)
         if temp:
-            msg += "\n"
+            msg += "\n\n"
             msg += "🔖 **Queued Song:**"
             for song in temp:
                 name = song[0]
                 usr = song[1].mention(style="md")
-                msg += f"\n\n• {name}"
+                msg += f"\n• {name}"
                 msg += f"\n• Req by {usr}\n"
         await cb.message.edit(msg, reply_markup=keyboard)
 
