@@ -32,7 +32,7 @@ async def addchannel(client, message):
         await USER.join_chat(invitelink)
     except UserAlreadyParticipant:
         await message.reply_text(
-            f"✅ **userbot succesfully entered chat**",
+            f"✅ **userbot already entered chat**",
         )
     except Exception as e:
         print(e)
