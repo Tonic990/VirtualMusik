@@ -86,12 +86,11 @@ def changeImageSize(maxWidth, maxHeight, image):
 
 
 async def generate_cover(title, thumbnail, ctitle):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(thumbnail) as resp:
-            if resp.status == 200:
-                f = await aiofiles.open("background.png", mode="wb")
-                await f.write(await resp.read())
-                await f.close()
+    async with aiohttp.ClientSession() as session, session.get(thumbnail) as resp:
+          if resp.status == 200:
+              f = await aiofiles.open("background.png", mode="wb")
+              await f.write(await resp.read())
+              await f.close()
     image1 = Image.open("./background.png")
     image2 = Image.open("etc/foreground.png")
     image3 = changeImageSize(1280, 720, image1)
