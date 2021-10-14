@@ -409,12 +409,10 @@ async def m_cb(b, cb):
             await cb.message.edit(spn, reply_markup=keyboard)
 
     elif type_ == "cls":
-        await cb.answer("menu closed")
         await cb.message.delete()
 
     elif type_ == "menu":
         stats = updated_stats(cb.message.chat, qeue)
-        await cb.answer("menu opened")
         marr = InlineKeyboardMarkup(
             [
                 [
@@ -459,7 +457,7 @@ async def m_cb(b, cb):
                 await cb.message.edit(mmk, reply_markup=keyboard)
 
     elif type_ == "leave":
-        hps = "✅ **music playback has ended**"
+        hps = "✅ **the music playback has ended**"
         if chet_id in callsmusic.pytgcalls.active_calls:
             try:
                 callsmusic.queues.clear(chet_id)
