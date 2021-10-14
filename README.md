@@ -1,8 +1,7 @@
 <p align="center"><a href="https://t.me/VeezMusicBot"><img src="https://github.com/levina-lab/VeezMusic/raw/main/etc/veezlogo.png"></a></p>
 <p align="center">
-    <br>
-    <b>Veez Music is a telegram bot project that's allow you to play music on telegram voice chat group</b>
-    <br></p>
+    <br><b>Veez Music is a telegram bot project that's allow you to play music on telegram voice chat group</b><br>
+</p>
 <p align="center">
     <a href="https://www.python.org/" alt="made-with-python"> <img src="https://img.shields.io/badge/Made%20with-Python-black.svg?style=flat-square&logo=python&logoColor=blue&color=red" /></a>
     <a href="https://github.com/levina-lab/VeezMusic/graphs/commit-activity" alt="Maintenance"> <img src="https://img.shields.io/badge/Maintained%3F-yes-red.svg?style=flat-square" /></a>
