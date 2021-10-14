@@ -123,39 +123,13 @@ async def start(client: Client, message: Message):
 )
 async def help(client: Client, message: Message):
     await message.reply_text(
-        f"""✨ **Hello** {message.from_user.mention()}!
+        f"""✨ **Hello** {message.from_user.mention()} !
 
 » **press the button below to read the explanation and see the list of available commands !**
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
             [[InlineKeyboardButton(text="❓ Basic Guide", callback_data="cbguide")]]
-        ),
-    )
-
-
-@Client.on_message(
-    command(["help", f"help@{BOT_USERNAME}"]) & filters.private & ~filters.edited
-)
-async def help_(client: Client, message: Message):
-    await message.reply_text(
-        f"""✨ **Hello {message.from_user.mention}!**
-
-» **through this menu panel you can press one of the buttons below to read the explanation of each drill command**
-
-⚡ __Powered by {BOT_NAME} A.I__""",
-        reply_markup=InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton("📚 Basic Cmd", callback_data="cbbasic"),
-                    InlineKeyboardButton("📕 Advanced Cmd", callback_data="cbadvanced"),
-                ],
-                [
-                    InlineKeyboardButton("📘 Admin Cmd", callback_data="cbadmin"),
-                    InlineKeyboardButton("📗 Sudo Cmd", callback_data="cbsudo"),
-                ],
-                [InlineKeyboardButton("📙 Owner Cmd", callback_data="cbowner")],
-            ]
         ),
     )
 
