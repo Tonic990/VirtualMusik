@@ -12,6 +12,7 @@ class Database:
         self.db = self._client[database_name]
         self.col = self.db.users
 
+    @staticmethod
     def new_user(self, id):
         return dict(
             id=id,
