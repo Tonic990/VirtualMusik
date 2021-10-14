@@ -148,7 +148,7 @@ async def cbadmin(_, query: CallbackQuery):
 /deauth - unauthorized for using music bot
 /control - open the player settings panel
 /delcmd (on | off) - enable / disable del cmd feature
-/musicplayer (on / off) - disable / enable music player in your group
+/music (on / off) - disable / enable music player in your group
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
@@ -198,12 +198,12 @@ async def cbowner(_, query: CallbackQuery):
 @Client.on_callback_query(filters.regex("cbguide"))
 async def cbguide(_, query: CallbackQuery):
     await query.edit_message_text(
-        f"""❓ HOW TO USE THIS BOT:
+        f"""❓ **HOW TO USE THIS BOT:**
 
-1.) first, add me to your group.
-2.) then promote me as admin and give all permissions except anonymous admin.
-3.) add @{ASSISTANT_NAME} to your group or type /join to invite her.
-4.) turn on the voice chat first before start to play music.
+1.) **first, add me to your group.**
+2.) **then promote me as admin and give all permissions except anonymous admin.**
+3.) **add @{ASSISTANT_NAME} to your group or type /join to invite her.**
+4.) **turn on the voice chat first before start to play music.**
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
@@ -294,12 +294,12 @@ async def cbhelps(_, query: CallbackQuery):
 @Client.on_callback_query(filters.regex("cbhowtouse"))
 async def cbguides(_, query: CallbackQuery):
     await query.edit_message_text(
-        f"""❓ HOW TO USE THIS BOT:
+        f"""❓ **HOW TO USE THIS BOT:**
 
-1.) first, add me to your group.
-2.) then promote me as admin and give all permissions except anonymous admin.
-3.) add @{ASSISTANT_NAME} to your group or type /join to invite her.
-4.) turn on the voice chat first before start to play music.
+1.) **first, add me to your group.**
+2.) **then promote me as admin and give all permissions except anonymous admin.**
+3.) **add @{ASSISTANT_NAME} to your group or type /join to invite her.**
+4.) **turn on the voice chat first before start to play music.**
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
@@ -376,7 +376,7 @@ async def cblamp(_, query: CallbackQuery):
 /deauth - unauthorized for using music bot
 /control - open the player settings panel
 /delcmd (on | off) - enable / disable del cmd feature
-/musicplayer (on / off) - disable / enable music player in your group
+/music (on / off) - disable / enable music player in your group
 
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
