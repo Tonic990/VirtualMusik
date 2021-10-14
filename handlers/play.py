@@ -232,7 +232,7 @@ async def music_onoff(_, message):
         return
     status = message.text.split(None, 1)[1]
     message.chat.id
-    if status == "ON" or status == "on" or status == "On":
+    if status in ("ON", "on", "On"):
         lel = await message.reply("`processing...`")
         if not message.chat.id in DISABLED_GROUPS:
             await lel.edit("» **music player already turned on.**")
@@ -240,7 +240,7 @@ async def music_onoff(_, message):
         DISABLED_GROUPS.remove(message.chat.id)
         await lel.edit(f"✅ **music player turned on**\n\n💬 `{message.chat.id}`")
 
-    elif status == "OFF" or status == "off" or status == "Off":
+    elif status in ("OFF", "off", "Off"):
         lel = await message.reply("`processing...`")
 
         if message.chat.id in DISABLED_GROUPS:
