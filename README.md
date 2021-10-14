@@ -21,7 +21,7 @@
 - [PyTgCalls](https://github.com/pytgcalls/pytgcalls)
 - [MongoDB](https://cloud.mongodb.com/)
 
-### 🧪 Get `STRING_NAME` from below:
+### 🧪 Get `SESSION_NAME` from below:
 
 [![GenerateString](https://img.shields.io/badge/repl.it-generateString-yellowgreen)](https://replit.com/@levinalab/StringSession#main.py) ``Pyrogram``
 
