@@ -142,7 +142,7 @@ async def playlist(client, message):
     msg += "\n• Req By " + by
     temp.pop(0)
     if temp:
-        msg += "\n\n"
+        msg += "\n"
         msg += "🔖 **Queued Song**"
         for song in temp:
             name = song[0]
@@ -289,7 +289,7 @@ async def p_cb(b, cb):
         msg += "\n• Req by " + by
         temp.pop(0)
         if temp:
-            msg += "\n\n"
+            msg += "\n"
             msg += "🔖 **Queued Song:**"
             for song in temp:
                 name = song[0]
