@@ -92,12 +92,11 @@ def changeImageSize(maxWidth, maxHeight, image):
 
 
 async def generate_cover(title, thumbnail, ctitle):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(thumbnail) as resp:
-            if resp.status == 200:
-                f = await aiofiles.open("background.png", mode="wb")
-                await f.write(await resp.read())
-                await f.close()
+    async with aiohttp.ClientSession() as session, session.get(thumbnail) as resp:
+          if resp.status == 200:
+              f = await aiofiles.open("background.png", mode="wb")
+              await f.write(await resp.read())
+              await f.close()
     image1 = Image.open("./background.png")
     image2 = Image.open("etc/foreground.png")
     image3 = changeImageSize(1280, 720, image1)
@@ -107,10 +106,10 @@ async def generate_cover(title, thumbnail, ctitle):
     Image.alpha_composite(image5, image6).save("temp.png")
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("etc/Roboto-Medium.ttf", 55)
+    font = ImageFont.truetype("etc/typold.otf", 55)
     font2 = ImageFont.truetype("etc/finalfont.ttf", 80)
-    draw.text((20, 528), f"Playing on {ctitle[:10]}", (0, 0, 0), font=font)
-    draw.text((20, 610), f"{title[:20]}...", (0, 0, 0), font=font2)
+    draw.text((25, 520), f"Playing on {ctitle[:8]}", (0, 0, 0), font=font)
+    draw.text((25, 605), f"{title[:15]}...", (0, 0, 0), font=font2)
     img.save("final.png")
     os.remove("temp.png")
     os.remove("background.png")
@@ -149,12 +148,12 @@ async def playlist(client, message):
     temp.pop(0)
     if temp:
         msg += "\n\n"
-        msg += "🔖 **Queued Song**"
+        msg += "🔖 **Queued Song:**"
         for song in temp:
             name = song[0]
             usr = song[1].mention(style="md")
             msg += f"\n\n• {name}"
-            msg += f"\n• Req by {usr}\n"
+            msg += f"\n• Req by {usr}"
     await message.reply_text(msg, reply_markup=keyboard)
 
 
@@ -164,7 +163,7 @@ def updated_stats(chat, queue, vol=100):
         stats = "⚙ settings for **{}**".format(chat.title)
         if len(que) > 0:
             stats += "\n\n"
-            stats += "• volume: {}%\n".format(vol)
+            stats += "• volume: `{}%`\n".format(vol)
             stats += "• song played: `{}`\n".format(len(que))
             stats += "• now playing: **{}**\n".format(queue[0][0])
             stats += "• request by: {}".format(queue[0][1].mention(style="md"))
@@ -219,7 +218,7 @@ async def settings(client, message):
 
 
 @Client.on_message(
-    command(["musicplayer", f"musicplayer@{BOT_USERNAME}"])
+    command(["music", f"music@{BOT_USERNAME}"])
     & ~filters.edited
     & ~filters.bot
     & ~filters.private
@@ -233,12 +232,12 @@ async def music_onoff(_, message):
         return
     if len(message.command) != 2:
         await message.reply_text(
-            "**• usage:**\n\n `/musicplayer on` & `/musicplayer off`"
+            "**• usage:**\n\n `/music on` & `/music off`"
         )
         return
     status = message.text.split(None, 1)[1]
     message.chat.id
-    if status == "ON" or status == "on" or status == "On":
+    if status in ("ON", "on", "On"):
         lel = await message.reply("`processing...`")
         if not message.chat.id in DISABLED_GROUPS:
             await lel.edit("» **music player already turned on.**")
@@ -246,7 +245,7 @@ async def music_onoff(_, message):
         DISABLED_GROUPS.remove(message.chat.id)
         await lel.edit(f"✅ **music player turned on**\n\n💬 `{message.chat.id}`")
 
-    elif status == "OFF" or status == "off" or status == "Off":
+    elif status in ("OFF", "off", "Off"):
         lel = await message.reply("`processing...`")
 
         if message.chat.id in DISABLED_GROUPS:
@@ -256,7 +255,7 @@ async def music_onoff(_, message):
         await lel.edit(f"✅ **music player turned off**\n\n💬 `{message.chat.id}`")
     else:
         await message.reply_text(
-            "**• usage:**\n\n `/musicplayer on` & `/musicplayer off`"
+            "**• usage:**\n\n `/music on` & `/music off`"
         )
 
 
@@ -296,12 +295,12 @@ async def p_cb(b, cb):
         temp.pop(0)
         if temp:
             msg += "\n\n"
-            msg += "🔖 **Queued Song**"
+            msg += "🔖 **Queued Song:**"
             for song in temp:
                 name = song[0]
                 usr = song[1].mention(style="md")
                 msg += f"\n\n• {name}"
-                msg += f"\n• Req by {usr}\n"
+                msg += f"\n• Req by {usr}"
         await cb.message.edit(msg, reply_markup=keyboard)
 
 
@@ -377,12 +376,12 @@ async def m_cb(b, cb):
         temp.pop(0)
         if temp:
             msg += "\n\n"
-            msg += "🔖 **Queued Song**"
+            msg += "🔖 **Queued Song:**"
             for song in temp:
                 name = song[0]
                 usr = song[1].mention(style="md")
                 msg += f"\n\n• {name}"
-                msg += f"\n• Req by {usr}\n"
+                msg += f"\n• Req by {usr}"
         await cb.message.edit(msg, reply_markup=keyboard)
 
     elif type_ == "resume":
@@ -516,12 +515,8 @@ async def play(_, message: Message):
                     return
                 try:
                     await USER.join_chat(invitelink)
-                    await USER.send_message(
-                        message.chat.id,
-                        "🤖: **i'm joined to this group for playing music on voice chat**",
-                    )
                     await lel.edit(
-                        f"✅ **userbot successfully joined chat**",
+                        f"✅ **userbot succesfully entered chat**",
                     )
                 except UserAlreadyParticipant:
                     pass
@@ -590,7 +585,7 @@ async def play(_, message: Message):
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         message.from_user.first_name
-        await generate_cover(title, thumbnail, ctitle)
+        await generate_cover(title, thumbnail)
         file_path = await converter.convert(
             (await message.reply_to_message.download(file_name))
             if not path.isfile(path.join("downloads", file_name))
@@ -604,7 +599,7 @@ async def play(_, message: Message):
             results = YoutubeSearch(query, max_results=1).to_dict()
             url = f"https://youtube.com{results[0]['url_suffix']}"
             # print(results)
-            title = results[0]["title"][:60]
+            title = results[0]["title"][:65]
             thumbnail = results[0]["thumbnails"][0]
             thumb_name = f"{title}.jpg"
             ctitle = message.chat.title
@@ -698,7 +693,7 @@ async def play(_, message: Message):
             # print(results)
             try:
                 url = f"https://youtube.com{results[0]['url_suffix']}"
-                title = results[0]["title"][:60]
+                title = results[0]["title"][:65]
                 thumbnail = results[0]["thumbnails"][0]
                 thumb_name = f"{title}.jpg"
                 ctitle = message.chat.title
@@ -768,7 +763,7 @@ async def play(_, message: Message):
             return
         await message.reply_photo(
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:60]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
+            caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
             + f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
@@ -801,7 +796,7 @@ async def lol_cb(b, cb):
         cb.message.from_user.first_name
     results = YoutubeSearch(query, max_results=5).to_dict()
     resultss = results[x]["url_suffix"]
-    title = results[x]["title"][:60]
+    title = results[x]["title"][:65]
     thumbnail = results[x]["thumbnails"][0]
     duration = results[x]["duration"]
     results[x]["views"]
@@ -878,7 +873,7 @@ async def lol_cb(b, cb):
         await b.send_photo(
             chat_id,
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:60]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
+            caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
             + f"🎧 **Request by:** {r_by.mention}",
             reply_markup=keyboard,
         )
@@ -921,12 +916,8 @@ async def ytplay(_, message: Message):
 
                 try:
                     await USER.join_chat(invitelink)
-                    await USER.send_message(
-                        message.chat.id,
-                        "🤖: i'm joined to this group for playing music in voice chat",
-                    )
                     await lel.edit(
-                        f"✅ **userbot succesfully joined chat**",
+                        f"✅ **userbot succesfully entered chat**",
                     )
 
                 except UserAlreadyParticipant:
@@ -958,7 +949,7 @@ async def ytplay(_, message: Message):
         results = YoutubeSearch(query, max_results=1).to_dict()
         url = f"https://youtube.com{results[0]['url_suffix']}"
         # print(results)
-        title = results[0]["title"][:60]
+        title = results[0]["title"][:65]
         thumbnail = results[0]["thumbnails"][0]
         thumb_name = f"{title}.jpg"
         ctitle = message.chat.title
@@ -1008,6 +999,7 @@ async def ytplay(_, message: Message):
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
+        await lel.delete()
         await message.reply_photo(
             photo="final.png",
             caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
@@ -1035,11 +1027,11 @@ async def ytplay(_, message: Message):
                 "😕 **voice chat not found**\n\n» please turn on the voice chat first"
             )
             return
+        await lel.delete()
         await message.reply_photo(
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:60]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
+            caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
             + f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
         os.remove("final.png")
-        return await lel.delete()

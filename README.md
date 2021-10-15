@@ -61,15 +61,15 @@
 - `/resume` - resume song play
 - `/skip` - play next song
 - `/end` - stop music play
-- `/musicplayer on` - to disable music player in your group
-- `/musicplayer off` - to enable music player in your group
+- `/music on` - to disable music player in your group
+- `/music off` - to enable music player in your group
 - `/join` - invite assistant to your chat
 - `/leave` - remove assistant from your chat
 - `/reload` - Refresh admin list
 - `/uptime` - check the bot uptime status
 - `/ping` - check the bot ping status
 - `/auth` - authorized people to access the admin commands
-- `/deauth` - deauthorized people to access the admin commands
+- `/unauth` - deauthorized people to access the admin commands
 - `/control` - open the music player control panel
 
 ### Sudo User 🧙‍♂️
