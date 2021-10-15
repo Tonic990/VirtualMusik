@@ -145,7 +145,7 @@ async def cbadmin(_, query: CallbackQuery):
 /join - invite userbot join to your group
 /leave - order the userbot to leave your group
 /auth - authorized user for using music bot
-/deauth - unauthorized for using music bot
+/unauth - unauthorized for using music bot
 /control - open the player settings panel
 /delcmd (on | off) - enable / disable del cmd feature
 /music (on / off) - disable / enable music player in your group
@@ -374,7 +374,7 @@ async def cblamp(_, query: CallbackQuery):
 /join - invite userbot join to your group
 /leave - order the userbot to leave your group
 /auth - authorized user for using music bot
-/deauth - unauthorized for using music bot
+/unauth - unauthorized for using music bot
 /control - open the player settings panel
 /delcmd (on | off) - enable / disable del cmd feature
 /music (on / off) - disable / enable music player in your group
