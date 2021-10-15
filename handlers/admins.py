@@ -166,7 +166,7 @@ async def authenticate(client, message):
         await message.reply("✅ user already authorized!")
 
 
-@Client.on_message(command(["deauth", f"deauth@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(command(["unauth", f"deauth@{BOT_USERNAME}"]) & other_filters)
 @authorized_users_only
 async def deautenticate(client, message):
     global admins
