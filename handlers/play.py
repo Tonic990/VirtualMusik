@@ -409,7 +409,6 @@ async def m_cb(b, cb):
 
     elif type_ == "cls":
         await cb.message.delete()
-        await cb.message.reply_to_message.delete()
 
     elif type_ == "menu":
         stats = updated_stats(cb.message.chat, qeue)
@@ -577,7 +576,7 @@ async def play(_, message: Message):
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         message.from_user.first_name
-        await generate_cover(title, thumbnail, ctitle)
+        await generate_cover(title, thumbnail)
         file_path = await converter.convert(
             (await message.reply_to_message.download(file_name))
             if not path.isfile(path.join("downloads", file_name))
