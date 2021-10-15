@@ -584,7 +584,7 @@ async def play(_, message: Message):
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         message.from_user.first_name
-        await generate_cover(title, thumbnail, ctitle)
+        await generate_cover(title, thumbnail)
         file_path = await converter.convert(
             (await message.reply_to_message.download(file_name))
             if not path.isfile(path.join("downloads", file_name))
@@ -731,12 +731,11 @@ async def play(_, message: Message):
         s_name = title
         r_by = message.from_user
         loc = file_path
-        requester = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id})"
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {requester}",
+            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
     else:
@@ -745,7 +744,6 @@ async def play(_, message: Message):
         qeue = que.get(chat_id)
         s_name = title
         r_by = message.from_user
-        requester = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id})"
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
@@ -759,7 +757,7 @@ async def play(_, message: Message):
         await message.reply_photo(
             photo="final.png",
             caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
-            + f"🎧 **Request by:** {requester}",
+            + f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
         os.remove("final.png")
@@ -837,14 +835,13 @@ async def lol_cb(b, cb):
         except:
             r_by = cb.message.from_user
         loc = file_path
-        requester = f"[{cb.message.from_user.first_name}](tg://user?id={cb.message.from_user.id})"
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         await cb.message.delete()
         await b.send_photo(
             chat_id,
             photo="final.png",
-            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {requester}",
+            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {r_by.mention}",
             reply_markup=keyboard,
         )
     else:
@@ -856,7 +853,6 @@ async def lol_cb(b, cb):
         except:
             r_by = cb.message.from_user
         loc = file_path
-        requester = f"[{cb.message.from_user.first_name}](tg://user?id={cb.message.from_user.id})"
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         callsmusic.pytgcalls.join_group_call(chat_id, file_path)
@@ -865,7 +861,7 @@ async def lol_cb(b, cb):
             chat_id,
             photo="final.png",
             caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
-            + f"🎧 **Request by:** {requester}",
+            + f"🎧 **Request by:** {r_by.mention}",
             reply_markup=keyboard,
         )
     if path.exists("final.png"):
@@ -988,13 +984,12 @@ async def ytplay(_, message: Message):
         s_name = title
         r_by = message.from_user
         loc = file_path
-        requester = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id})"
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         await lel.delete()
         await message.reply_photo(
             photo="final.png",
-            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {requester}",
+            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
     else:
@@ -1004,7 +999,6 @@ async def ytplay(_, message: Message):
         s_name = title
         r_by = message.from_user
         loc = file_path
-        requester = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id})"
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         try:
@@ -1018,7 +1012,7 @@ async def ytplay(_, message: Message):
         await message.reply_photo(
             photo="final.png",
             caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
-            + f"🎧 **Request by:** {requester}",
+            + f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
         os.remove("final.png")
