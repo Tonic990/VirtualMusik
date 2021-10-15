@@ -576,7 +576,7 @@ async def play(_, message: Message):
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         message.from_user.first_name
-        await generate_cover(title, thumbnail)
+        await generate_cover(title, thumbnail, ctitle)
         file_path = await converter.convert(
             (await message.reply_to_message.download(file_name))
             if not path.isfile(path.join("downloads", file_name))
@@ -978,6 +978,7 @@ async def ytplay(_, message: Message):
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
+        await lel.delete()
         await message.reply_photo(
             photo="final.png",
             caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
@@ -999,6 +1000,7 @@ async def ytplay(_, message: Message):
                 "😕 **voice chat not found**\n\n» please turn on the voice chat first"
             )
             return
+        await lel.delete()
         await message.reply_photo(
             photo="final.png",
             caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
@@ -1006,4 +1008,3 @@ async def ytplay(_, message: Message):
             reply_markup=keyboard,
         )
         os.remove("final.png")
-        return await lel.delete()
