@@ -55,7 +55,11 @@ def cb_admin_check(func: Callable) -> Callable:
 
 def transcode(filename):
     ffmpeg.input(filename).output(
-        "input.raw", format="s16le", acodec="pcm_s16le", ac=2, ar="48k"
+        "input.raw", 
+        format="s16le", 
+        acodec="pcm_s16le", 
+        ac=2, 
+        ar="48k"
     ).overwrite_output().run()
     os.remove(filename)
 
@@ -102,7 +106,7 @@ async def generate_cover(title, thumbnail, ctitle):
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("etc/typold.otf", 55)
     font2 = ImageFont.truetype("etc/finalfont.ttf", 80)
-    draw.text((25, 522), f"Playing on {ctitle[:8]}", (0, 0, 0), font=font)
+    draw.text((25, 520), f"Playing on {ctitle[:8]}", (0, 0, 0), font=font)
     draw.text((25, 605), f"{title[:15]}...", (0, 0, 0), font=font2)
     img.save("final.png")
     os.remove("temp.png")
@@ -538,8 +542,12 @@ async def play(_, message: Message):
             entities = message.reply_to_message.entities + entities
         elif message.reply_to_message.caption_entities:
             entities = message.reply_to_message.entities + entities
-        urls = [entity for entity in entities if entity.type == "url"]
-        text_links = [entity for entity in entities if entity.type == "text_link"]
+        urls = [
+            entity for entity in entities if entity.type == "url"
+        ]
+        text_links = [
+            entity for entity in entities if entity.type == "text_link"
+        ]
     else:
         urls = None
     if text_links:
@@ -723,11 +731,12 @@ async def play(_, message: Message):
         s_name = title
         r_by = message.from_user
         loc = file_path
+        requester = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id})"
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         await message.reply_photo(
             photo="final.png",
-            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
+            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {requester}",
             reply_markup=keyboard,
         )
     else:
@@ -736,6 +745,7 @@ async def play(_, message: Message):
         qeue = que.get(chat_id)
         s_name = title
         r_by = message.from_user
+        requester = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id})"
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
@@ -749,7 +759,7 @@ async def play(_, message: Message):
         await message.reply_photo(
             photo="final.png",
             caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
-            + f"🎧 **Request by:** {message.from_user.mention}",
+            + f"🎧 **Request by:** {requester}",
             reply_markup=keyboard,
         )
         os.remove("final.png")
@@ -827,13 +837,14 @@ async def lol_cb(b, cb):
         except:
             r_by = cb.message.from_user
         loc = file_path
+        requester = f"[{cb.message.from_user.first_name}](tg://user?id={cb.message.from_user.id})"
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         await cb.message.delete()
         await b.send_photo(
             chat_id,
             photo="final.png",
-            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {r_by.mention}",
+            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {requester}",
             reply_markup=keyboard,
         )
     else:
@@ -845,6 +856,7 @@ async def lol_cb(b, cb):
         except:
             r_by = cb.message.from_user
         loc = file_path
+        requester = f"[{cb.message.from_user.first_name}](tg://user?id={cb.message.from_user.id})"
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         callsmusic.pytgcalls.join_group_call(chat_id, file_path)
@@ -853,7 +865,7 @@ async def lol_cb(b, cb):
             chat_id,
             photo="final.png",
             caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
-            + f"🎧 **Request by:** {r_by.mention}",
+            + f"🎧 **Request by:** {requester}",
             reply_markup=keyboard,
         )
     if path.exists("final.png"):
@@ -976,12 +988,13 @@ async def ytplay(_, message: Message):
         s_name = title
         r_by = message.from_user
         loc = file_path
+        requester = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id})"
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         await lel.delete()
         await message.reply_photo(
             photo="final.png",
-            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {message.from_user.mention}",
+            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {requester}",
             reply_markup=keyboard,
         )
     else:
@@ -991,6 +1004,7 @@ async def ytplay(_, message: Message):
         s_name = title
         r_by = message.from_user
         loc = file_path
+        requester = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id})"
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         try:
@@ -1004,7 +1018,7 @@ async def ytplay(_, message: Message):
         await message.reply_photo(
             photo="final.png",
             caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
-            + f"🎧 **Request by:** {message.from_user.mention}",
+            + f"🎧 **Request by:** {requester}",
             reply_markup=keyboard,
         )
         os.remove("final.png")
