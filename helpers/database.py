@@ -11,8 +11,9 @@ class Database:
         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
         self.db = self._client[database_name]
         self.col = self.db.users
-
-    def new_user(self, id):
+    
+    @staticmethod
+    def new_user(id):
         return dict(
             id=id,
             join_date=datetime.date.today().isoformat(),

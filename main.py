@@ -1,5 +1,6 @@
 import requests
 from pyrogram import Client as Bot
+from pytgcalls import idle
 
 from callsmusic import run
 from config import API_HASH, API_ID, BG_IMAGE, BOT_TOKEN
@@ -22,3 +23,4 @@ print(f"[INFO]: VEEZ MUSIC v{__version__} STARTED !")
 
 bot.start()
 run()
+idle()
