@@ -597,6 +597,7 @@ async def play(_, message: Message):
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
             url = f"https://youtube.com{results[0]['url_suffix']}"
+            # print(results)
             title = results[0]["title"][:65]
             thumbnail = results[0]["thumbnails"][0]
             thumb_name = f"{title}.jpg"
@@ -935,6 +936,7 @@ async def ytplay(_, message: Message):
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
         url = f"https://youtube.com{results[0]['url_suffix']}"
+        # print(results)
         title = results[0]["title"][:65]
         thumbnail = results[0]["thumbnails"][0]
         thumb_name = f"{title}.jpg"
