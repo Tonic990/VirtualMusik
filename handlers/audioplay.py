@@ -1,10 +1,6 @@
-# this module i created only for playing music using audio file, idk, because the audio player on play.py module not working
-# so this is the alternative
-# audio play function
-# tede ganteng tq
+# Copyright (C) 2021 Veez Music-Project
 
 from os import path
-
 import converter
 from callsmusic import callsmusic, queues
 from config import (
@@ -48,7 +44,6 @@ async def stream(_, message: Message):
             f"❌ **music with duration more than** `{DURATION_LIMIT}` **minutes, can't play !**"
         )
 
-    # tede_ganteng = True
     title = audio.title
     file_name = get_file_name(audio)
     duration = convert_seconds(audio.duration)
@@ -57,7 +52,6 @@ async def stream(_, message: Message):
         if not path.isfile(path.join("downloads", file_name))
         else file_name
     )
-    # ambil aja bg
     if message.chat.id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(message.chat.id, file=file_path)
         await message.reply_photo(
