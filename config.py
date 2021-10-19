@@ -1,8 +1,6 @@
 import os
 from os import getenv
-
 from dotenv import load_dotenv
-
 from helpers.uptools import fetch_heroku_git_url
 
 if os.path.exists("local.env"):
@@ -22,7 +20,7 @@ ALIVE_IMG = getenv("ALIVE_IMG", "https://telegra.ph/file/c83b000f004f01897fe18.p
 API_ID = int(getenv("API_ID"))
 API_HASH = getenv("API_HASH")
 BOT_USERNAME = getenv("BOT_USERNAME", "veezmusicbot")
-ASSISTANT_NAME = getenv("ASSISTANT_NAME", "veezassistant")
+ASSISTANT_NAME = getenv("ASSISTANT_NAME", "veezassistant1")
 GROUP_SUPPORT = getenv("GROUP_SUPPORT", "VeezSupportGroup")
 UPDATES_CHANNEL = getenv("UPDATES_CHANNEL", "levinachannel")
 # isi dengan username kamu tanpa simbol @
