@@ -41,9 +41,6 @@ useer = "NaN"
 DISABLED_GROUPS = []
 
 
-# ============================ data ============================ #
-
-
 def cb_admin_check(func: Callable) -> Callable:
     async def decorator(client, cb):
         admemes = a.get(cb.message.chat.id)
@@ -52,7 +49,9 @@ def cb_admin_check(func: Callable) -> Callable:
         else:
             await cb.answer("💡 only admin can tap this button !", show_alert=True)
             return
-        return decorator
+
+    return decorator
+
 
 def transcode(filename):
     ffmpeg.input(filename).output(
@@ -64,6 +63,8 @@ def transcode(filename):
     ).overwrite_output().run()
     os.remove(filename)
 
+
+# Convert seconds to mm:ss
 def convert_seconds(seconds):
     seconds = seconds % (24 * 3600)
     seconds %= 3600
@@ -71,10 +72,14 @@ def convert_seconds(seconds):
     seconds %= 60
     return "%02d:%02d" % (minutes, seconds)
 
+
+# Convert hh:mm:ss to seconds
 def time_to_seconds(time):
     stringt = str(time)
     return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
 
+
+# Change image size
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
     heightRatio = maxHeight / image.size[1]
@@ -82,6 +87,7 @@ def changeImageSize(maxWidth, maxHeight, image):
     newHeight = int(heightRatio * image.size[1])
     newImage = image.resize((newWidth, newHeight))
     return newImage
+
 
 async def generate_cover(title, thumbnail, ctitle):
     async with aiohttp.ClientSession() as session, session.get(thumbnail) as resp:
@@ -105,9 +111,6 @@ async def generate_cover(title, thumbnail, ctitle):
     img.save("final.png")
     os.remove("temp.png")
     os.remove("background.png")
-
-
-# ============================ music player ============================ #
 
 
 @Client.on_message(
@@ -153,8 +156,6 @@ async def playlist(client, message):
 
 
 # ============================= Settings =========================================
-
-
 def updated_stats(chat, queue, vol=100):
     if chat.id in callsmusic.pytgcalls.active_calls:
         stats = "⚙ settings for **{}**".format(chat.title)
@@ -338,10 +339,12 @@ async def m_cb(b, cb):
             callsmusic.pytgcalls.active_calls[chet_id] == "paused"
         ):
             await cb.answer(
-                "❌ no music is currently playing", show_alert=True
+                "assistant is not connected to voice chat !", show_alert=True
             )
         else:
             callsmusic.pytgcalls.pause_stream(chet_id)
+
+            await cb.answer("music paused")
             await cb.message.edit(
                 updated_stats(m_chat, qeue), reply_markup=r_ply("play")
             )
@@ -351,10 +354,11 @@ async def m_cb(b, cb):
             callsmusic.pytgcalls.active_calls[chet_id] == "playing"
         ):
             await cb.answer(
-                "❌ no music is currently playing", show_alert=True
+                "assistant is not connected to voice chat !", show_alert=True
             )
         else:
             callsmusic.pytgcalls.resume_stream(chet_id)
+            await cb.answer("music resumed")
             await cb.message.edit(
                 updated_stats(m_chat, qeue), reply_markup=r_ply("pause")
             )
@@ -388,7 +392,7 @@ async def m_cb(b, cb):
             callsmusic.pytgcalls.active_calls[chet_id] == "playing"
         ):
             await cb.answer(
-                "❌ no music is currently playing", show_alert=True
+                "voice chat is not connected or already playing", show_alert=True
             )
         else:
             callsmusic.pytgcalls.resume_stream(chet_id)
@@ -400,9 +404,11 @@ async def m_cb(b, cb):
             callsmusic.pytgcalls.active_calls[chet_id] == "paused"
         ):
             await cb.answer(
-                "❌ no music is currently playing", show_alert=True)
+                "voice chat is not connected or already paused", show_alert=True
+            )
         else:
             callsmusic.pytgcalls.pause_stream(chet_id)
+
             await cb.message.edit(spn, reply_markup=keyboard)
 
     elif type_ == "cls":
@@ -433,7 +439,7 @@ async def m_cb(b, cb):
             qeue.pop(0)
         if chet_id not in callsmusic.pytgcalls.active_calls:
             await cb.answer(
-                "❌ no music is currently playing", show_alert=True
+                "assistant is not connected to voice chat !", show_alert=True
             )
         else:
             callsmusic.queues.task_done(chet_id)
@@ -465,9 +471,13 @@ async def m_cb(b, cb):
             await cb.message.edit(
                     hps,
                     reply_markup=InlineKeyboardMarkup(
-                        [[InlineKeyboardButton("🗑 Close", callback_data="close")]]),)
+                        [[InlineKeyboardButton("🗑 Close", callback_data="close")]]
+                    ),
+                )
         else:
-            await cb.answer("❌ no music is currently playing", show_alert=True)
+            await cb.answer(
+                "assistant is not connected to voice chat !", show_alert=True
+            )
 
 
 @Client.on_message(command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
@@ -486,6 +496,7 @@ async def play(_, message: Message):
     usar = user
     wew = usar.id
     try:
+        # chatdetails = await USER.get_chat(chid)
         await _.get_chat_member(chid, wew)
     except:
         for administrator in administrators:
@@ -671,10 +682,13 @@ async def play(_, message: Message):
             )
 
             await lel.delete()
+            # veez project
             return
+            # veez project
         except:
             await lel.edit("__no more results to choose, starting to playing...__")
 
+            # print(results)
             try:
                 url = f"https://youtube.com{results[0]['url_suffix']}"
                 title = results[0]["title"][:65]
@@ -767,6 +781,7 @@ async def lol_cb(b, cb):
     if cb.from_user.id != useer_id:
         await cb.answer("💡 sorry, this is not for you !", show_alert=True)
         return
+    # await cb.message.edit("🔁 **processing...**")
     x = int(x)
     try:
         cb.message.reply_to_message.from_user.first_name
