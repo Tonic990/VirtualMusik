@@ -1,5 +1,3 @@
-<p align="center"><a href="https://www.animatedimages.org/cat-lines-562.htm"><img src="https://www.animatedimages.org/data/media/562/animated-line-image-0168.gif" border="0" alt="animated-line-image-0184" /></a></p>
-
 <p align="center"><a href="https://t.me/VeezMusicBot"><img src="https://github.com/levina-lab/VeezMusic/raw/main/etc/veezlogo.png"></a></p>
 <p align="center">
     <br><b>Veez Music is a telegram bot project that's allow you to play music on telegram voice chat group</b><br>
@@ -108,7 +106,7 @@ git clone https://github.com/levina-lab/VeezMusic # Clone your repo.
 cd VeezMusic
 pip3 install -U -r requirements.txt
 cp example.env .env #Use vim to edit ENVs
-vim .env #Fill up your ENVs ( Steps press i to enter in insert mode then edit the file. Press Esc to exit the editing mode then type :wq! and press Enter key to save the file.)
+vim .env #Fill up your ENVs (Steps press i to enter in insert mode then edit the file. Press Esc to exit the editing mode then type :wq! and press Enter key to save the file.)
 python3 main.py # Run the bot
 ```
 
@@ -117,6 +115,7 @@ python3 main.py # Run the bot
 - [Tofik](https://github.com/tofikdn): Dev
 - [Zxce3](https://github.com/Zxce3): Dev
 - [Hyoka-XD](https://github.com/PratheekXD) Contributor
+- [Rajkumar](https://github.com/Awesome-RJ) Contributor
 - [Laky](https://github.com/Laky-64) & [Andrew](https://github.com/AndrewLaneX): PyTgCalls
 - [Original Repo](https://github.com/callsmusic/callsmusic) CallsMusic
 - [Veez Music Bot](https://t.me/veezmusicbot) Our Music Bot
@@ -125,5 +124,3 @@ python3 main.py # Run the bot
 
 ### Support & Updates 🎑
 <a href="https://t.me/VeezSupportGroup"><img src="https://img.shields.io/badge/Join-Group%20Support-blue.svg?style=for-the-badge&logo=Telegram"></a> <a href="https://t.me/levinachannel"><img src="https://img.shields.io/badge/Join-Updates%20Channel-blue.svg?style=for-the-badge&logo=Telegram"></a>
-
-<p align="center"><a href="https://www.animatedimages.org/cat-lines-562.htm"><img src="https://www.animatedimages.org/data/media/562/animated-line-image-0168.gif" border="0" alt="animated-line-image-0184" /></a></p>
