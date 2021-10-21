@@ -20,6 +20,7 @@
 - Python 3.7 or higher
 - [PyTgCalls](https://github.com/pytgcalls/pytgcalls)
 - [MongoDB](https://cloud.mongodb.com/)
+- [2nd Telegram Account](https://telegram.org/blog/themes-accounts#multiple-accounts) (needed for userbot)
 
 ### 🧪 Get `SESSION_NAME` from below:
 
@@ -74,7 +75,6 @@
 
 ### Sudo User 🧙‍♂️
 - `/stats` - see the bot statistic
-- `/pmpermit on | off` turn on/off the assistant pmpermit
 - `/leaveall` - order the assistant to leave all groups
 - `/eval (query)` - execute any code
 - `/sh (query)` - run any code
@@ -102,12 +102,12 @@ pip3 install -U pip
 curl -sL https://deb.nodesource.com/setup_16.x | bash -
 sudo apt-get install -y nodejs
 npm i -g npm
-git clone https://github.com/levina-lab/VeezMusic # Clone your repo.
+git clone https://github.com/levina-lab/VeezMusic # clone the repo.
 cd VeezMusic
 pip3 install -U -r requirements.txt
-cp example.env .env #Use vim to edit ENVs
-vim .env #Fill up your ENVs ( Steps press i to enter in insert mode then edit the file. Press Esc to exit the editing mode then type :wq! and press Enter key to save the file.)
-python3 main.py # Run the bot
+cp example.env .env # use vim to edit ENVs
+vim .env # fill up the ENVs (Steps: press i to enter in insert mode then edit the file. Press Esc to exit the editing mode then type :wq! and press Enter key to save the file).
+python3 main.py # run the bot.
 ```
 
 ### Special Credits 💖
@@ -115,6 +115,7 @@ python3 main.py # Run the bot
 - [Tofik](https://github.com/tofikdn): Dev
 - [Zxce3](https://github.com/Zxce3): Dev
 - [Hyoka-XD](https://github.com/PratheekXD) Contributor
+- [Rajkumar](https://github.com/Awesome-RJ) Contributor
 - [Laky](https://github.com/Laky-64) & [Andrew](https://github.com/AndrewLaneX): PyTgCalls
 - [Original Repo](https://github.com/callsmusic/callsmusic) CallsMusic
 - [Veez Music Bot](https://t.me/veezmusicbot) Our Music Bot

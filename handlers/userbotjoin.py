@@ -31,9 +31,7 @@ async def addchannel(client, message):
     try:
         await USER.join_chat(invitelink)
     except UserAlreadyParticipant:
-        await message.reply_text(
-            f"✅ **userbot already entered chat**",
-        )
+        pass
     except Exception as e:
         print(e)
         await message.reply_text(
@@ -56,7 +54,7 @@ async def rem(client, message):
         await USER.leave_chat(message.chat.id)
     except:
         await message.reply_text(
-            "❌ **userbot couldn't leave your group, may be floodwaits.**\n\n**or manually kick userbot from your group**"
+            "❌ **userbot couldn't leave your group, may be floodwaits.**\n\n**» or manually kick userbot from your group**"
         )
 
         return

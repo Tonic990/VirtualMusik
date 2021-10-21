@@ -46,7 +46,7 @@ async def cbstart(_, query: CallbackQuery):
                 ],
                 [
                     InlineKeyboardButton(
-                        "🌐 Source Code", url="https://github.com/levina-lab/VeezMusic"
+                        "🌐 Source Code", url="https://github.com/Tonic990/VirtualMusik"
                     )
                 ],
             ]
@@ -58,7 +58,7 @@ async def cbstart(_, query: CallbackQuery):
 @Client.on_callback_query(filters.regex("cbhelp"))
 async def cbhelp(_, query: CallbackQuery):
     await query.edit_message_text(
-        f"""✨ **Hello** [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) !
+        f"""✨ **Hello !**
 
 » **press the button below to read the explanation and see the list of available commands !**
 
@@ -419,5 +419,38 @@ async def cbmoon(_, query: CallbackQuery):
 ⚡ __Powered by {BOT_NAME} A.I__""",
         reply_markup=InlineKeyboardMarkup(
             [[InlineKeyboardButton("🔙 Go Back", callback_data="cbcmds")]]
+        ),
+    )
+
+
+@Client.on_callback_query(filters.regex("cmdhome"))
+async def cmdhome(_, query: CallbackQuery):
+    
+    bttn = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("Command Syntax", callback_data="cmdsyntax")
+            ],[
+                InlineKeyboardButton("🗑 Close", callback_data="close")
+            ]
+        ]
+    )
+    
+    nofound = "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+    
+    await query.edit_message_text(nofound, reply_markup=bttn)
+
+
+@Client.on_callback_query(filters.regex("cmdsyntax"))
+async def cmdsyntax(_, query: CallbackQuery):
+    await query.edit_message_text(
+        f"""**Command Syntax** to play music on **Voice Chat:**
+
+• `/play (query)` - for playing music via youtube
+• `/ytp (query)` - for playing music directly via youtube
+
+⚡ __Powered by {BOT_NAME}__""",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("🔙 Go Back", callback_data="cmdhome")]]
         ),
     )

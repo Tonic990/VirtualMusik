@@ -12,7 +12,6 @@ from helpers.dbtools import delcmd_is_on, delcmd_off, delcmd_on, handle_user_sta
 from helpers.decorators import authorized_users_only, errors
 from helpers.filters import command, other_filters
 from pyrogram import Client, filters
-from pytgcalls.types.input_stream import InputAudioStream
 from pyrogram.types import (
     CallbackQuery,
     InlineKeyboardButton,
@@ -82,10 +81,12 @@ async def controlset(_, message: Message):
 @authorized_users_only
 async def pause(_, message: Message):
     chat_id = get_chat_id(message.chat)
-    if chat_id in callsmusic.pytgcalls.active_calls:
+    if (chat_id not in callsmusic.pytgcalls.active_calls) or (
+        callsmusic.pytgcalls.active_calls[chat_id] == "paused"
+    ):
         await message.reply_text("❌ **no music is currently playing**")
     else:
-        await callsmusic.pytgcalls.pause_stream(chat_id)
+        callsmusic.pytgcalls.pause_stream(chat_id)
         await message.reply_text(
             "⏸ **Track paused.**\n\n• **To resume the playback, use the**\n» /resume command."
         )
@@ -96,10 +97,12 @@ async def pause(_, message: Message):
 @authorized_users_only
 async def resume(_, message: Message):
     chat_id = get_chat_id(message.chat)
-    if chat_id in callsmusic.pytgcalls.active_calls:
+    if (chat_id not in callsmusic.pytgcalls.active_calls) or (
+        callsmusic.pytgcalls.active_calls[chat_id] == "playing"
+    ):
         await message.reply_text("❌ **no music is paused**")
     else:
-        await callsmusic.pytgcalls.resume_stream(chat_id)
+        callsmusic.pytgcalls.resume_stream(chat_id)
         await message.reply_text(
             "▶️ **Track resumed.**\n\n• **To pause the playback, use the**\n» /pause command."
         )
@@ -110,7 +113,7 @@ async def resume(_, message: Message):
 @authorized_users_only
 async def stop(_, message: Message):
     chat_id = get_chat_id(message.chat)
-    if chat_id in callsmusic.pytgcalls.active_calls:
+    if chat_id not in callsmusic.pytgcalls.active_calls:
         await message.reply_text("❌ **no music is currently playing**")
     else:
         try:
@@ -118,7 +121,7 @@ async def stop(_, message: Message):
         except QueueEmpty:
             pass
 
-        await callsmusic.pytgcalls.leave_group_call(chat_id)
+        callsmusic.pytgcalls.leave_group_call(chat_id)
         await message.reply_text("✅ **music playback has ended**")
 
 
@@ -134,14 +137,9 @@ async def skip(_, message: Message):
         queues.task_done(chat_id)
 
         if queues.is_empty(chat_id):
-            await callsmusic.pytgcalls.leave_group_call(chat_id)
+            callsmusic.pytgcalls.leave_group_call(chat_id)
         else:
-            await callsmusic.pytgcalls.change_stream(
-                chat_id, 
-                InputAudioStream(
-                    queues.get(chat_id)["file"],
-                ),
-            )
+            callsmusic.pytgcalls.change_stream(chat_id, queues.get(chat_id)["file"])
 
     qeue = que.get(chat_id)
     if qeue:
@@ -217,12 +215,14 @@ async def delcmdc(_, message: Message):
 @cb_admin_check
 async def cbpause(_, query: CallbackQuery):
     get_chat_id(query.message.chat)
-    if query.message.chat.id in callsmusic.pytgcalls.active_calls:
+    if (query.message.chat.id not in callsmusic.pytgcalls.active_calls) or (
+        callsmusic.pytgcalls.active_calls[query.message.chat.id] == "paused"
+    ):
         await query.edit_message_text(
             "❌ **no music is currently playing**", reply_markup=BACK_BUTTON
         )
     else:
-        await callsmusic.pytgcalls.pause_stream(query.message.chat.id)
+        callsmusic.pytgcalls.pause_stream(query.message.chat.id)
         await query.edit_message_text(
             "⏸ music playback has been paused", reply_markup=BACK_BUTTON
         )
@@ -232,12 +232,14 @@ async def cbpause(_, query: CallbackQuery):
 @cb_admin_check
 async def cbresume(_, query: CallbackQuery):
     get_chat_id(query.message.chat)
-    if query.message.chat.id in callsmusic.pytgcalls.active_calls:
+    if (query.message.chat.id not in callsmusic.pytgcalls.active_calls) or (
+        callsmusic.pytgcalls.active_calls[query.message.chat.id] == "resumed"
+    ):
         await query.edit_message_text(
             "❌ **no music is paused**", reply_markup=BACK_BUTTON
         )
     else:
-        await callsmusic.pytgcalls.resume_stream(query.message.chat.id)
+        callsmusic.pytgcalls.resume_stream(query.message.chat.id)
         await query.edit_message_text(
             "▶️ music playback has been resumed", reply_markup=BACK_BUTTON
         )
@@ -247,7 +249,7 @@ async def cbresume(_, query: CallbackQuery):
 @cb_admin_check
 async def cbend(_, query: CallbackQuery):
     get_chat_id(query.message.chat)
-    if query.message.chat.id in callsmusic.pytgcalls.active_calls:
+    if query.message.chat.id not in callsmusic.pytgcalls.active_calls:
         await query.edit_message_text(
             "❌ **no music is currently playing**", reply_markup=BACK_BUTTON
         )
@@ -277,13 +279,10 @@ async def cbskip(_, query: CallbackQuery):
         queues.task_done(query.message.chat.id)
 
         if queues.is_empty(query.message.chat.id):
-            await callsmusic.pytgcalls.leave_group_call(query.message.chat.id)
+            callsmusic.pytgcalls.leave_group_call(query.message.chat.id)
         else:
-            await callsmusic.pytgcalls.change_stream(
-                query.message.chat.id, 
-                InputAudioStream(
-                    queues.get(query.message.chat.id)["file"],
-                ),
+            callsmusic.pytgcalls.change_stream(
+                query.message.chat.id, queues.get(query.message.chat.id)["file"]
             )
 
     qeue = que.get(chat_id)

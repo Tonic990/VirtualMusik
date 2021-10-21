@@ -1,7 +1,7 @@
 import os
-from asyncio.queues import QueueEmpty
 from os import path
 from typing import Callable
+from asyncio.queues import QueueEmpty
 
 import aiofiles
 import aiohttp
@@ -19,11 +19,11 @@ from config import (
     DURATION_LIMIT,
     GROUP_SUPPORT,
     THUMB_IMG,
+    CMD_IMG,
     UPDATES_CHANNEL,
+    OWNER_NAME,
     que,
 )
-from pytgcalls import StreamType
-from pytgcalls.types.input_stream import InputAudioStream
 from downloaders import youtube
 from helpers.admins import get_administrators
 from helpers.channelmusic import get_chat_id
@@ -43,9 +43,6 @@ useer = "NaN"
 DISABLED_GROUPS = []
 
 
-# ============================ data ============================ #
-
-
 def cb_admin_check(func: Callable) -> Callable:
     async def decorator(client, cb):
         admemes = a.get(cb.message.chat.id)
@@ -54,7 +51,9 @@ def cb_admin_check(func: Callable) -> Callable:
         else:
             await cb.answer("💡 only admin can tap this button !", show_alert=True)
             return
-        return decorator
+
+    return decorator
+
 
 def transcode(filename):
     ffmpeg.input(filename).output(
@@ -66,6 +65,7 @@ def transcode(filename):
     ).overwrite_output().run()
     os.remove(filename)
 
+
 def convert_seconds(seconds):
     seconds = seconds % (24 * 3600)
     seconds %= 3600
@@ -73,9 +73,11 @@ def convert_seconds(seconds):
     seconds %= 60
     return "%02d:%02d" % (minutes, seconds)
 
+
 def time_to_seconds(time):
     stringt = str(time)
     return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
+
 
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
@@ -84,6 +86,7 @@ def changeImageSize(maxWidth, maxHeight, image):
     newHeight = int(heightRatio * image.size[1])
     newImage = image.resize((newWidth, newHeight))
     return newImage
+
 
 async def generate_cover(title, thumbnail, ctitle):
     async with aiohttp.ClientSession() as session, session.get(thumbnail) as resp:
@@ -107,9 +110,6 @@ async def generate_cover(title, thumbnail, ctitle):
     img.save("final.png")
     os.remove("temp.png")
     os.remove("background.png")
-
-
-# ============================ music player ============================ #
 
 
 @Client.on_message(
@@ -155,8 +155,6 @@ async def playlist(client, message):
 
 
 # ============================= Settings =========================================
-
-
 def updated_stats(chat, queue, vol=100):
     if chat.id in callsmusic.pytgcalls.active_calls:
         stats = "⚙ settings for **{}**".format(chat.title)
@@ -336,26 +334,29 @@ async def m_cb(b, cb):
 
     the_data = cb.message.reply_markup.inline_keyboard[1][0].callback_data
     if type_ == "pause":
-        if chet_id in callsmusic.pytgcalls.active_calls:
+        if (chet_id not in callsmusic.pytgcalls.active_calls) or (
+            callsmusic.pytgcalls.active_calls[chet_id] == "paused"
+        ):
             await cb.answer(
-                "❌ no music is currently playing", show_alert=True
+                "assistant is not connected to voice chat !", show_alert=True
             )
         else:
             callsmusic.pytgcalls.pause_stream(chet_id)
-            await callsmusic.pytgcalls.pause_stream(chet_id)
+
             await cb.answer("music paused")
             await cb.message.edit(
                 updated_stats(m_chat, qeue), reply_markup=r_ply("play")
             )
 
     elif type_ == "play":
-        if chet_id in callsmusic.pytgcalls.active_calls:
+        if (chet_id not in callsmusic.pytgcalls.active_calls) or (
+            callsmusic.pytgcalls.active_calls[chet_id] == "playing"
+        ):
             await cb.answer(
-                "❌ no music is currently playing", show_alert=True
+                "assistant is not connected to voice chat !", show_alert=True
             )
         else:
             callsmusic.pytgcalls.resume_stream(chet_id)
-            await callsmusic.pytgcalls.resume_stream(chet_id)
             await cb.answer("music resumed")
             await cb.message.edit(
                 updated_stats(m_chat, qeue), reply_markup=r_ply("pause")
@@ -386,22 +387,27 @@ async def m_cb(b, cb):
 
     elif type_ == "resume":
         psn = "▶ music playback has resumed"
-        if chet_id in callsmusic.pytgcalls.active_calls:
+        if (chet_id not in callsmusic.pytgcalls.active_calls) or (
+            callsmusic.pytgcalls.active_calls[chet_id] == "playing"
+        ):
             await cb.answer(
-                "❌ no music is currently playing", show_alert=True
+                "voice chat is not connected or already playing", show_alert=True
             )
         else:
-            await callsmusic.pytgcalls.resume_stream(chet_id)
+            callsmusic.pytgcalls.resume_stream(chet_id)
             await cb.message.edit(psn, reply_markup=keyboard)
 
     elif type_ == "puse":
         spn = "⏸ music playback has paused"
-        if chet_id in callsmusic.pytgcalls.active_calls:
+        if (chet_id not in callsmusic.pytgcalls.active_calls) or (
+            callsmusic.pytgcalls.active_calls[chet_id] == "paused"
+        ):
             await cb.answer(
-                "❌ no music is currently playing", show_alert=True)
+                "voice chat is not connected or already paused", show_alert=True
+            )
         else:
             callsmusic.pytgcalls.pause_stream(chet_id)
-            await callsmusic.pytgcalls.pause_stream(chet_id)
+
             await cb.message.edit(spn, reply_markup=keyboard)
 
     elif type_ == "cls":
@@ -432,13 +438,13 @@ async def m_cb(b, cb):
             qeue.pop(0)
         if chet_id not in callsmusic.pytgcalls.active_calls:
             await cb.answer(
-                "❌ no music is currently playing", show_alert=True
+                "assistant is not connected to voice chat !", show_alert=True
             )
         else:
             callsmusic.queues.task_done(chet_id)
 
             if callsmusic.queues.is_empty(chet_id):
-                await callsmusic.pytgcalls.leave_group_call(chet_id)
+                callsmusic.pytgcalls.leave_group_call(chet_id)
 
                 await cb.message.edit(
                     nmq,
@@ -447,11 +453,8 @@ async def m_cb(b, cb):
                     ),
                 )
             else:
-                await callsmusic.pytgcalls.change_stream(
-                    chet_id, 
-                    InputAudioStream(
-                        callsmusic.queues.get(chet_id)["file"],
-                    ),
+                callsmusic.pytgcalls.change_stream(
+                    chet_id, callsmusic.queues.get(chet_id)["file"]
                 )
                 await cb.message.edit(mmk, reply_markup=keyboard)
 
@@ -463,21 +466,34 @@ async def m_cb(b, cb):
             except QueueEmpty:
                 pass
 
-
-            await callsmusic.pytgcalls.leave_group_call(chet_id)
-            await cb.message.edit("✅ music playback has ended")
-
             callsmusic.pytgcalls.leave_group_call(chet_id)
             await cb.message.edit(
                     hps,
                     reply_markup=InlineKeyboardMarkup(
-                        [[InlineKeyboardButton("🗑 Close", callback_data="close")]]),)
+                        [[InlineKeyboardButton("🗑 Close", callback_data="close")]]
+                    ),
+                )
         else:
-            await cb.answer("❌ no music is currently playing", show_alert=True)
+            await cb.answer(
+                "assistant is not connected to voice chat !", show_alert=True
+            )
 
 
-@Client.on_message(command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(command(["play", f"play@{BOT_USERNAME}", "p"]) & other_filters)
 async def play(_, message: Message):
+    
+    bttn = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("Command Syntax", callback_data="cmdsyntax")
+            ],[
+                InlineKeyboardButton("🗑 Close", callback_data="close")
+            ]
+        ]
+    )
+    
+    nofound = "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+    
     global que
     global useer
     if message.chat.id in DISABLED_GROUPS:
@@ -563,13 +579,13 @@ async def play(_, message: Message):
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("• Mᴇɴᴜ", callback_data="menu"),
-                    InlineKeyboardButton("• Cʟᴏsᴇ", callback_data="cls"),
-                ],
-                [
-                    InlineKeyboardButton(
-                        "• Cʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}"
-                    )
+                    InlineKeyboardButton("🖱 ᴍᴇɴᴜ", callback_data="menu"),
+                    InlineKeyboardButton("🗑 ᴄʟᴏsᴇ", callback_data="cls"),
+                ],[
+                    InlineKeyboardButton("📣 ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}"),
+                    InlineKeyboardButton("✨ ɢʀᴏᴜᴘ", url=f"https://t.me/{GROUP_SUPPORT}"),
+                ],[
+                    InlineKeyboardButton("👑 Owner", url=f"https://t.me/{OWNER_NAME}"),
                 ],
             ]
         )
@@ -579,7 +595,7 @@ async def play(_, message: Message):
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         message.from_user.first_name
-        await generate_cover(title, thumbnail)
+        await generate_cover(title, thumbnail, ctitle)
         file_path = await converter.convert(
             (await message.reply_to_message.download(file_name))
             if not path.isfile(path.join("downloads", file_name))
@@ -592,7 +608,7 @@ async def play(_, message: Message):
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
             url = f"https://youtube.com{results[0]['url_suffix']}"
-            title = results[0]["title"][:65]
+            title = results[0]["title"][:70]
             thumbnail = results[0]["thumbnails"][0]
             thumb_name = f"{title}.jpg"
             ctitle = message.chat.title
@@ -603,21 +619,24 @@ async def play(_, message: Message):
             results[0]["url_suffix"]
             results[0]["views"]
         except Exception as e:
-            await lel.edit(
-                "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+            await lel.delete()
+            await message.reply_photo(
+                photo=f"{CMD_IMG}",
+                caption=nofound,
+                reply_markup=bttn,
             )
             print(str(e))
             return
         keyboard = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("• Mᴇɴᴜ", callback_data="menu"),
-                    InlineKeyboardButton("• Cʟᴏsᴇ", callback_data="cls"),
-                ],
-                [
-                    InlineKeyboardButton(
-                        "• Cʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}"
-                    )
+                    InlineKeyboardButton("🖱 ᴍᴇɴᴜ", callback_data="menu"),
+                    InlineKeyboardButton("🗑 ᴄʟᴏsᴇ", callback_data="cls"),
+                ],[
+                    InlineKeyboardButton("📣 ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}"),
+                    InlineKeyboardButton("✨ ɢʀᴏᴜᴘ", url=f"https://t.me/{GROUP_SUPPORT}"),
+                ],[
+                    InlineKeyboardButton("👑 Owner", url=f"https://t.me/{OWNER_NAME}"),
                 ],
             ]
         )
@@ -677,13 +696,15 @@ async def play(_, message: Message):
             )
 
             await lel.delete()
+            
             return
+        
         except:
             await lel.edit("__no more results to choose, starting to playing...__")
 
             try:
                 url = f"https://youtube.com{results[0]['url_suffix']}"
-                title = results[0]["title"][:65]
+                title = results[0]["title"][:70]
                 thumbnail = results[0]["thumbnails"][0]
                 thumb_name = f"{title}.jpg"
                 ctitle = message.chat.title
@@ -694,21 +715,24 @@ async def play(_, message: Message):
                 results[0]["url_suffix"]
                 results[0]["views"]
             except Exception as e:
-                await lel.edit(
-                    "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+                await lel.delete()
+                await message.reply_photo(
+                    photo=f"{CMD_IMG}",
+                    caption=nofound,
+                    reply_markup=bttn,
                 )
                 print(str(e))
                 return
             keyboard = InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton("• Mᴇɴᴜ", callback_data="menu"),
-                        InlineKeyboardButton("• Cʟᴏsᴇ", callback_data="cls"),
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            "• Cʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}"
-                        )
+                        InlineKeyboardButton("🖱 ᴍᴇɴᴜ", callback_data="menu"),
+                        InlineKeyboardButton("🗑 ᴄʟᴏsᴇ", callback_data="cls"),
+                    ],[
+                        InlineKeyboardButton("📣 ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}"),
+                        InlineKeyboardButton("✨ ɢʀᴏᴜᴘ", url=f"https://t.me/{GROUP_SUPPORT}"),
+                    ],[
+                        InlineKeyboardButton("👑 Owner", url=f"https://t.me/{OWNER_NAME}"),
                     ],
                 ]
             )
@@ -740,13 +764,7 @@ async def play(_, message: Message):
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         try:
-            await callsmusic.pytgcalls.join_group_call(
-                chat_id, 
-                InputAudioStream(
-                    file_path,
-                ),
-                stream_type=StreamType().local_stream,
-            )
+            callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         except:
             await lel.edit(
                 "😕 **voice chat not found**\n\n» please turn on the voice chat first"
@@ -755,7 +773,7 @@ async def play(_, message: Message):
         await lel.delete()
         await message.reply_photo(
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
+            caption=f"🏷 **Name:** [{title[:70]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
             + f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
@@ -764,6 +782,19 @@ async def play(_, message: Message):
 
 @Client.on_callback_query(filters.regex(pattern=r"plll"))
 async def lol_cb(b, cb):
+    
+    bttn = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("Command Syntax", callback_data="cmdsyntax")
+            ],[
+                InlineKeyboardButton("🗑 Close", callback_data="close")
+            ]
+        ]
+    )
+    
+    nofound = "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+    
     global que
     cbd = cb.data.strip()
     chat_id = cb.message.chat.id
@@ -771,14 +802,17 @@ async def lol_cb(b, cb):
     try:
         x, query, useer_id = typed_.split("|")
     except:
-        await cb.message.edit(
-            "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+        await cb.message.reply_photo(
+            photo=f"{CMD_IMG}",
+            caption=nofound,
+            reply_markup=bttn,
         )
         return
     useer_id = int(useer_id)
     if cb.from_user.id != useer_id:
         await cb.answer("💡 sorry, this is not for you !", show_alert=True)
         return
+    await cb.answer("🔄 downloading song you requested...", show_alert=True)
     x = int(x)
     try:
         cb.message.reply_to_message.from_user.first_name
@@ -786,7 +820,7 @@ async def lol_cb(b, cb):
         cb.message.from_user.first_name
     results = YoutubeSearch(query, max_results=5).to_dict()
     resultss = results[x]["url_suffix"]
-    title = results[x]["title"][:65]
+    title = results[x]["title"][:70]
     thumbnail = results[x]["thumbnails"][0]
     duration = results[x]["duration"]
     results[x]["views"]
@@ -815,10 +849,14 @@ async def lol_cb(b, cb):
     keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("• Mᴇɴᴜ", callback_data="menu"),
-                InlineKeyboardButton("• Cʟᴏsᴇ", callback_data="cls"),
+                InlineKeyboardButton("🖱 ᴍᴇɴᴜ", callback_data="menu"),
+                InlineKeyboardButton("🗑 ᴄʟᴏsᴇ", callback_data="cls"),
+            ],[
+                InlineKeyboardButton("📣 ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}"),
+                InlineKeyboardButton("✨ ɢʀᴏᴜᴘ", url=f"https://t.me/{GROUP_SUPPORT}"),
+            ],[
+                InlineKeyboardButton("👑 Owner", url=f"https://t.me/{OWNER_NAME}"),
             ],
-            [InlineKeyboardButton("• Cʜᴀɴɴᴇʟ", url=f"https://t.me/{UPDATES_CHANNEL}")],
         ]
     )
     await generate_cover(title, thumbnail, ctitle)
@@ -838,7 +876,7 @@ async def lol_cb(b, cb):
         await b.send_photo(
             chat_id,
             photo="final.png",
-            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {r_by.mention}",
+            caption=f"💡 **Track added to queue »** `{position}`\n\n🏷 **Name:** [{title[:35]}...]({url})\n⏱ **Duration:** `{duration}`\n🎧 **Request by:** {r_by.mention()}",
             reply_markup=keyboard,
         )
     else:
@@ -852,19 +890,13 @@ async def lol_cb(b, cb):
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
-        await callsmusic.pytgcalls.join_group_call(
-                chat_id, 
-                InputAudioStream(
-                    file_path,
-                ),
-                stream_type=StreamType().local_stream,
-            )
+        callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         await cb.message.delete()
         await b.send_photo(
             chat_id,
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
-            + f"🎧 **Request by:** {r_by.mention}",
+            caption=f"🏷 **Name:** [{title[:70]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
+            + f"🎧 **Request by:** {r_by.mention()}",
             reply_markup=keyboard,
         )
     if path.exists("final.png"):
@@ -873,6 +905,19 @@ async def lol_cb(b, cb):
 
 @Client.on_message(command(["ytp", f"ytp@{BOT_USERNAME}"]) & other_filters)
 async def ytplay(_, message: Message):
+    
+    bttn = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("Command Syntax", callback_data="cmdsyntax")
+            ],[
+                InlineKeyboardButton("🗑 Close", callback_data="close")
+            ]
+        ]
+    )
+    
+    nofound = "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+    
     global que
     if message.chat.id in DISABLED_GROUPS:
         return
@@ -887,7 +932,6 @@ async def ytplay(_, message: Message):
     usar = user
     wew = usar.id
     try:
-        # chatdetails = await USER.get_chat(chid)
         await _.get_chat_member(chid, wew)
     except:
         for administrator in administrators:
@@ -938,7 +982,7 @@ async def ytplay(_, message: Message):
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
         url = f"https://youtube.com{results[0]['url_suffix']}"
-        title = results[0]["title"][:65]
+        title = results[0]["title"][:70]
         thumbnail = results[0]["thumbnails"][0]
         thumb_name = f"{title}.jpg"
         ctitle = message.chat.title
@@ -950,8 +994,11 @@ async def ytplay(_, message: Message):
         results[0]["views"]
 
     except Exception as e:
-        await lel.edit(
-            "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+        await lel.delete()
+        await message.reply_photo(
+            photo=f"{CMD_IMG}",
+            caption=nofound,
+            reply_markup=bttn,
         )
         print(str(e))
         return
@@ -1004,13 +1051,7 @@ async def ytplay(_, message: Message):
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
         try:
-            await callsmusic.pytgcalls.join_group_call(
-                chat_id, 
-                InputAudioStream(
-                    file_path,
-                ),
-                stream_type=StreamType().local_stream,
-            )
+            callsmusic.pytgcalls.join_group_call(chat_id, file_path)
         except:
             await lel.edit(
                 "😕 **voice chat not found**\n\n» please turn on the voice chat first"
@@ -1019,7 +1060,7 @@ async def ytplay(_, message: Message):
         await lel.delete()
         await message.reply_photo(
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
+            caption=f"🏷 **Name:** [{title[:70]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
             + f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
