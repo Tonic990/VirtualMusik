@@ -1,7 +1,7 @@
 import os
-from asyncio.queues import QueueEmpty
 from os import path
 from typing import Callable
+from asyncio.queues import QueueEmpty
 
 import aiofiles
 import aiohttp
@@ -65,7 +65,6 @@ def transcode(filename):
     os.remove(filename)
 
 
-# Convert seconds to mm:ss
 def convert_seconds(seconds):
     seconds = seconds % (24 * 3600)
     seconds %= 3600
@@ -74,13 +73,11 @@ def convert_seconds(seconds):
     return "%02d:%02d" % (minutes, seconds)
 
 
-# Convert hh:mm:ss to seconds
 def time_to_seconds(time):
     stringt = str(time)
     return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
 
 
-# Change image size
 def changeImageSize(maxWidth, maxHeight, image):
     widthRatio = maxWidth / image.size[0]
     heightRatio = maxHeight / image.size[1]
@@ -510,7 +507,6 @@ async def play(_, message: Message):
     usar = user
     wew = usar.id
     try:
-        # chatdetails = await USER.get_chat(chid)
         await _.get_chat_member(chid, wew)
     except:
         for administrator in administrators:
@@ -598,7 +594,7 @@ async def play(_, message: Message):
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         message.from_user.first_name
-        await generate_cover(title, thumbnail)
+        await generate_cover(title, thumbnail, ctitle)
         file_path = await converter.convert(
             (await message.reply_to_message.download(file_name))
             if not path.isfile(path.join("downloads", file_name))
@@ -699,13 +695,12 @@ async def play(_, message: Message):
             )
 
             await lel.delete()
-            # veez project
+            
             return
-            # veez project
+        
         except:
             await lel.edit("__no more results to choose, starting to playing...__")
 
-            # print(results)
             try:
                 url = f"https://youtube.com{results[0]['url_suffix']}"
                 title = results[0]["title"][:65]
@@ -816,7 +811,7 @@ async def lol_cb(b, cb):
     if cb.from_user.id != useer_id:
         await cb.answer("💡 sorry, this is not for you !", show_alert=True)
         return
-    # await cb.message.edit("🔁 **processing...**")
+    await cb.answer("🔄 downloading song you requested...", show_alert=True)
     x = int(x)
     try:
         cb.message.reply_to_message.from_user.first_name
