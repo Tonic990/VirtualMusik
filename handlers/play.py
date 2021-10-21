@@ -19,6 +19,7 @@ from config import (
     DURATION_LIMIT,
     GROUP_SUPPORT,
     THUMB_IMG,
+    CMD_IMG,
     UPDATES_CHANNEL,
     que,
 )
@@ -482,6 +483,19 @@ async def m_cb(b, cb):
 
 @Client.on_message(command(["play", f"play@{BOT_USERNAME}"]) & other_filters)
 async def play(_, message: Message):
+    
+    bttn = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("Command Syntax", callback_data="cmdsyntax")
+            ],[
+                InlineKeyboardButton("🗑 Close", callback_data="close")
+            ]
+        ]
+    )
+    
+    nofound = "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+    
     global que
     global useer
     if message.chat.id in DISABLED_GROUPS:
@@ -597,7 +611,6 @@ async def play(_, message: Message):
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
             url = f"https://youtube.com{results[0]['url_suffix']}"
-            # print(results)
             title = results[0]["title"][:65]
             thumbnail = results[0]["thumbnails"][0]
             thumb_name = f"{title}.jpg"
@@ -609,8 +622,11 @@ async def play(_, message: Message):
             results[0]["url_suffix"]
             results[0]["views"]
         except Exception as e:
-            await lel.edit(
-                "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+            await lel.delete()
+            await message.reply_photo(
+                photo=f"{CMD_IMG}",
+                caption=nofound,
+                reply_markup=bttn,
             )
             print(str(e))
             return
@@ -703,8 +719,11 @@ async def play(_, message: Message):
                 results[0]["url_suffix"]
                 results[0]["views"]
             except Exception as e:
-                await lel.edit(
-                    "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+                await lel.delete()
+                await message.reply_photo(
+                    photo=f"{CMD_IMG}",
+                    caption=nofound,
+                    reply_markup=bttn,
                 )
                 print(str(e))
                 return
@@ -767,6 +786,19 @@ async def play(_, message: Message):
 
 @Client.on_callback_query(filters.regex(pattern=r"plll"))
 async def lol_cb(b, cb):
+    
+    bttn = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("Command Syntax", callback_data="cmdsyntax")
+            ],[
+                InlineKeyboardButton("🗑 Close", callback_data="close")
+            ]
+        ]
+    )
+    
+    nofound = "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+    
     global que
     cbd = cb.data.strip()
     chat_id = cb.message.chat.id
@@ -774,8 +806,10 @@ async def lol_cb(b, cb):
     try:
         x, query, useer_id = typed_.split("|")
     except:
-        await cb.message.edit(
-            "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+        await cb.message.reply_photo(
+            photo=f"{CMD_IMG}",
+            caption=nofound,
+            reply_markup=bttn,
         )
         return
     useer_id = int(useer_id)
@@ -871,6 +905,19 @@ async def lol_cb(b, cb):
 
 @Client.on_message(command(["ytp", f"ytp@{BOT_USERNAME}"]) & other_filters)
 async def ytplay(_, message: Message):
+    
+    bttn = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton("Command Syntax", callback_data="cmdsyntax")
+            ],[
+                InlineKeyboardButton("🗑 Close", callback_data="close")
+            ]
+        ]
+    )
+    
+    nofound = "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+    
     global que
     if message.chat.id in DISABLED_GROUPS:
         return
@@ -885,7 +932,6 @@ async def ytplay(_, message: Message):
     usar = user
     wew = usar.id
     try:
-        # chatdetails = await USER.get_chat(chid)
         await _.get_chat_member(chid, wew)
     except:
         for administrator in administrators:
@@ -936,7 +982,6 @@ async def ytplay(_, message: Message):
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
         url = f"https://youtube.com{results[0]['url_suffix']}"
-        # print(results)
         title = results[0]["title"][:65]
         thumbnail = results[0]["thumbnails"][0]
         thumb_name = f"{title}.jpg"
@@ -949,8 +994,11 @@ async def ytplay(_, message: Message):
         results[0]["views"]
 
     except Exception as e:
-        await lel.edit(
-            "😕 **couldn't find song you requested**\n\n» **please provide the correct song name or include the artist's name as well**"
+        await lel.delete()
+        await message.reply_photo(
+            photo=f"{CMD_IMG}",
+            caption=nofound,
+            reply_markup=bttn,
         )
         print(str(e))
         return
