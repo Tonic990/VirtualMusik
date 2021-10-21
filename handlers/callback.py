@@ -446,8 +446,8 @@ async def cmdsyntax(_, query: CallbackQuery):
     await query.edit_message_text(
         f"""**Command Syntax** to play music on **Voice Chat:**
 
-• /play (query) - for playing music via youtube
-• /ytp (query) - for playing music directly via youtube
+• `/play (query)` - for playing music via youtube
+• `/ytp (query)` - for playing music directly via youtube
 
 ⚡ __Powered by {BOT_NAME}__""",
         reply_markup=InlineKeyboardMarkup(
