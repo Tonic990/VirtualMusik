@@ -607,7 +607,7 @@ async def play(_, message: Message):
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
             url = f"https://youtube.com{results[0]['url_suffix']}"
-            title = results[0]["title"][:65]
+            title = results[0]["title"][:70]
             thumbnail = results[0]["thumbnails"][0]
             thumb_name = f"{title}.jpg"
             ctitle = message.chat.title
@@ -703,7 +703,7 @@ async def play(_, message: Message):
 
             try:
                 url = f"https://youtube.com{results[0]['url_suffix']}"
-                title = results[0]["title"][:65]
+                title = results[0]["title"][:70]
                 thumbnail = results[0]["thumbnails"][0]
                 thumb_name = f"{title}.jpg"
                 ctitle = message.chat.title
@@ -772,7 +772,7 @@ async def play(_, message: Message):
         await lel.delete()
         await message.reply_photo(
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
+            caption=f"🏷 **Name:** [{title[:70]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
             + f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
@@ -819,7 +819,7 @@ async def lol_cb(b, cb):
         cb.message.from_user.first_name
     results = YoutubeSearch(query, max_results=5).to_dict()
     resultss = results[x]["url_suffix"]
-    title = results[x]["title"][:65]
+    title = results[x]["title"][:70]
     thumbnail = results[x]["thumbnails"][0]
     duration = results[x]["duration"]
     results[x]["views"]
@@ -890,7 +890,7 @@ async def lol_cb(b, cb):
         await b.send_photo(
             chat_id,
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
+            caption=f"🏷 **Name:** [{title[:70]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
             + f"🎧 **Request by:** {r_by.mention()}",
             reply_markup=keyboard,
         )
@@ -977,7 +977,7 @@ async def ytplay(_, message: Message):
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
         url = f"https://youtube.com{results[0]['url_suffix']}"
-        title = results[0]["title"][:65]
+        title = results[0]["title"][:70]
         thumbnail = results[0]["thumbnails"][0]
         thumb_name = f"{title}.jpg"
         ctitle = message.chat.title
@@ -1055,7 +1055,7 @@ async def ytplay(_, message: Message):
         await lel.delete()
         await message.reply_photo(
             photo="final.png",
-            caption=f"🏷 **Name:** [{title[:65]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
+            caption=f"🏷 **Name:** [{title[:70]}]({url})\n⏱ **Duration:** `{duration}`\n💡 **Status:** `Playing`\n"
             + f"🎧 **Request by:** {message.from_user.mention}",
             reply_markup=keyboard,
         )
