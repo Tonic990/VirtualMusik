@@ -39,19 +39,6 @@ BACK_BUTTON = InlineKeyboardMarkup(
 # remove the ( # ) if you want the auto del cmd feature is on
 
 
-@Client.on_message(command(["reload", f"reload@{BOT_USERNAME}"]) & other_filters)
-async def update_admin(client, message):
-    global admins
-    new_admins = []
-    new_ads = await client.get_chat_members(message.chat.id, filter="administrators")
-    for u in new_ads:
-        new_admins.append(u.user.id)
-    admins[message.chat.id] = new_admins
-    await message.reply_text(
-        "✅ Bot **reloaded correctly !**\n✅ **Admin list** has been **updated !**"
-    )
-
-
 # Control Menu Of Player
 @Client.on_message(command(["control", f"control@{BOT_USERNAME}"]) & other_filters)
 @errors
