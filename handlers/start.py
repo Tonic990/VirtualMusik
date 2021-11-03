@@ -155,7 +155,7 @@ async def get_uptime(client: Client, message: Message):
     )
     
    
-@Client.on_message(command(["reload", f"reload@{BOT_USERNAME}"]) & other_filters)
+@Client.on_message(command(["reload", f"reload@{BOT_USERNAME}"]))
 async def update_admin(client, message):
     global admins
     new_admins = []
